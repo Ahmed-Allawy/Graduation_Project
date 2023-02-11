@@ -29,6 +29,7 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   device_preview: ^1.1.0
+  email_validator: '^2.1.16'
   flutter:
     sdk: flutter
 
