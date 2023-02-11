@@ -38,6 +38,18 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "device_frame",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/device_frame-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "device_preview",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/device_preview-1.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "fake_async",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/fake_async-1.3.1",
       "packageUri": "lib/",
@@ -68,6 +80,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "flutter_localizations",
+      "rootUri": "file:///home/allawy/flutter-install/flutter/packages/flutter_localizations",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_test",
       "rootUri": "file:///home/allawy/flutter-install/flutter/packages/flutter_test",
       "packageUri": "lib/",
@@ -80,16 +98,34 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "freezed_annotation",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/freezed_annotation-2.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "get",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/get-4.6.5",
       "packageUri": "lib/",
       "languageVersion": "2.15"
     },
     {
+      "name": "intl",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/intl-0.17.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "js",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/js-0.6.5",
       "packageUri": "lib/",
       "languageVersion": "2.16"
+    },
+    {
+      "name": "json_annotation",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/json_annotation-4.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "lints",
@@ -112,6 +148,12 @@
     {
       "name": "meta",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/meta-1.8.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "nested",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/nested-1.0.0",
       "packageUri": "lib/",
       "languageVersion": "2.12"
     },
@@ -156,6 +198,12 @@
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/process-4.2.4",
       "packageUri": "lib/",
       "languageVersion": "2.14"
+    },
+    {
+      "name": "provider",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/provider-6.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "shared_preferences",
@@ -266,7 +314,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-02-11T09:02:14.828200Z",
+  "generated": "2023-02-11T11:36:37.110502Z",
   "generator": "pub",
   "generatorVersion": "2.19.2"
 }
