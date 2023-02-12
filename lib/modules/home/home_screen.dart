@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+import '../auth/login/home_login.dart';
 
-  @override
-  Widget build(BuildContext context) {
-    return const LoginHome();
-  }
+@override
+Widget build(BuildContext context) {
+  return const LoginHome();
 }
