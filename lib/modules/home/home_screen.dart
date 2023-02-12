@@ -1,7 +1,7 @@
 // ignore_for_file: must_be_immutable, avoid_print
 
 import 'package:flutter/material.dart';
-import 'package:graduation/modules/auth/login/home_login.dart';
+import 'package:graduation/modules/auth/login/login_screen.dart';
 
 import '../../shared/component/components.dart';
 import '../../shared/component/constants.dart';
