@@ -81,8 +81,11 @@ class _LoginHomeState extends State<LoginHome> {
                 ),
                 Text.rich(TextSpan(
                     text: "Forget Password",
-                    style:
-                        const TextStyle(decoration: TextDecoration.underline),
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: fontColor,
+                      fontSize: AppLayout.getWidth(fieldFontSize),
+                    ),
                     recognizer: TapGestureRecognizer()..onTap = () {})),
                 SizedBox(
                   height: AppLayout.getHeigth(space4),
