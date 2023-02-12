@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:graduation/modules/auth/login/home_login.dart';
 
-void main() {
-  runApp(const MyApp());
-}
+class HomeScreen extends StatelessWidget {
+  const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
