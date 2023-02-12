@@ -5,6 +5,7 @@ import 'package:graduation/modules/auth/login/home_login.dart';
 
 import '../../shared/component/components.dart';
 import '../../shared/component/constants.dart';
+import '../../shared/component/helperfunctions.dart';
 import '../../shared/component/layout.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -30,10 +31,7 @@ class HomeScreen extends StatelessWidget {
             defaultButton(
                 text: "Log in",
                 onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => const LoginHome()),
-                  );
+                  nextScreen(context, const LoginHome());
                 }),
             SizedBox(
               height: AppLayout.getHeigth(space2),

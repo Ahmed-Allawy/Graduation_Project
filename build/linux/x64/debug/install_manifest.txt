@@ -1,0 +1,12 @@
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/graduation
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/icudtl.dat
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/lib/libflutter_linux_gtk.so
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/packages/cupertino_icons/assets/CupertinoIcons.ttf
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/kernel_blob.bin
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/version.json
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.json
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/FontManifest.json
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/fonts/MaterialIcons-Regular.otf
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/3ef2582ea94414801edc3f61e80ee4c5.gif
