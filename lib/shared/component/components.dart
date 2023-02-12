@@ -1,3 +1,5 @@
+// ignore_for_file: void_checks
+
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -32,5 +34,24 @@ Widget defaultTextField({
           hintStyle: const TextStyle(color: hintColor),
           iconColor: fieldIconColor,
         )),
+  );
+}
+
+Widget defaultButton({
+  required String text,
+  required Function onPressed,
+}) {
+  return MaterialButton(
+    minWidth: AppLayout.getWidth(fieldWidth),
+    height: AppLayout.getHeigth(logInButtonHeight),
+    color: logInButtonColor,
+    onPressed: () {
+      return onPressed();
+    },
+    child: Text(
+      text,
+      style: TextStyle(
+          fontSize: AppLayout.getWidth(logInButtonFontSize), color: fontColor),
+    ),
   );
 }

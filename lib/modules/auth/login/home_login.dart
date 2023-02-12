@@ -90,21 +90,14 @@ class _LoginHomeState extends State<LoginHome> {
                 SizedBox(
                   height: AppLayout.getHeigth(space4),
                 ),
-                MaterialButton(
-                  minWidth: AppLayout.getWidth(fieldWidth),
-                  height: AppLayout.getHeigth(logInButtonHeight),
-                  color: logInButtonColor,
+                defaultButton(
+                  text: 'Log in',
                   onPressed: () {
                     // this is the build in validate function
                     //this function will check every TextFormField and compare the textcontroller.text to the valdator function and return the result
                     if (formKey.currentState!.validate()) {}
                   },
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                        fontSize: AppLayout.getWidth(logInButtonFontSize)),
-                  ),
-                )
+                ),
               ],
             ),
           ),
