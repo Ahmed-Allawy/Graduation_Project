@@ -81,27 +81,23 @@ class _LoginHomeState extends State<LoginHome> {
                 ),
                 Text.rich(TextSpan(
                     text: "Forget Password",
-                    style:
-                        const TextStyle(decoration: TextDecoration.underline),
+                    style: TextStyle(
+                      decoration: TextDecoration.underline,
+                      color: fontColor,
+                      fontSize: AppLayout.getWidth(fieldFontSize),
+                    ),
                     recognizer: TapGestureRecognizer()..onTap = () {})),
                 SizedBox(
                   height: AppLayout.getHeigth(space4),
                 ),
-                MaterialButton(
-                  minWidth: AppLayout.getWidth(fieldWidth),
-                  height: AppLayout.getHeigth(logInButtonHeight),
-                  color: logInButtonColor,
+                defaultButton(
+                  text: 'Log in',
                   onPressed: () {
                     // this is the build in validate function
                     //this function will check every TextFormField and compare the textcontroller.text to the valdator function and return the result
                     if (formKey.currentState!.validate()) {}
                   },
-                  child: Text(
-                    "Log in",
-                    style: TextStyle(
-                        fontSize: AppLayout.getWidth(logInButtonFontSize)),
-                  ),
-                )
+                ),
               ],
             ),
           ),
