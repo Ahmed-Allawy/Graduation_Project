@@ -9,7 +9,7 @@ import 'layout.dart';
 Widget defaultTextField({
   required TextEditingController controller,
   required TextInputType textInputType,
-  required IconData prefix,
+  IconData? prefix,
   required String hintText,
   required Function validator,
   //this bool not required because I will use it only one time

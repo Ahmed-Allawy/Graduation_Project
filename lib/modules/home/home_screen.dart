@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:graduation/modules/auth/login/login_screen.dart';
+import 'package:graduation/modules/auth/register/register_screen.dart';
 
 import '../../shared/component/components.dart';
 import '../../shared/component/constants.dart';
@@ -36,7 +37,11 @@ class HomeScreen extends StatelessWidget {
             SizedBox(
               height: AppLayout.getHeigth(space2),
             ),
-            defaultButton(text: "Register", onPressed: () {}),
+            defaultButton(
+                text: "Register",
+                onPressed: () {
+                  nextScreen(context, const Register());
+                }),
             SizedBox(
               height: AppLayout.getHeigth(space2),
             ),
