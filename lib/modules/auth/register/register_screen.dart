@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/modules/auth/cubit/auth_cubit.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../shared/component/components.dart';
 import '../../../shared/component/constants.dart';
@@ -14,10 +15,14 @@ class Register extends StatefulWidget {
 }
 
 class _RegisterState extends State<Register> {
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+  final emailController = TextEditingController();
+  final passwordController = TextEditingController();
+  late DateTime dateTime;
+  String? phoneNumber;
+  final faceImageController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
@@ -66,7 +71,7 @@ class _RegisterState extends State<Register> {
                                         height: AppLayout.getHeigth(space1),
                                       ),
                                       defaultTextField(
-                                        controller: firstNameController,
+                                        controller: lastNameController,
                                         textInputType: TextInputType.name,
                                         hintText: "Last Name",
                                         validator: (val) {
@@ -110,35 +115,40 @@ class _RegisterState extends State<Register> {
                                       SizedBox(
                                         height: AppLayout.getHeigth(space1),
                                       ),
-                                      defaultTextField(
-                                          controller: passwordController,
-                                          textInputType: TextInputType.phone,
-                                          hintText: "Phone number",
-                                          scure: true,
-                                          validator: (val) {
-                                            if (val.isEmpty) {
-                                              return "Phone number shouldn't be empty";
-                                            }
+                                      defaultButton(
+                                          text: "select your date",
+                                          onPressed: () {
+                                            showDatePicker(
+                                                    context: context,
+                                                    initialDate: DateTime.now(),
+                                                    firstDate: DateTime(1800),
+                                                    lastDate: DateTime(3000))
+                                                .then((value) =>
+                                                    dateTime = value!);
                                           }),
                                       SizedBox(
                                         height: AppLayout.getHeigth(space1),
                                       ),
-                                      defaultTextField(
-                                          controller: passwordController,
-                                          textInputType: TextInputType.datetime,
-                                          prefix: Icons.date_range,
-                                          hintText: "Date At Passport",
-                                          scure: true,
-                                          validator: (val) {
-                                            if (val.isEmpty) {
-                                              return "Date shouldn't be empty";
-                                            }
-                                          }),
+                                      Container(
+                                        color: fontColor,
+                                        width: AppLayout.getWidth(fieldWidth),
+                                        child: IntlPhoneField(
+                                          decoration: const InputDecoration(
+                                            border: OutlineInputBorder(
+                                              borderSide: BorderSide(),
+                                            ),
+                                          ),
+                                          onChanged: (value) => phoneNumber =
+                                              value.completeNumber,
+                                          initialCountryCode: 'EG',
+                                        ),
+                                      ),
+
                                       SizedBox(
                                         height: AppLayout.getHeigth(space1),
                                       ),
                                       defaultTextField(
-                                          controller: passwordController,
+                                          controller: faceImageController,
                                           textInputType: TextInputType.none,
                                           prefix: Icons.face,
                                           hintText: "Face Image",
@@ -156,6 +166,7 @@ class _RegisterState extends State<Register> {
                                           onPressed: () {
                                             if (formKey.currentState!
                                                 .validate()) {}
+                                            // print(phoneNumber);
                                           }),
                                       SizedBox(
                                         height: AppLayout.getHeigth(space3),
