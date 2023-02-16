@@ -73,11 +73,15 @@ class _LoginHomeState extends State<LoginHome> {
                         height: AppLayout.getHeigth(space1),
                       ),
                       defaultTextField(
+                          //here we send suffixIcon form the cubit
+                          suffix: AuthCubit.get(context).suffixIcon,
+                          suffixPressed: AuthCubit.get(context).changeScureity,
                           controller: passwordController,
                           textInputType: TextInputType.visiblePassword,
                           prefix: Icons.password,
                           hintText: "password",
-                          scure: true,
+                          //here we pass the bool from the cubit and the function on suffixpressed change the bool value every tap alson changing the icon
+                          scure: AuthCubit.get(context).scuretiyPassword,
                           validator: (val) {
                             if (val.isEmpty) {
                               return "Password shouldn't be empty";

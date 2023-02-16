@@ -10,8 +10,10 @@ Widget defaultTextField({
   required TextEditingController controller,
   required TextInputType textInputType,
   IconData? prefix,
+  IconData? suffix,
   required String hintText,
   required Function validator,
+  Function? suffixPressed,
   //this bool not required because I will use it only one time
   bool scure = false,
 }) {
@@ -30,6 +32,13 @@ Widget defaultTextField({
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: errorColor)),
           prefixIcon: Icon(prefix),
+          //here we will check if the suffixpressed is avaiable or not then pass it if it's avaiable
+          suffixIcon: IconButton(
+            icon: Icon(suffix),
+            onPressed: () {
+              suffixPressed!();
+            },
+          ),
           hintText: hintText,
           hintStyle: const TextStyle(color: hintColor),
           iconColor: fieldIconColor,
@@ -54,4 +63,38 @@ Widget defaultButton({
           fontSize: AppLayout.getWidth(logInButtonFontSize), color: fontColor),
     ),
   );
+}
+
+Widget defaultTextButton({
+  required String text,
+  required Function onpressed,
+}) {
+  return TextButton(
+      style: ButtonStyle(
+        textStyle: MaterialStateProperty.all<TextStyle>(
+            const TextStyle(color: errorColor)),
+        backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
+            const EdgeInsets.all(space0)),
+        shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(space1),
+            side: const BorderSide(color: errorColor),
+          ),
+        ),
+      ),
+      onPressed: () {
+        return onpressed();
+      },
+      child: Text(text));
+}
+
+//this widget to show Snackbar if error happend and can used anywhere
+void showSnackbar(context, message) {
+  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+    content: message,
+    backgroundColor: Theme.of(context).primaryColor,
+    duration: const Duration(seconds: 5),
+    action: SnackBarAction(label: "ok", onPressed: (() {})),
+  ));
 }
