@@ -31,10 +31,16 @@ Widget defaultTextField({
         decoration: InputDecoration(
           errorBorder: const OutlineInputBorder(
               borderSide: BorderSide(color: errorColor)),
-          prefixIcon: Icon(prefix),
+          prefixIcon: Icon(
+            prefix,
+            color: primarycolor,
+          ),
           //here we will check if the suffixpressed is avaiable or not then pass it if it's avaiable
           suffixIcon: IconButton(
-            icon: Icon(suffix),
+            icon: Icon(
+              suffix,
+              color: primarycolor,
+            ),
             onPressed: () {
               suffixPressed!();
             },
@@ -49,8 +55,12 @@ Widget defaultTextField({
 Widget defaultButton({
   required String text,
   required Function onPressed,
+  double circularRaduis = 20,
 }) {
   return MaterialButton(
+    shape: RoundedRectangleBorder(
+      borderRadius: BorderRadius.circular(circularRaduis),
+    ),
     minWidth: AppLayout.getWidth(fieldWidth),
     height: AppLayout.getHeigth(logInButtonHeight),
     color: logInButtonColor,

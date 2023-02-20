@@ -4,8 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/modules/auth/cubit/auth_cubit.dart';
 import 'package:graduation/shared/component/components.dart';
 
+import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
 import '../../../shared/component/constants.dart';
+import '../register/register_screen.dart';
 
 class LoginHome extends StatefulWidget {
   const LoginHome({super.key});
@@ -26,7 +28,7 @@ class _LoginHomeState extends State<LoginHome> {
         listener: (context, state) {},
         builder: (context, state) {
           return Scaffold(
-            backgroundColor: backGroundColor,
+            backgroundColor: Theme.of(context).primaryColor,
             body: SizedBox(
               height: double.infinity,
               child: SingleChildScrollView(
@@ -78,7 +80,7 @@ class _LoginHomeState extends State<LoginHome> {
                           suffixPressed: AuthCubit.get(context).changeScureity,
                           controller: passwordController,
                           textInputType: TextInputType.visiblePassword,
-                          prefix: Icons.password,
+                          prefix: Icons.key,
                           hintText: "password",
                           //here we pass the bool from the cubit and the function on suffixpressed change the bool value every tap alson changing the icon
                           scure: AuthCubit.get(context).scuretiyPassword,
@@ -94,8 +96,8 @@ class _LoginHomeState extends State<LoginHome> {
                           text: "Forget Password",
                           style: TextStyle(
                               decoration: TextDecoration.underline,
-                              fontSize: AppLayout.getWidth(fieldFontSize),
-                              color: fontColor),
+                              fontSize: AppLayout.getWidth(fontsize2),
+                              color: textColor),
                           recognizer: TapGestureRecognizer()..onTap = () {})),
                       SizedBox(
                         height: AppLayout.getHeigth(space4),
@@ -108,6 +110,42 @@ class _LoginHomeState extends State<LoginHome> {
                           if (formKey.currentState!.validate()) {}
                         },
                       ),
+                      SizedBox(
+                        height: AppLayout.getHeigth(space4),
+                      ),
+                      Text.rich(TextSpan(
+                          text: "you don't have an account? ",
+                          style: TextStyle(
+                              fontSize: AppLayout.getWidth(fontsize2),
+                              color: fontColor),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: "create one",
+                                style: const TextStyle(
+                                    color: textColor,
+                                    decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    nextScreen(context, const Register());
+                                  })
+                          ])),
+                      SizedBox(
+                        height: AppLayout.getHeigth(space0),
+                      ),
+                      Text.rich(TextSpan(
+                          text: "or you can sign in as  ",
+                          style: TextStyle(
+                              fontSize: AppLayout.getWidth(fontsize2),
+                              color: fontColor),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: "Guest",
+                                style: const TextStyle(
+                                    color: textColor,
+                                    decoration: TextDecoration.underline),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {})
+                          ])),
                     ],
                   ),
                 ),

@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 const fontColor = Color(0xffFFFFFF);
-const backGroundColor = Color(0xff2B42FB);
+const primarycolor = Color(0xff6200EE);
+const logInButtonColor = Color(0xffBB86fc);
+const hintColor = Color(0xff727171);
+const fieldIconColor = Color(0xffA4A4A4);
+const errorColor = Color(0xffB00020);
+const textColor = Color(0xff03DAC6);
 const imageHeight = 428.0;
 const space0 = 10.0;
 const space1 = 22.0;
@@ -14,10 +19,6 @@ const logosize = 100.0;
 const heigthPic = 160.0;
 const fontsize1 = 24.0;
 const fieldWidth = 256.0;
-const fieldFontSize = 14.0;
+const fontsize2 = 14.0;
 const logInButtonHeight = 50.0;
-const logInButtonColor = Color(0xff041BD7);
 const logInButtonFontSize = 20.0;
-const hintColor = Color(0xff727171);
-const fieldIconColor = Color(0xffA4A4A4);
-const errorColor = Colors.red;

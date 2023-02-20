@@ -39,7 +39,7 @@ class _RegisterState extends State<Register> {
           }
         }, builder: (context, state) {
           return Scaffold(
-              backgroundColor: backGroundColor,
+              backgroundColor: Theme.of(context).primaryColor,
               body: SizedBox(
                   height: double.infinity,
                   child: SingleChildScrollView(
@@ -65,6 +65,7 @@ class _RegisterState extends State<Register> {
                                     height: AppLayout.getHeigth(space6),
                                   ),
                                   defaultTextField(
+                                    prefix: Icons.person,
                                     controller: firstNameController,
                                     textInputType: TextInputType.name,
                                     hintText: "First Name",
@@ -78,6 +79,7 @@ class _RegisterState extends State<Register> {
                                     height: AppLayout.getHeigth(space1),
                                   ),
                                   defaultTextField(
+                                    prefix: Icons.people,
                                     controller: lastNameController,
                                     textInputType: TextInputType.name,
                                     hintText: "Last Name",
@@ -114,7 +116,7 @@ class _RegisterState extends State<Register> {
                                       controller: passwordController,
                                       textInputType:
                                           TextInputType.visiblePassword,
-                                      prefix: Icons.password,
+                                      prefix: Icons.key,
                                       hintText: "password",
                                       //here we pass the bool from the cubit and the function on suffixpressed change the bool value every tap alson changing the icon
                                       scure: AuthCubit.get(context)
