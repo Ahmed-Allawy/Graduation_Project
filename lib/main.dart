@@ -1,6 +1,6 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/modules/auth/login/login_screen.dart';
+import 'package:graduation/modules/home/home_screen.dart';
 import 'package:graduation/shared/component/constants.dart';
 
 void main() {
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
       ),
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
-      home: const LoginHome(),
+      home: HomeScreen(),
     );
   }
 }

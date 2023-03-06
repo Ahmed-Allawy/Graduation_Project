@@ -42,6 +42,7 @@ dependencies:
   flutter_bloc: ^8.1.2
   bloc: ^8.1.1
   image_picker: ^0.8.6+1
+  gap: ^2.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -67,6 +68,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - assets/images/3ef2582ea94414801edc3f61e80ee4c5.gif
+    - assets/images/one.jpg
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -129,23 +129,6 @@ class _LoginHomeState extends State<LoginHome> {
                                     nextScreen(context, const Register());
                                   })
                           ])),
-                      SizedBox(
-                        height: AppLayout.getHeigth(space0),
-                      ),
-                      Text.rich(TextSpan(
-                          text: "or you can sign in as  ",
-                          style: TextStyle(
-                              fontSize: AppLayout.getWidth(fontsize2),
-                              color: fontColor),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: "Guest",
-                                style: const TextStyle(
-                                    color: textColor,
-                                    decoration: TextDecoration.underline),
-                                recognizer: TapGestureRecognizer()
-                                  ..onTap = () {})
-                          ])),
                     ],
                   ),
                 ),

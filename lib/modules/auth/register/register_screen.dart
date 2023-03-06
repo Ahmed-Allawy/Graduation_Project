@@ -1,3 +1,4 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/modules/auth/cubit/auth_cubit.dart';
@@ -5,7 +6,9 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../shared/component/components.dart';
 import '../../../shared/component/constants.dart';
+import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
+import '../login/login_screen.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -163,23 +166,12 @@ class _RegisterState extends State<Register> {
                                   ),
                                   SizedBox(
                                     width: AppLayout.getWidth(fieldWidth),
-                                    child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          defaultTextButton(
-                                              text: "Take Photo",
-                                              onpressed: () {
-                                                AuthCubit.get(context)
-                                                    .pickImageCamera();
-                                              }),
-                                          defaultTextButton(
-                                              text: "Upload Photo",
-                                              onpressed: () {
-                                                AuthCubit.get(context)
-                                                    .pickImageGallery();
-                                              })
-                                        ]),
+                                    child: defaultTextButton(
+                                        text: "Take Photo",
+                                        onpressed: () {
+                                          AuthCubit.get(context)
+                                              .pickImageCamera();
+                                        }),
                                   ),
                                   SizedBox(
                                     height: AppLayout.getHeigth(space2),
@@ -199,7 +191,6 @@ class _RegisterState extends State<Register> {
                                       text: 'Create Account',
                                       onPressed: () {
                                         if (formKey.currentState!.validate()) {}
-                                        // print(phoneNumber);
                                       }),
                                   SizedBox(
                                     height: AppLayout.getHeigth(space3),
@@ -216,23 +207,28 @@ class _RegisterState extends State<Register> {
                                   SizedBox(
                                     height: AppLayout.getHeigth(space3),
                                   ),
-                                  // Text.rich(TextSpan(
-                                  //     text:
-                                  //         "Already have an account? Sign in",
-                                  //     style: TextStyle(
-                                  //         decoration:
-                                  //             TextDecoration.underline,
-                                  //         fontSize: AppLayout.getWidth(
-                                  //             fieldFontSize),
-                                  //         color: fontColor),
-                                  //     recognizer: TapGestureRecognizer()
-                                  //       ..onTap = () {
-                                  //         nextScreen(
-                                  //             context, const LoginHome());
-                                  //       })),
-                                  // SizedBox(
-                                  //   height: AppLayout.getHeigth(space3),
-                                  // ),
+                                  Text.rich(TextSpan(
+                                      text: "you already have an account? ",
+                                      style: TextStyle(
+                                          fontSize:
+                                              AppLayout.getWidth(fontsize2),
+                                          color: fontColor),
+                                      children: <TextSpan>[
+                                        TextSpan(
+                                            text: "Login",
+                                            style: const TextStyle(
+                                                color: textColor,
+                                                decoration:
+                                                    TextDecoration.underline),
+                                            recognizer: TapGestureRecognizer()
+                                              ..onTap = () {
+                                                nextScreen(
+                                                    context, const LoginHome());
+                                              })
+                                      ])),
+                                  SizedBox(
+                                    height: AppLayout.getHeigth(space3),
+                                  ),
                                 ]),
                           )))));
         }));
