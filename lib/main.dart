@@ -1,6 +1,7 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
-import 'package:graduation/modules/home/home_screen.dart';
+import 'package:graduation/view/presentations/auth/login/login_screen.dart';
+import 'package:graduation/view/shared/component/constants.dart';
 
 void main() {
   runApp(DevicePreview(builder: (context) => const MyApp()));
@@ -13,9 +14,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        primaryColor: primarycolor,
+      ),
       // builder: DevicePreview.appBuilder,
       debugShowCheckedModeBanner: false,
-      home: HomeScreen(),
+      home: const LoginHome(),
     );
   }
 }

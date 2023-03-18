@@ -1,0 +1,155 @@
+@startuml fisrtUMl
+set namespaceSeparator ::
+
+class "graduation::shared::network::local::cach_helper.dart::CacheHelper" {
+  {static} +SharedPreferences sharedPreferences
+  {static} +dynamic init()
+  {static} +Future<bool> putBoolean()
+  {static} +dynamic getData()
+  {static} +Future<bool> saveData()
+  {static} +Future<bool> removeData()
+}
+
+"graduation::shared::network::local::cach_helper.dart::CacheHelper" o-- "shared_preferences::shared_preferences.dart::SharedPreferences"
+
+class "graduation::shared::component::layout.dart::AppLayout" {
+  {static} +dynamic getSize()
+  {static} +dynamic getScreenHeight()
+  {static} +dynamic getScreenWidth()
+  {static} +dynamic getHeigth()
+  {static} +dynamic getWidth()
+}
+
+class "graduation::shared::component::device_size.dart::LayoutSize" {
+  {static} +double? screenWigth
+  {static} +double? screenHeight
+  {static} +double? layoutValue
+  {static} +Orientation? orientation
+  +void init()
+}
+
+"graduation::shared::component::device_size.dart::LayoutSize" o-- "flutter::src::widgets::media_query.dart::Orientation"
+
+class "graduation::main.dart::MyApp" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::main.dart::MyApp"
+
+class "graduation::modules::Searching_Screen::Searching_Screen.dart::SearchingScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::modules::Searching_Screen::Searching_Screen.dart::SearchingScreen"
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit" {
+  +bool scuretiyPassword
+  +IconData suffixIcon
+  +File? img
+  {static} +AuthCubit get()
+  +void changeScureity()
+  +dynamic pickImageGallery()
+  +dynamic pickImageCamera()
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit" o-- "dart::io::File"
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit"
+
+abstract class "graduation::modules::auth::cubit::auth_cubit.dart::AuthState" {
+}
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::AuthInitial" {
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::AuthInitial"
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::ScurityState" {
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ScurityState"
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraSuccessful" {
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraSuccessful"
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraError" {
+  +String error
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraError"
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::ImageGallerySuccessful" {
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageGallerySuccessful"
+
+class "graduation::modules::auth::cubit::auth_cubit.dart::ImageGalleryError" {
+  +String error
+}
+
+"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageGalleryError"
+
+class "graduation::modules::auth::login::login_screen.dart::LoginHome" {
+  +State<LoginHome> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::modules::auth::login::login_screen.dart::LoginHome"
+
+class "graduation::modules::auth::login::login_screen.dart::_LoginHomeState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  +GlobalKey<FormState> formKey
+  +Widget build()
+}
+
+"graduation::modules::auth::login::login_screen.dart::_LoginHomeState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"graduation::modules::auth::login::login_screen.dart::_LoginHomeState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::modules::auth::login::login_screen.dart::_LoginHomeState"
+
+class "graduation::modules::auth::register::register_screen.dart::Register" {
+  +State<Register> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::modules::auth::register::register_screen.dart::Register"
+
+class "graduation::modules::auth::register::register_screen.dart::_RegisterState" {
+  +TextEditingController firstNameController
+  +TextEditingController lastNameController
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  +DateTime dateTime
+  +String? phoneNumber
+  +TextEditingController faceImageController
+  +GlobalKey<FormState> formKey
+  +Widget build()
+}
+
+"graduation::modules::auth::register::register_screen.dart::_RegisterState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"graduation::modules::auth::register::register_screen.dart::_RegisterState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::modules::auth::register::register_screen.dart::_RegisterState"
+
+class "graduation::modules::home::home_screen.dart::HomeScreen" {
+  +State<HomeScreen> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::modules::home::home_screen.dart::HomeScreen"
+
+class "graduation::modules::home::home_screen.dart::_HomeScreenState" {
+  +List<Widget> pages
+  -int _pageIndex
+  -void _updateIndex()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::modules::home::home_screen.dart::_HomeScreenState"
+
+class "graduation::modules::Booking_screen::Booking_screen.dart::BookingScreen" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::modules::Booking_screen::Booking_screen.dart::BookingScreen"
+
+
+@enduml
