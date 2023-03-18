@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 const fontColor = Color(0xffFFFFFF);
-const primarycolor = Color.fromARGB(255, 39, 64, 90);
-const logInButtonColor = Color.fromARGB(255, 6, 101, 216);
+const primarycolor = Color.fromARGB(255, 62, 70, 87);
+const logInButtonColor = Color.fromARGB(255, 47, 106, 208);
 const hintColor = Color(0xff727171);
 const fieldIconColor = Color(0xffA4A4A4);
 const errorColor = Color(0xffB00020);

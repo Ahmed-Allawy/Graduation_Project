@@ -1,13 +1,13 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
+import 'package:graduation/view/presentations/home/home_screen.dart';
 import 'package:graduation/view/shared/component/components.dart';
 
 import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
 import '../../../shared/component/constants.dart';
-import '../../home/home_screen.dart';
-import '../cubit/auth_cubit.dart';
 import '../register/register_screen.dart';
 
 class LoginHome extends StatefulWidget {
@@ -108,9 +108,7 @@ class _LoginHomeState extends State<LoginHome> {
                         onPressed: () {
                           // this is the build in validate function
                           //this function will check every TextFormField and compare the textcontroller.text to the valdator function and return the result
-                          if (formKey.currentState!.validate()) {
-                            nextScreen(context, const HomeScreen());
-                          }
+                          if (formKey.currentState!.validate()) {}
                         },
                       ),
                       SizedBox(

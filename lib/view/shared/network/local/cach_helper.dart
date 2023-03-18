@@ -1,19 +1,18 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'package:shared_preferences/shared_preferences.dart';
 
-class CacheHelper
-{
+class CacheHelper {
   static late SharedPreferences sharedPreferences;
 
-  static init() async
-  {
+  static init() async {
     sharedPreferences = await SharedPreferences.getInstance();
   }
 
   static Future<bool> putBoolean({
     required String key,
     required bool value,
-  }) async
-  {
+  }) async {
     return await sharedPreferences.setBool(key, value);
   }
 
@@ -36,8 +35,7 @@ class CacheHelper
 
   static Future<bool> removeData({
     required String key,
-  }) async
-  {
+  }) async {
     return await sharedPreferences.remove(key);
   }
 }

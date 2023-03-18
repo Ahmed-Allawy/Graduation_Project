@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../shared/component/components.dart';
 import '../../../shared/component/constants.dart';
 import '../../../shared/component/layout.dart';
-import '../cubit/auth_cubit.dart';
 
 class Register extends StatefulWidget {
   const Register({super.key});
