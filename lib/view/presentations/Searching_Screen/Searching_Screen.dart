@@ -48,7 +48,7 @@ class _SearchingScreenState extends State<SearchingScreen> {
                 hint: "Departure",
                 autoCompleteKey: deupartureCompleteKey,
                 textEditingController: deupartureEditingController,
-                selectedCountry: SearchCubit.get(context).selectedCountry,
+                selectedCountry: deupartureEditingController.text,
                 countries: SearchCubit.get(context).countries,
                 sumbit: (item) {},
                 build: (context, item) {
@@ -66,7 +66,7 @@ class _SearchingScreenState extends State<SearchingScreen> {
                 hint: "Arrival",
                 autoCompleteKey: arrivalCompleteKey,
                 textEditingController: arrivaltextEditingController,
-                selectedCountry: SearchCubit.get(context).selectedCountry,
+                selectedCountry: arrivaltextEditingController.text,
                 countries: SearchCubit.get(context).countries,
                 sumbit: (item) {},
                 build: (context, item) {
@@ -80,10 +80,35 @@ class _SearchingScreenState extends State<SearchingScreen> {
                 },
               ),
               Gap(AppLayout.getHeigth(25)),
+              Row(
+                children: [
+                  Expanded(
+                    child: RadioListTile(
+                        title: const Text('one way'),
+                        value: true,
+                        groupValue: SearchCubit.get(context).value,
+                        activeColor: const Color.fromARGB(255, 105, 116, 235),
+                        onChanged: (val) {
+                          return SearchCubit.get(context).changeValues(val);
+                        }),
+                  ),
+                  Expanded(
+                    child: RadioListTile(
+                        title: const Text('two way'),
+                        value: false,
+                        groupValue: SearchCubit.get(context).value,
+                        activeColor: const Color.fromARGB(255, 105, 116, 235),
+                        onChanged: (val) {
+                          return SearchCubit.get(context).changeValues(val);
+                        }),
+                  )
+                ],
+              ),
+              Gap(AppLayout.getHeigth(25)),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
-                    color: Colors.blueAccent),
+                    color: const Color.fromARGB(255, 105, 116, 235)),
                 child: TextButton(
                   child: Text(
                     "Find tickets",
@@ -116,9 +141,145 @@ class _SearchingScreenState extends State<SearchingScreen> {
                   },
                 ),
               ),
-              Gap(AppLayout.getHeigth(35)),
-              Gap(AppLayout.getHeigth(20)),
-              const Gap(5),
+              Gap(AppLayout.getHeigth(25)),
+              SizedBox(
+                child: Container(
+                  child: Column(
+                    children: [
+                      /*this container for blue part*/
+                      Container(
+                        padding: EdgeInsets.all(AppLayout.getHeigth(16)),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              children: [
+                                const Icon(Icons.person),
+                                const Gap(25),
+                                Text(
+                                  "the Compeny name",
+                                  style: Styles.headLinestyle4,
+                                )
+                              ],
+                            ),
+                            const Gap(10),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "11:00",
+                                        style: Styles.headLinestyle3
+                                            .copyWith(color: Styles.textColor),
+                                      ),
+                                      const Gap(5),
+                                      Text(
+                                        "LHD",
+                                        style: Styles.headLinestyle4
+                                            .copyWith(color: Styles.textColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const ThickContainer(
+                                  iscolor: true,
+                                ),
+                                Expanded(
+                                  child: Stack(
+                                    children: [
+                                      const SizedBox(
+                                          height: 24,
+                                          child: DotedWidget(
+                                            color: Color.fromARGB(
+                                                255, 105, 116, 235),
+                                            section: 6,
+                                            width: 4,
+                                          )),
+                                      Center(
+                                        child: Transform.rotate(
+                                            angle: 1.5,
+                                            child: const Icon(
+                                              Icons.airplanemode_on_outlined,
+                                              color: Colors.blue,
+                                            )),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                                const ThickContainer(
+                                  iscolor: true,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(5.0),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        "13:00",
+                                        style: Styles.headLinestyle3
+                                            .copyWith(color: Styles.textColor),
+                                      ),
+                                      const Gap(5),
+                                      Text(
+                                        "CIR",
+                                        style: Styles.headLinestyle4
+                                            .copyWith(color: Styles.textColor),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 5),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Text(
+                                    "0h 15m",
+                                    style: Styles.headLinestyle4
+                                        .copyWith(color: Styles.textColor),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      const Gap(5),
+                      Container(
+                        padding: EdgeInsets.all(AppLayout.getHeigth(16)),
+                        decoration: const BoxDecoration(
+                          color: Colors.white,
+                        ),
+                        child: Row(
+                          children: [
+                            Text(
+                              "510 \$",
+                              style: Styles.headLinestyle3
+                                  .copyWith(color: Styles.textColor),
+                            ),
+                            const Gap(25),
+                            Text("the price", style: Styles.headLinestyle4),
+                            const Spacer(),
+                            Text(
+                              "Book Now",
+                              style: Styles.headLinestyle3.copyWith(
+                                color: const Color.fromARGB(255, 105, 116, 235),
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    ],
+                  ),
+                ),
+              )
             ],
           ),
         );

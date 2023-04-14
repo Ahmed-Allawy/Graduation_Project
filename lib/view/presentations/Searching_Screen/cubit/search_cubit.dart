@@ -1,4 +1,3 @@
-import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,7 +8,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   static SearchCubit get(BuildContext context) => BlocProvider.of(context);
 
-  String selectedCountry = "rand";
+  bool value = true;
 
   final List<String> countries = [
     'Afghanistan',
@@ -21,9 +20,13 @@ class SearchCubit extends Cubit<SearchState> {
     'Argentina',
     // ...and so on
   ];
-  sumbitCountery(item, TextEditingController controller) {
-    selectedCountry = item;
-    controller.text = selectedCountry;
+  void sumbitCountery(item, TextEditingController controller) {
+    controller.text = item;
     emit(ChangeCountery());
+  }
+
+  void changeValues(val) {
+    value = val;
+    emit(ChangeWays());
   }
 }

@@ -6,3 +6,5 @@ abstract class SearchState {}
 class SearchInitial extends SearchState {}
 
 class ChangeCountery extends SearchState {}
+
+class ChangeWays extends SearchState {}
