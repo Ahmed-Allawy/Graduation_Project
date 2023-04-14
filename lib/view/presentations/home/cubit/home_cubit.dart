@@ -18,7 +18,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   List<Widget> pages = [
     const BookingScreen(),
-    const SearchingScreen(),
+    SearchingScreen(),
     const CheckIn(),
     const MyTrips(),
     const UserProfile(),

@@ -1,6 +1,10 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
+import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
 import 'package:graduation/view/presentations/auth/login/login_screen.dart';
+import 'package:graduation/view/presentations/home/cubit/home_cubit.dart';
 import 'package:graduation/view/shared/component/constants.dart';
 
 void main() {
@@ -13,13 +17,20 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      theme: ThemeData(
-        primaryColor: primarycolor,
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(create: ((context) => SearchCubit())),
+        BlocProvider(create: (context) => HomeCubit()),
+        BlocProvider(create: (context) => AuthCubit())
+      ],
+      child: MaterialApp(
+        theme: ThemeData(
+          primaryColor: primarycolor,
+        ),
+        // builder: DevicePreview.appBuilder,
+        debugShowCheckedModeBanner: false,
+        home: const LoginHome(),
       ),
-      // builder: DevicePreview.appBuilder,
-      debugShowCheckedModeBanner: false,
-      home: const LoginHome(),
     );
   }
 }

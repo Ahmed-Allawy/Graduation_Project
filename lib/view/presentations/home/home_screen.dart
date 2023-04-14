@@ -12,39 +12,36 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return (BlocProvider(
-      create: (context) => HomeCubit(),
-      child: BlocConsumer<HomeCubit, HomeState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          return Scaffold(
-              body: HomeCubit.get(context)
-                  .pages[HomeCubit.get(context).pageIndex],
-              bottomNavigationBar: BottomNavigationBar(
-                type: BottomNavigationBarType.fixed,
-                currentIndex: HomeCubit.get(context).pageIndex,
-                backgroundColor: primarycolor,
-                fixedColor: Colors.blue,
-                selectedFontSize: 17,
-                unselectedItemColor: const Color.fromARGB(255, 105, 116, 235),
-                items: const [
-                  BottomNavigationBarItem(
-                      label: 'Booking', icon: Icon(Icons.flight)),
-                  BottomNavigationBarItem(
-                      label: 'Searching', icon: Icon(Icons.search)),
-                  BottomNavigationBarItem(
-                      label: 'Check In', icon: Icon(Icons.fact_check)),
-                  BottomNavigationBarItem(
-                      label: 'My Trips', icon: Icon(Icons.flight_land_sharp)),
-                  BottomNavigationBarItem(
-                      label: 'Profile', icon: Icon(Icons.person)),
-                ],
-                onTap: (int val) {
-                  return HomeCubit.get(context).updateIndex(val);
-                },
-              ));
-        },
-      ),
+    return (BlocConsumer<HomeCubit, HomeState>(
+      listener: (context, state) {},
+      builder: (context, state) {
+        return Scaffold(
+            body:
+                HomeCubit.get(context).pages[HomeCubit.get(context).pageIndex],
+            bottomNavigationBar: BottomNavigationBar(
+              type: BottomNavigationBarType.fixed,
+              currentIndex: HomeCubit.get(context).pageIndex,
+              backgroundColor: primarycolor,
+              fixedColor: Colors.blue,
+              selectedFontSize: 17,
+              unselectedItemColor: const Color.fromARGB(255, 105, 116, 235),
+              items: const [
+                BottomNavigationBarItem(
+                    label: 'Booking', icon: Icon(Icons.flight)),
+                BottomNavigationBarItem(
+                    label: 'Searching', icon: Icon(Icons.search)),
+                BottomNavigationBarItem(
+                    label: 'Check In', icon: Icon(Icons.fact_check)),
+                BottomNavigationBarItem(
+                    label: 'My Trips', icon: Icon(Icons.flight_land_sharp)),
+                BottomNavigationBarItem(
+                    label: 'Profile', icon: Icon(Icons.person)),
+              ],
+              onTap: (int val) {
+                return HomeCubit.get(context).updateIndex(val);
+              },
+            ));
+      },
     ));
   }
 }
