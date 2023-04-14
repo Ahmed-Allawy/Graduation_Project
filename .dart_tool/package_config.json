@@ -26,6 +26,18 @@
       "languageVersion": "2.18"
     },
     {
+      "name": "barcode",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/barcode-2.2.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "barcode_widget",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/barcode_widget-2.0.3",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "bloc",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/bloc-8.1.1",
       "packageUri": "lib/",
@@ -168,6 +180,12 @@
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/freezed_annotation-2.2.0",
       "packageUri": "lib/",
       "languageVersion": "2.17"
+    },
+    {
+      "name": "gap",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/gap-2.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
     },
     {
       "name": "get",
@@ -338,6 +356,12 @@
       "languageVersion": "2.17"
     },
     {
+      "name": "qr",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/qr-3.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.16"
+    },
+    {
       "name": "shared_preferences",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/shared_preferences-2.0.17",
       "packageUri": "lib/",
@@ -464,7 +488,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-03-18T15:44:28.279981Z",
+  "generated": "2023-04-10T08:08:18.576070Z",
   "generator": "pub",
   "generatorVersion": "2.19.3"
 }

@@ -10,8 +10,7 @@ class LayoutSize {
     screenWigth = MediaQuery.of(context).size.width;
     screenHeight = MediaQuery.of(context).size.height;
 
-    layoutValue = orientation == Orientation.landscape
-        ? screenHeight! * 0.024
-        : screenWigth! * 0.024;
+    layoutValue =
+        orientation == Orientation.landscape ? screenHeight! : screenWigth!;
   }
 }

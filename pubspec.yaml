@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  barcode_widget: ^2.0.3
   bloc: ^8.1.1
   cupertino_icons: ^1.0.2
   dcdg: ^4.1.0
@@ -35,6 +36,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
+  gap: ^2.0.1
   get: ^4.6.5
   image_picker: ^0.8.6+1
   intl_phone_field: ^3.1.0
