@@ -1,5 +1,6 @@
 // ignore_for_file: void_checks
 
+import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 
 import 'constants.dart';
@@ -100,10 +101,11 @@ Widget defaultTextButton({
 }
 
 //this widget to show Snackbar if error happend and can used anywhere
-void showSnackbar(context, message) {
+void showSnackbar(
+    {required BuildContext context, required Widget message, Color? color}) {
   ScaffoldMessenger.of(context).showSnackBar(SnackBar(
     content: message,
-    backgroundColor: Theme.of(context).primaryColor,
+    backgroundColor: color ?? Theme.of(context).primaryColor,
     duration: const Duration(seconds: 5),
     action: SnackBarAction(label: "ok", onPressed: (() {})),
   ));
@@ -140,4 +142,94 @@ class DotedWidget extends StatelessWidget {
       },
     );
   }
+}
+
+class ThickContainer extends StatelessWidget {
+  final bool? iscolor;
+  const ThickContainer({Key? key, this.iscolor}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(3.5),
+      decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(
+              width: 2.5,
+              color: iscolor == null
+                  ? Colors.white
+                  : const Color.fromARGB(255, 105, 116, 235))),
+    );
+  }
+}
+
+Widget airPlaneDoted() {
+  return Row(
+    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    children: [
+      const Spacer(),
+      const ThickContainer(),
+      Expanded(
+        child: Stack(
+          children: [
+            const SizedBox(
+                height: 24,
+                child: DotedWidget(
+                  color: Colors.blue,
+                  section: 6,
+                  width: 4,
+                )),
+            Center(
+              child: Transform.rotate(
+                  angle: 1.5,
+                  child: const Icon(Icons.airplanemode_on_outlined,
+                      color: Colors.blue)),
+            ),
+          ],
+        ),
+      ),
+      const ThickContainer(),
+      const Spacer(),
+    ],
+  );
+}
+
+Widget customTextFieldSerach(
+    {required GlobalKey<AutoCompleteTextFieldState<String>> autoCompleteKey,
+    required TextEditingController textEditingController,
+    required String selectedCountry,
+    required List<String> countries,
+    required Function sumbit,
+    required Function build,
+    required String hint}) {
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15), color: Colors.white),
+    child: AutoCompleteTextField<String>(
+      key: autoCompleteKey,
+      controller: textEditingController,
+      clearOnSubmit: false,
+      suggestions: countries,
+      style: const TextStyle(color: Colors.black, fontSize: 16.0),
+      decoration: InputDecoration(
+          border: InputBorder.none,
+          hintText: hint,
+          prefixIcon: const Icon(
+            Icons.flight_takeoff_rounded,
+            color: Colors.black,
+          )),
+      itemFilter: (item, query) {
+        return item.toLowerCase().startsWith(query.toLowerCase());
+      },
+      itemSorter: (a, b) {
+        return a.compareTo(b);
+      },
+      itemSubmitted: (item) {
+        return sumbit(item);
+      },
+      itemBuilder: (context, item) {
+        return build(context, item);
+      },
+    ),
+  );
 }

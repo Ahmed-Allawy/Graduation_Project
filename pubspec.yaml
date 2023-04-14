@@ -28,6 +28,7 @@ environment:
 # the latest version available on pub.dev. To see which dependencies have newer
 # versions available, run `flutter pub outdated`.
 dependencies:
+  autocomplete_textfield: ^2.0.1
   barcode_widget: ^2.0.3
   bloc: ^8.1.1
   cupertino_icons: ^1.0.2
@@ -36,6 +37,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.2
+  flutter_typeahead: ^4.3.7
   gap: ^2.0.1
   get: ^4.6.5
   image_picker: ^0.8.6+1

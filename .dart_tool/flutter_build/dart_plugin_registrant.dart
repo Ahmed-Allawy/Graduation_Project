@@ -10,8 +10,11 @@ import 'package:image_picker_android/image_picker_android.dart';
 import 'package:shared_preferences_android/shared_preferences_android.dart';
 import 'package:image_picker_ios/image_picker_ios.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
+import 'package:flutter_keyboard_visibility_linux/flutter_keyboard_visibility_linux.dart';
 import 'package:shared_preferences_linux/shared_preferences_linux.dart';
+import 'package:flutter_keyboard_visibility_macos/flutter_keyboard_visibility_macos.dart';
 import 'package:shared_preferences_foundation/shared_preferences_foundation.dart';
+import 'package:flutter_keyboard_visibility_windows/flutter_keyboard_visibility_windows.dart';
 import 'package:shared_preferences_windows/shared_preferences_windows.dart';
 
 @pragma('vm:entry-point')
@@ -63,6 +66,16 @@ class _PluginRegistrant {
 
     } else if (Platform.isLinux) {
       try {
+        FlutterKeyboardVisibilityPluginLinux.registerWith();
+      } catch (err) {
+        print(
+          '`flutter_keyboard_visibility_linux` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+        rethrow;
+      }
+
+      try {
         SharedPreferencesLinux.registerWith();
       } catch (err) {
         print(
@@ -74,6 +87,16 @@ class _PluginRegistrant {
 
     } else if (Platform.isMacOS) {
       try {
+        FlutterKeyboardVisibilityPluginMacos.registerWith();
+      } catch (err) {
+        print(
+          '`flutter_keyboard_visibility_macos` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+        rethrow;
+      }
+
+      try {
         SharedPreferencesFoundation.registerWith();
       } catch (err) {
         print(
@@ -84,6 +107,16 @@ class _PluginRegistrant {
       }
 
     } else if (Platform.isWindows) {
+      try {
+        FlutterKeyboardVisibilityPluginWindows.registerWith();
+      } catch (err) {
+        print(
+          '`flutter_keyboard_visibility_windows` threw an error: $err. '
+          'The app may not function as expected until you remove this plugin from pubspec.yaml'
+        );
+        rethrow;
+      }
+
       try {
         SharedPreferencesWindows.registerWith();
       } catch (err) {
