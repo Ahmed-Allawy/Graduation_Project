@@ -1,4 +1,7 @@
+// ignore_for_file: library_private_types_in_public_api, duplicate_ignore, avoid_print, non_constant_identifier_names
+
 import 'package:flutter/material.dart';
+import 'package:graduation/view/shared/network/local/cach_helper.dart';
 import '../../shared/component/components.dart';
 
 class SelectSeat extends StatefulWidget {
@@ -26,6 +29,7 @@ class _SelectSeatState extends State<SelectSeat> {
 
   @override
   Widget build(BuildContext context) {
+    CacheHelper.init();
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
@@ -35,31 +39,20 @@ class _SelectSeatState extends State<SelectSeat> {
           'Seat Map',
         ),
       ),
-      body: Column(children: <Widget>[
+      body: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
         Expanded(
-          child: SingleChildScrollView(
-            child:
-                Plane(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'Selected seat',
-            ),
-            SizedBox(
-              width: _screenWidth * 0.28,
-            ),
-            const Text(
-              '22A',
-            ),
-          ],
-        ),
+            child: SingleChildScrollView(
+                child: Plane(
+                    screenHeight: _screenHeight, screenWidth: _screenWidth))),
         SizedBox(
           height: _screenHeight * 0.02,
         ),
-        defaultButton(text: 'check out', onPressed: () {}),
+        defaultButton(
+            text: 'check out',
+            onPressed: () {
+              String s = CacheHelper.getData(key: 'seletedSeats');
+              print(s);
+            }),
       ]),
     );
   }
@@ -137,177 +130,262 @@ class PlaneBody extends StatelessWidget {
   }
 }
 
-class InnerPlane extends StatelessWidget {
-  const InnerPlane({
-    super.key,
-    required double screenHeight,
-    required double screenWidth,
-  })  : _screenHeight = screenHeight,
-        _screenWidth = screenWidth;
+class InnerPlane extends StatefulWidget {
+  final double screenHeight;
+  final double screenWidth;
 
-  final double _screenHeight;
-  final double _screenWidth;
+  const InnerPlane({
+    Key? key,
+    required this.screenHeight,
+    required this.screenWidth,
+  }) : super(key: key);
+
+  @override
+  _InnerPlaneState createState() => _InnerPlaneState();
+}
+
+class _InnerPlaneState extends State<InnerPlane> {
+  List classType = ['Economy', 'business'];
+  List seatsList = [
+    {'position': '1B', 'state': 'available', 'class': 'Economy'},
+    {'position': '2B', 'state': 'available', 'class': 'Economy'},
+    {'position': '3B', 'state': 'available', 'class': 'Economy'},
+    {'position': '4B', 'state': 'available', 'class': 'Economy'},
+    {'position': '5F', 'state': 'available', 'class': 'Economy'},
+    {'position': '6F', 'state': 'not available', 'class': 'Economy'},
+    {'position': '8F', 'state': 'not available', 'class': 'Economy'},
+    {'position': '1D', 'state': 'not available', 'class': 'Economy'},
+    {'position': '2D', 'state': 'selected', 'class': 'Economy'},
+    {'position': '3D', 'state': 'not available', 'class': 'Economy'},
+    {'position': '4D', 'state': 'not available', 'class': 'Economy'},
+    {'position': '5E', 'state': 'selected', 'class': 'Economy'},
+    {'position': '6E', 'state': 'not available', 'class': 'Economy'},
+    {'position': '7E', 'state': 'not available', 'class': 'Economy'},
+    {'position': '8E', 'state': 'available', 'class': 'Economy'},
+    {'position': '1A', 'state': 'available', 'class': 'business'},
+    {'position': '2A', 'state': 'available', 'class': 'business'},
+    {'position': '3A', 'state': 'selected', 'class': 'business'},
+    {'position': '4A', 'state': 'not available', 'class': 'business'},
+    {'position': '5A', 'state': 'not available', 'class': 'business'},
+    {'position': '7A', 'state': 'not available', 'class': 'Economy'},
+    {'position': '8A', 'state': 'not available', 'class': 'Economy'},
+    {'position': '1C', 'state': 'selected', 'class': 'Economy'},
+    {'position': '2C', 'state': 'not available', 'class': 'Economy'},
+    {'position': '3C', 'state': 'not available', 'class': 'Economy'},
+    {'position': '4C', 'state': 'not available', 'class': 'business'},
+    {'position': '6C', 'state': 'not available', 'class': 'business'},
+    {'position': '7C', 'state': 'not available', 'class': 'business'},
+    {'position': '8C', 'state': 'not available', 'class': 'business'},
+    {'position': '3D', 'state': 'not available', 'class': 'Economy'},
+    {'position': '4D', 'state': 'not available', 'class': 'Economy'},
+    {'position': '6E', 'state': 'not available', 'class': 'Economy'},
+    {'position': '7E', 'state': 'not available', 'class': 'Economy'},
+    {'position': '8E', 'state': 'available', 'class': 'Economy'},
+    {'position': '1A', 'state': 'available', 'class': 'business'},
+    {'position': '2A', 'state': 'available', 'class': 'business'},
+    {'position': '3A', 'state': 'selected', 'class': 'business'},
+    {'position': '4A', 'state': 'not available', 'class': 'business'},
+    {'position': '5A', 'state': 'not available', 'class': 'business'},
+    {'position': '7A', 'state': 'not available', 'class': 'Economy'},
+    {'position': '8A', 'state': 'not available', 'class': 'Economy'},
+    {'position': '1C', 'state': 'selected', 'class': 'Economy'},
+    {'position': '2C', 'state': 'not available', 'class': 'Economy'},
+    {'position': '3C', 'state': 'not available', 'class': 'Economy'},
+    {'position': '4C', 'state': 'not available', 'class': 'business'},
+    {'position': '6C', 'state': 'not available', 'class': 'business'},
+    {'position': '7C', 'state': 'not available', 'class': 'business'},
+    {'position': '8C', 'state': 'not available', 'class': 'business'},
+  ];
+
+  String selectedClass = 'Economy';
+  List filteredSeatsList = [];
+
+  @override
+  void initState() {
+    super.initState();
+    filterSeatsByClass();
+  }
+
+  void filterSeatsByClass() {
+    setState(() {
+      filteredSeatsList =
+          seatsList.where((seat) => seat['class'] == selectedClass).toList();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: <Widget>[
-          SizedBox(
-            height: _screenHeight * 0.15,
+      child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
+        SizedBox(
+          height: widget.screenHeight * 0.15,
+        ),
+        DropdownButton(
+          iconEnabledColor: Colors.red,
+          hint: const Text(
+            'Economy',
+            style: TextStyle(color: Colors.black),
           ),
-          const Text("Economy"),
-          SizedBox(
-            height: _screenHeight * 0.05,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 30.0,
-                    height: 30.0,
-                    decoration: const BoxDecoration(
-                      color: Color(0xffD9D9D9),
-                      shape: BoxShape.circle,
-                    ),
+          value: selectedClass,
+          items: classType.map((value) {
+            return DropdownMenuItem(value: value, child: Text(value));
+          }).toList(),
+          onChanged: (value) {
+            setState(() {
+              selectedClass = value.toString();
+            });
+            filterSeatsByClass();
+          },
+        ),
+        SizedBox(
+          height: widget.screenHeight * 0.05,
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 30.0,
+                  height: 30.0,
+                  decoration: const BoxDecoration(
+                    color: Color(0xffD9D9D9),
+                    shape: BoxShape.circle,
                   ),
-                  const Text("not available"),
-                ],
-              ),
-              SizedBox(
-                width: _screenWidth * 0.08,
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 30.0,
-                    height: 30.0,
-                    decoration: const BoxDecoration(
-                      color: Color(0xff2FE0EB),
-                      shape: BoxShape.circle,
-                    ),
+                ),
+                const Text("not available"),
+              ],
+            ),
+            SizedBox(
+              width: widget.screenWidth * 0.06,
+            ),
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 30.0,
+                  height: 30.0,
+                  decoration: const BoxDecoration(
+                    color: Color(0xff2FE0EB),
+                    shape: BoxShape.circle,
                   ),
-                  const Text("available"),
-                ],
-              ),
-              SizedBox(
-                width: _screenWidth * 0.08,
-              ),
-              Column(
-                children: <Widget>[
-                  Container(
-                    width: 30.0,
-                    height: 30.0,
-                    decoration: const BoxDecoration(
-                      color: Color(0xffD91313),
-                      shape: BoxShape.circle,
-                    ),
+                ),
+                const Text("available"),
+              ],
+            ),
+            SizedBox(
+              width: widget.screenWidth * 0.08,
+            ),
+            Column(
+              children: <Widget>[
+                Container(
+                  width: 30.0,
+                  height: 30.0,
+                  decoration: const BoxDecoration(
+                    color: Color(0xffD91313),
+                    shape: BoxShape.circle,
                   ),
-                  const Text("selected"),
-                ],
-              ),
-            ],
+                ),
+                const Text("selected"),
+              ],
+            ),
+          ],
+        ),
+        SizedBox(
+          height: widget.screenHeight * 0.1,
+        ),
+        SizedBox(
+          height: 300,
+          child: Seats(
+            filteredSeatsList: filteredSeatsList,
+            peopleNumber: 3,
           ),
-          /////// this part will removed and replaced dynamicaly from database
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-          SizedBox(
-            height: _screenHeight * 0.1,
-          ),
-          Seats(screenHeight: _screenHeight, screenWidth: _screenWidth),
-        ],
-      ),
+        ),
+      ]),
     );
   }
 }
 
-/////// and this class also will removed
-class Seats extends StatelessWidget {
+class Seats extends StatefulWidget {
   const Seats({
-    super.key,
-    required double screenHeight,
-    required double screenWidth,
-  })  : _screenHeight = screenHeight,
-        _screenWidth = screenWidth;
+    Key? key,
+    required this.filteredSeatsList,
+    required this.peopleNumber,
+  }) : super(key: key);
 
-  final double _screenHeight;
-  final double _screenWidth;
+  final List filteredSeatsList;
+  final int peopleNumber;
+
+  @override
+  _SeatsState createState() => _SeatsState();
+}
+
+class _SeatsState extends State<Seats> {
+  List<int> selectedSeatsIndexes = [];
+
+  void _toggleSeatSelection(int index) {
+    setState(() {
+      if (selectedSeatsIndexes.contains(index)) {
+        selectedSeatsIndexes.remove(index);
+      } else if (selectedSeatsIndexes.length < widget.peopleNumber) {
+        selectedSeatsIndexes.add(index);
+      }
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Container(
-          width: 30,
-          height: 30,
-          color: Colors.red,
-        ),
-        SizedBox(
-          width: _screenWidth * 0.03,
-        ),
-        Container(
-          width: 30,
-          height: 30,
-          color: Colors.orange,
-        ),
-        SizedBox(
-          width: _screenWidth * 0.03,
-        ),
-        Container(
-          width: 30,
-          height: 30,
-          color: Colors.yellow,
-        ),
-        SizedBox(
-          width: _screenWidth * 0.2,
-        ),
-        Container(
-          width: 30,
-          height: 30,
-          color: Colors.green,
-        ),
-        SizedBox(
-          width: _screenWidth * 0.03,
-        ),
-        Container(
-          width: 30,
-          height: 30,
-          color: Colors.blue,
-        ),
-        SizedBox(
-          width: _screenWidth * 0.03,
-        ),
-        Container(
-          width: 30,
-          height: 30,
-          color: Colors.purple,
-        ),
-      ],
+    List<String> AllSelectedSeats = [];
+    CacheHelper.init();
+    return GridView.builder(
+      padding: const EdgeInsets.symmetric(horizontal: 30),
+      gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: 4,
+        childAspectRatio: 1,
+      ),
+      itemCount: widget.filteredSeatsList.length,
+      itemBuilder: (BuildContext context, int index) {
+        final seat = widget.filteredSeatsList[index];
+        final seatState = seat['state'];
+        final isSelected = selectedSeatsIndexes.contains(index);
+        final isSelectable = seatState != 'not available' &&
+            (isSelected || selectedSeatsIndexes.length < widget.peopleNumber);
+
+        return Container(
+          margin: const EdgeInsets.all(10),
+          padding: const EdgeInsets.only(bottom: 20),
+          child: MaterialButton(
+            onPressed: () {
+              isSelectable ? _toggleSeatSelection(index) : null;
+              if (selectedSeatsIndexes.length == widget.peopleNumber) {
+                for (var element in selectedSeatsIndexes) {
+                  print(widget.filteredSeatsList[element]['position']);
+                  AllSelectedSeats.add(
+                      widget.filteredSeatsList[element]['position']);
+                }
+                CacheHelper.saveData(
+                    key: 'seletedSeats', value: AllSelectedSeats.toString());
+              }
+            },
+            color: seatState == 'not available'
+                ? const Color(0xffD9D9D9)
+                : isSelected
+                    ? Colors.red
+                    : const Color(0xff2FE0EB),
+            textColor: Colors.white,
+            child: Text(
+              seat['position'],
+              style: TextStyle(
+                fontWeight: FontWeight.bold,
+                fontSize: isSelected ? 20 : 16,
+                decoration:
+                    isSelected ? TextDecoration.none : TextDecoration.underline,
+                decorationColor: Colors.white,
+                decorationThickness: isSelected ? 4 : 0,
+              ),
+            ),
+          ),
+        );
+      },
     );
   }
 }
@@ -360,5 +438,18 @@ class _HeaderWavesPainter2 extends CustomPainter {
   @override
   bool shouldRepaint(covariant CustomPainter oldDelegate) {
     return true;
+  }
+}
+
+Color getSeatColor(String state) {
+  switch (state) {
+    case 'not available':
+      return const Color(0xffD9D9D9);
+    case 'available':
+      return const Color(0xff2FE0EB);
+    case 'selected':
+      return const Color(0xffD91313);
+    default:
+      return const Color(0x0fffffff);
   }
 }
