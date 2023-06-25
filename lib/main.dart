@@ -1,10 +1,10 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
-import 'package:graduation/view/presentations/auth/login/login_screen.dart';
-import 'package:graduation/view/presentations/home/cubit/home_cubit.dart';
+
 import 'package:graduation/view/shared/component/constants.dart';
 
 void main() {
@@ -20,7 +20,6 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => SearchCubit())),
-        BlocProvider(create: (context) => HomeCubit()),
         BlocProvider(create: (context) => AuthCubit())
       ],
       child: MaterialApp(
@@ -29,7 +28,7 @@ class MyApp extends StatelessWidget {
         ),
         // builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        home: const LoginHome(),
+        home: SearchingScreen(),
       ),
     );
   }

@@ -8,3 +8,5 @@ class SearchInitial extends SearchState {}
 class ChangeCountery extends SearchState {}
 
 class ChangeWays extends SearchState {}
+
+class ChangeDate extends SearchState {}

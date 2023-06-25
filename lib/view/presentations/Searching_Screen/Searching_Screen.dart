@@ -1,31 +1,43 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: file_names
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:graduation/view/presentations/Searching_Screen/cubit/SecondSearching_Screen.dart';
+
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
+import 'package:graduation/view/presentations/User_profile/user_profile.dart';
+import 'package:graduation/view/presentations/auth/login/login_screen.dart';
+import 'package:graduation/view/presentations/auth/register/register_screen.dart';
 import 'package:graduation/view/shared/component/constants.dart';
+import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../shared/component/components.dart';
 import '../../shared/component/layout.dart';
 
-class SearchingScreen extends StatefulWidget {
-  const SearchingScreen({super.key});
-
-  @override
-  State<SearchingScreen> createState() => _SearchingScreenState();
-}
-
-class _SearchingScreenState extends State<SearchingScreen> {
+// ignore: must_be_immutable
+class SearchingScreen extends StatelessWidget {
   final GlobalKey<AutoCompleteTextFieldState<String>> arrivalCompleteKey =
       GlobalKey();
+
   final TextEditingController arrivaltextEditingController =
       TextEditingController();
+
   final GlobalKey<AutoCompleteTextFieldState<String>> deupartureCompleteKey =
       GlobalKey();
+
   final TextEditingController deupartureEditingController =
       TextEditingController();
+
+  DateTime? selectedDate;
+
+  SearchingScreen({
+    Key? key,
+    this.selectedDate,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<SearchCubit, SearchState>(
@@ -38,9 +50,19 @@ class _SearchingScreenState extends State<SearchingScreen> {
                 horizontal: AppLayout.getWidth(20),
                 vertical: AppLayout.getHeigth(40)),
             children: [
-              Text(
-                "What are \nyou looking for?",
-                style: Styles.headLinestyle1,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text(
+                    "What are \nyou looking for?",
+                    style: Styles.headLinestyle1,
+                  ),
+                  IconButton(
+                      onPressed: () {
+                        _showOptionsModal(context);
+                      },
+                      icon: const Icon(Icons.info))
+                ],
               ),
               Gap(AppLayout.getHeigth(25)),
               Gap(AppLayout.getHeigth(25)),
@@ -105,6 +127,28 @@ class _SearchingScreenState extends State<SearchingScreen> {
                 ],
               ),
               Gap(AppLayout.getHeigth(25)),
+              Center(
+                child: Container(
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(15),
+                      color: const Color.fromARGB(255, 105, 116, 235)),
+                  child: TextButton(
+                      onPressed: () {
+                        SearchCubit.get(context).selectDate(context);
+                      },
+                      child: Text(
+                        "Select date",
+                        style:
+                            Styles.headLinestyle4.copyWith(color: Colors.white),
+                      )),
+                ),
+              ),
+              Gap(AppLayout.getHeigth(10)),
+              Center(
+                child: Text("${SearchCubit.get(context).selectedDate.toLocal()}"
+                    .split(' ')[0]),
+              ),
+              Gap(AppLayout.getHeigth(25)),
               Container(
                 decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(15),
@@ -117,14 +161,13 @@ class _SearchingScreenState extends State<SearchingScreen> {
                   onPressed: () {
                     if (deupartureEditingController.text.isNotEmpty &&
                         arrivaltextEditingController.text.isNotEmpty) {
-                      // this mean there is something
                       if (SearchCubit.get(context)
                               .countries
                               .contains(deupartureEditingController.text) &&
                           SearchCubit.get(context)
                               .countries
                               .contains(arrivaltextEditingController.text)) {
-                        //this mean that the inputs valdated
+                        nextScreen(context, const SecondSearchingScreen());
                       } else {
                         showSnackbar(
                             context: context,
@@ -284,4 +327,38 @@ class _SearchingScreenState extends State<SearchingScreen> {
       },
     );
   }
+}
+
+void _showOptionsModal(BuildContext context) {
+  showModalBottomSheet(
+    context: context,
+    builder: (BuildContext context) {
+      return Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          ListTile(
+            leading: const Icon(Icons.person),
+            title: const Text("Profile"),
+            onTap: () {
+              nextScreen(context, const UserProfile());
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.login),
+            title: const Text("Login"),
+            onTap: () {
+              nextScreen(context, const LoginHome());
+            },
+          ),
+          ListTile(
+            leading: const Icon(Icons.person_add),
+            title: const Text("Register"),
+            onTap: () {
+              nextScreen(context, const Register());
+            },
+          ),
+        ],
+      );
+    },
+  );
 }

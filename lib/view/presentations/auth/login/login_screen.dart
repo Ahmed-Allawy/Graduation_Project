@@ -1,8 +1,8 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
-import 'package:graduation/view/presentations/home/home_screen.dart';
 import 'package:graduation/view/shared/component/components.dart';
 
 import '../../../shared/component/helperfunctions.dart';
@@ -144,7 +144,7 @@ class _LoginHomeState extends State<LoginHome> {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  nextScreen(context, const HomeScreen());
+                                  nextScreen(context, SearchingScreen());
                                 })
                         ])),
                   ],
