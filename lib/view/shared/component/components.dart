@@ -2,6 +2,8 @@
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import 'constants.dart';
 import 'layout.dart';
@@ -230,6 +232,97 @@ Widget customTextFieldSerach(
       itemBuilder: (context, item) {
         return build(context, item);
       },
+    ),
+  );
+}
+
+Widget buildPersonFields() {
+  var formKey = GlobalKey<FormState>();
+  final TextEditingController firstNameController = TextEditingController();
+  final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController nationalityController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController ageController = TextEditingController();
+
+  return Form(
+    key: formKey,
+    child: Column(
+      children: [
+        defaultTextField(
+          prefix: Icons.person,
+          controller: firstNameController,
+          textInputType: TextInputType.name,
+          hintText: "First Name",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "First Name shouldn't be empty";
+            }
+          },
+        ),
+        const Gap(25),
+        defaultTextField(
+          prefix: Icons.people,
+          controller: lastNameController,
+          textInputType: TextInputType.name,
+          hintText: "Last Name",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "Last Name shouldn't be empty";
+            }
+          },
+        ),
+        const Gap(25),
+        defaultTextField(
+          prefix: Icons.flag,
+          controller: nationalityController,
+          textInputType: TextInputType.name,
+          hintText: "Nationality",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "Nationality shouldn't be empty";
+            }
+          },
+        ),
+        const Gap(25),
+        defaultTextField(
+          controller: emailController,
+          textInputType: TextInputType.emailAddress,
+          prefix: Icons.email,
+          hintText: "Email",
+          validator: (val) {
+            return RegExp(
+                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                    .hasMatch(val!)
+                ? null
+                : "Please enter a valid email";
+          },
+        ),
+        const Gap(25),
+        SizedBox(
+          width: AppLayout.getWidth(fieldWidth),
+          child: IntlPhoneField(
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(
+                borderSide: BorderSide(),
+              ),
+            ),
+            onChanged: (s) {},
+            initialCountryCode: 'EG',
+          ),
+        ),
+        defaultTextField(
+          prefix: Icons.date_range,
+          controller: ageController,
+          textInputType: TextInputType.name,
+          hintText: "AGE",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "AGE shouldn't be empty";
+            }
+          },
+        ),
+        const Gap(25),
+      ],
     ),
   );
 }

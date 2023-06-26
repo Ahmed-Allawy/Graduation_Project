@@ -167,7 +167,6 @@ class SearchingScreen extends StatelessWidget {
                           SearchCubit.get(context)
                               .countries
                               .contains(arrivaltextEditingController.text)) {
-                        nextScreen(context, const SecondSearchingScreen());
                       } else {
                         showSnackbar(
                             context: context,
@@ -309,10 +308,16 @@ class SearchingScreen extends StatelessWidget {
                           const Gap(25),
                           Text("the price", style: Styles.headLinestyle4),
                           const Spacer(),
-                          Text(
-                            "Book Now",
-                            style: Styles.headLinestyle3.copyWith(
-                              color: const Color.fromARGB(255, 105, 116, 235),
+                          TextButton(
+                            onPressed: () {
+                              nextScreen(
+                                  context, const SecondSearchingScreen());
+                            },
+                            child: Text(
+                              "Book Now",
+                              style: Styles.headLinestyle3.copyWith(
+                                color: const Color.fromARGB(255, 105, 116, 235),
+                              ),
                             ),
                           ),
                         ],
