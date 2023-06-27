@@ -10,7 +10,9 @@ class SecondSearchingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SearchCubit.get(context).addMorePerson();
+    if (SearchCubit.get(context).personFields.isEmpty) {
+      SearchCubit.get(context).addMorePerson();
+    }
 
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
@@ -29,16 +31,30 @@ class SecondSearchingScreen extends StatelessWidget {
                   Column(
                     children: SearchCubit.get(context).personFields,
                   ),
-                  defaultButton(
-                    text: "Add more person",
+                  ElevatedButton(
                     onPressed: () => SearchCubit.get(context).addMorePerson(),
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      padding: const EdgeInsets.all(16),
+                    ),
+                    child: const Icon(
+                      Icons.add,
+                      color: Colors.white, // Customize the icon color here
+                    ),
                   ),
                   const Gap(25),
                   if (SearchCubit.get(context).showUndoButton)
-                    defaultButton(
-                        onPressed: () =>
-                            SearchCubit.get(context).removePerson(),
-                        text: "remove person"),
+                    ElevatedButton(
+                      onPressed: () => SearchCubit.get(context).removePerson(),
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        padding: const EdgeInsets.all(16),
+                      ),
+                      child: const Icon(
+                        Icons.delete,
+                        color: Colors.white, // Customize the icon color here
+                      ),
+                    ),
                   const Gap(25),
                   defaultButton(
                     text: "Submit",

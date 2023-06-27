@@ -14,3 +14,5 @@ class ChangeDate extends SearchState {}
 class AddPersonField extends SearchState {}
 
 class RemovePersonField extends SearchState {}
+
+class GenderStateChanger extends SearchState {}

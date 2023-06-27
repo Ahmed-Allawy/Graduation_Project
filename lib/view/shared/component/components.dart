@@ -16,12 +16,13 @@ Widget defaultTextField({
   IconData? suffix,
   required String hintText,
   required Function validator,
+  double? width,
   Function? suffixPressed,
   //this bool not required because I will use it only one time
   bool scure = false,
 }) {
   return Container(
-    width: AppLayout.getWidth(fieldWidth),
+    width: width ?? AppLayout.getWidth(fieldWidth),
     decoration: const BoxDecoration(
         color: fontColor, borderRadius: BorderRadius.all(Radius.circular(5))),
     child: TextFormField(
@@ -243,12 +244,14 @@ Widget buildPersonFields() {
   final TextEditingController nationalityController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
+  final TextEditingController genderController = TextEditingController();
 
   return Form(
     key: formKey,
     child: Column(
       children: [
         defaultTextField(
+          width: double.infinity,
           prefix: Icons.person,
           controller: firstNameController,
           textInputType: TextInputType.name,
@@ -261,6 +264,7 @@ Widget buildPersonFields() {
         ),
         const Gap(25),
         defaultTextField(
+          width: double.infinity,
           prefix: Icons.people,
           controller: lastNameController,
           textInputType: TextInputType.name,
@@ -273,6 +277,7 @@ Widget buildPersonFields() {
         ),
         const Gap(25),
         defaultTextField(
+          width: double.infinity,
           prefix: Icons.flag,
           controller: nationalityController,
           textInputType: TextInputType.name,
@@ -285,6 +290,7 @@ Widget buildPersonFields() {
         ),
         const Gap(25),
         defaultTextField(
+          width: double.infinity,
           controller: emailController,
           textInputType: TextInputType.emailAddress,
           prefix: Icons.email,
@@ -299,7 +305,7 @@ Widget buildPersonFields() {
         ),
         const Gap(25),
         SizedBox(
-          width: AppLayout.getWidth(fieldWidth),
+          width: double.infinity,
           child: IntlPhoneField(
             decoration: const InputDecoration(
               border: OutlineInputBorder(
@@ -311,13 +317,27 @@ Widget buildPersonFields() {
           ),
         ),
         defaultTextField(
+          width: double.infinity,
           prefix: Icons.date_range,
           controller: ageController,
-          textInputType: TextInputType.name,
+          textInputType: TextInputType.number,
           hintText: "AGE",
           validator: (val) {
             if (val.isEmpty) {
               return "AGE shouldn't be empty";
+            }
+          },
+        ),
+        const Gap(25),
+        defaultTextField(
+          width: double.infinity,
+          prefix: Icons.people,
+          controller: genderController,
+          textInputType: TextInputType.name,
+          hintText: "Gender",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "Gender should be either male or female";
             }
           },
         ),
