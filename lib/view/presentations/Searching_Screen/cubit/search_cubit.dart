@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/Booking_screen/booking_screen.dart';
@@ -75,7 +74,7 @@ class SearchCubit extends Cubit<SearchState> {
     for (var widget in personFields) {
       final formKey = widget.key as GlobalKey<FormState>;
       if (formKey.currentState!.validate()) {
-        nextScreen(context, BookingScreen());
+        nextScreen(context, const BookingScreen());
       } else {
         print("in Vaild ");
       }

@@ -440,16 +440,3 @@ class _HeaderWavesPainter2 extends CustomPainter {
     return true;
   }
 }
-
-Color getSeatColor(String state) {
-  switch (state) {
-    case 'not available':
-      return const Color(0xffD9D9D9);
-    case 'available':
-      return const Color(0xff2FE0EB);
-    case 'selected':
-      return const Color(0xffD91313);
-    default:
-      return const Color(0x0fffffff);
-  }
-}
