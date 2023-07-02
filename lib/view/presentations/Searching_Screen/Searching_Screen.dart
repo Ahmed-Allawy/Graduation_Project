@@ -5,7 +5,7 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:graduation/view/presentations/Searching_Screen/cubit/SecondSearching_Screen.dart';
+import 'package:graduation/view/presentations/Searching_Screen/SecondSearching_Screen.dart';
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/User_profile/user_profile.dart';
