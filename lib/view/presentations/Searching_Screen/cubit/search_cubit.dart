@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/view/presentations/Booking_screen/booking_screen.dart';
+import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../../shared/component/components.dart';
@@ -74,7 +74,7 @@ class SearchCubit extends Cubit<SearchState> {
     for (var widget in personFields) {
       final formKey = widget.key as GlobalKey<FormState>;
       if (formKey.currentState!.validate()) {
-        nextScreen(context, const BookingScreen());
+        nextScreen(context, const SelectSeat());
       } else {
         print("in Vaild ");
       }

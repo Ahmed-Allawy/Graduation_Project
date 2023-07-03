@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../../presentations/Searching_Screen/cubit/SecondSearching_Screen.dart';
 import 'constants.dart';
+import 'helperfunctions.dart';
 import 'layout.dart';
 
 // this widget will use it for all the pages that contains fields
@@ -255,7 +257,7 @@ Widget buildPersonFields() {
           prefix: Icons.person,
           controller: firstNameController,
           textInputType: TextInputType.name,
-          hintText: "First Name",
+          hintText: "Full Name",
           validator: (val) {
             if (val.isEmpty) {
               return "First Name shouldn't be empty";
@@ -265,10 +267,10 @@ Widget buildPersonFields() {
         const Gap(25),
         defaultTextField(
           width: double.infinity,
-          prefix: Icons.people,
+          prefix: Icons.numbers,
           controller: lastNameController,
-          textInputType: TextInputType.name,
-          hintText: "Last Name",
+          textInputType: TextInputType.number,
+          hintText: "Passport Number",
           validator: (val) {
             if (val.isEmpty) {
               return "Last Name shouldn't be empty";
@@ -342,7 +344,183 @@ Widget buildPersonFields() {
           },
         ),
         const Gap(25),
+        const SizedBox(
+          height: 24,
+          child: DotedWidget(
+            color: Color.fromARGB(255, 67, 79, 210),
+            section: 10,
+            width: 4,
+          ),
+        ),
+        const Gap(25),
       ],
     ),
   );
+}
+
+class TripWidget extends StatelessWidget {
+  const TripWidget(
+      {Key? key,
+      required this.departureCity,
+      required this.arrivalCity,
+      required this.departureDate,
+      required this.arrivalDate,
+      required this.tripTime,
+      required this.price,
+      required this.planeID})
+      : super(key: key);
+  final String departureCity;
+  final String arrivalCity;
+  final String departureDate;
+  final String arrivalDate;
+  final String tripTime;
+  final String price;
+  final String planeID;
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      child: Column(
+        children: [
+          /*this container for blue part*/
+          Container(
+            padding: EdgeInsets.only(
+              left: AppLayout.getHeigth(16),
+              right: AppLayout.getHeigth(16),
+              top: AppLayout.getHeigth(16),
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  children: [
+                    const Icon(Icons.airplanemode_active),
+                    const Gap(15),
+                    Text(
+                      "Plane ID",
+                      style: Styles.headLinestyle4,
+                    )
+                  ],
+                ),
+                const Gap(10),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "11:00",
+                            style: Styles.headLinestyle3
+                                .copyWith(color: Styles.textColor),
+                          ),
+                          const Gap(5),
+                          Text(
+                            "LHD",
+                            style: Styles.headLinestyle4
+                                .copyWith(color: Styles.textColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const ThickContainer(
+                      iscolor: true,
+                    ),
+                    Expanded(
+                      child: Stack(
+                        children: [
+                          const SizedBox(
+                            height: 24,
+                            child: DotedWidget(
+                              color: Color.fromARGB(255, 105, 116, 235),
+                              section: 6,
+                              width: 4,
+                            ),
+                          ),
+                          Center(
+                            child: Transform.rotate(
+                              angle: 1.5,
+                              child: const Icon(
+                                Icons.airplanemode_on_outlined,
+                                color: Colors.blue,
+                              ),
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const ThickContainer(
+                      iscolor: true,
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.all(5.0),
+                      child: Column(
+                        children: [
+                          Text(
+                            "13:00",
+                            style: Styles.headLinestyle3
+                                .copyWith(color: Styles.textColor),
+                          ),
+                          const Gap(5),
+                          Text(
+                            "CIR",
+                            style: Styles.headLinestyle4
+                                .copyWith(color: Styles.textColor),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "0h 15m",
+                      style: Styles.headLinestyle4
+                          .copyWith(color: Styles.textColor),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: EdgeInsets.symmetric(
+              horizontal: AppLayout.getHeigth(16),
+            ),
+            decoration: const BoxDecoration(
+              color: Colors.white,
+            ),
+            child: Row(
+              children: [
+                Text(
+                  "510 \$",
+                  style:
+                      Styles.headLinestyle3.copyWith(color: Styles.textColor),
+                ),
+                const Gap(25),
+                Text("the price", style: Styles.headLinestyle4),
+                const Spacer(),
+                TextButton(
+                  onPressed: () {
+                    nextScreen(context, const SecondSearchingScreen());
+                  },
+                  child: Text(
+                    "Book Now",
+                    style: Styles.headLinestyle3.copyWith(
+                      color: const Color.fromARGB(255, 105, 116, 235),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          )
+        ],
+      ),
+    );
+  }
 }

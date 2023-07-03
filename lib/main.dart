@@ -1,11 +1,13 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
+import 'package:graduation/view/presentations/ticket/cubit/ticket_cubit.dart';
 
 import 'package:graduation/view/shared/component/constants.dart';
+
+import 'view/presentations/ticket/ticket.dart';
 
 void main() {
   runApp(DevicePreview(builder: (context) => const MyApp()));
@@ -20,7 +22,8 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: ((context) => SearchCubit())),
-        BlocProvider(create: (context) => AuthCubit())
+        BlocProvider(create: (context) => AuthCubit()),
+        BlocProvider(create: ((context) => FlightTicketCubit())),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -28,7 +31,7 @@ class MyApp extends StatelessWidget {
         ),
         // builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        home: SearchingScreen(),
+        home: const Ticket(),
       ),
     );
   }

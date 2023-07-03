@@ -33,30 +33,39 @@ class SecondSearchingScreen extends StatelessWidget {
                   Column(
                     children: SearchCubit.get(context).personFields,
                   ),
-                  ElevatedButton(
-                    onPressed: () => SearchCubit.get(context).addMorePerson(),
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      padding: const EdgeInsets.all(16),
-                    ),
-                    child: const Icon(
-                      Icons.add,
-                      color: Colors.white, // Customize the icon color here
-                    ),
+                  Flex(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    direction: Axis.horizontal,
+                    children: <Widget>[
+                      ElevatedButton(
+                        onPressed: () =>
+                            SearchCubit.get(context).addMorePerson(),
+                        style: ElevatedButton.styleFrom(
+                          shape: const CircleBorder(),
+                          padding: const EdgeInsets.all(16),
+                        ),
+                        child: const Icon(
+                          Icons.add,
+                          color: Colors.white, // Customize the icon color here
+                        ),
+                      ),
+                      const Gap(25),
+                      if (SearchCubit.get(context).showUndoButton)
+                        ElevatedButton(
+                          onPressed: () =>
+                              SearchCubit.get(context).removePerson(),
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            padding: const EdgeInsets.all(16),
+                          ),
+                          child: const Icon(
+                            Icons.delete,
+                            color:
+                                Colors.white, // Customize the icon color here
+                          ),
+                        ),
+                    ],
                   ),
-                  const Gap(25),
-                  if (SearchCubit.get(context).showUndoButton)
-                    ElevatedButton(
-                      onPressed: () => SearchCubit.get(context).removePerson(),
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        padding: const EdgeInsets.all(16),
-                      ),
-                      child: const Icon(
-                        Icons.delete,
-                        color: Colors.white, // Customize the icon color here
-                      ),
-                    ),
                   const Gap(25),
                   defaultButton(
                     text: "Submit",
