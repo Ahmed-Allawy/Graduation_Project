@@ -1,6 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, duplicate_ignore, avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/presentations/ticket/ticket.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:graduation/view/shared/network/local/cach_helper.dart';
@@ -39,6 +40,11 @@ class _SelectSeatState extends State<SelectSeat> {
         centerTitle: true,
         title: const Text(
           'Seat Map',
+        ),
+        leading: BackButton(
+          onPressed: () {
+            nextScreenRep(context, const PicScreen());
+          },
         ),
       ),
       body: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[

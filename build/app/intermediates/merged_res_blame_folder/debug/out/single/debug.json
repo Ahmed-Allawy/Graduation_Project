@@ -1,34 +1,34 @@
 [
     {
-        "merged": "com.example.graduation.app-merged_res-12:/mipmap-xhdpi_ic_launcher.png.flat",
-        "source": "com.example.graduation.app-main-6:/mipmap-xhdpi/ic_launcher.png"
+        "merged": "com.example.graduation.app-merged_res-22:/xml_file_paths.xml.flat",
+        "source": "com.example.graduation.app-main-16:/xml/file_paths.xml"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/mipmap-hdpi_ic_launcher.png.flat",
-        "source": "com.example.graduation.app-main-6:/mipmap-hdpi/ic_launcher.png"
+        "merged": "com.example.graduation.app-merged_res-22:/drawable-v21_launch_background.xml.flat",
+        "source": "com.example.graduation.app-main-16:/drawable-v21/launch_background.xml"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/xml_file_paths.xml.flat",
-        "source": "com.example.graduation.app-main-6:/xml/file_paths.xml"
+        "merged": "com.example.graduation.app-merged_res-22:/mipmap-mdpi_ic_launcher.png.flat",
+        "source": "com.example.graduation.app-main-16:/mipmap-mdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/drawable-v21_launch_background.xml.flat",
-        "source": "com.example.graduation.app-main-6:/drawable-v21/launch_background.xml"
+        "merged": "com.example.graduation.app-merged_res-22:/mipmap-hdpi_ic_launcher.png.flat",
+        "source": "com.example.graduation.app-main-16:/mipmap-hdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/mipmap-xxhdpi_ic_launcher.png.flat",
-        "source": "com.example.graduation.app-main-6:/mipmap-xxhdpi/ic_launcher.png"
+        "merged": "com.example.graduation.app-merged_res-22:/mipmap-xhdpi_ic_launcher.png.flat",
+        "source": "com.example.graduation.app-main-16:/mipmap-xhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/drawable_launch_background.xml.flat",
-        "source": "com.example.graduation.app-main-6:/drawable/launch_background.xml"
+        "merged": "com.example.graduation.app-merged_res-22:/mipmap-xxxhdpi_ic_launcher.png.flat",
+        "source": "com.example.graduation.app-main-16:/mipmap-xxxhdpi/ic_launcher.png"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/mipmap-mdpi_ic_launcher.png.flat",
-        "source": "com.example.graduation.app-main-6:/mipmap-mdpi/ic_launcher.png"
+        "merged": "com.example.graduation.app-merged_res-22:/drawable_launch_background.xml.flat",
+        "source": "com.example.graduation.app-main-16:/drawable/launch_background.xml"
     },
     {
-        "merged": "com.example.graduation.app-merged_res-12:/mipmap-xxxhdpi_ic_launcher.png.flat",
-        "source": "com.example.graduation.app-main-6:/mipmap-xxxhdpi/ic_launcher.png"
+        "merged": "com.example.graduation.app-merged_res-22:/mipmap-xxhdpi_ic_launcher.png.flat",
+        "source": "com.example.graduation.app-main-16:/mipmap-xxhdpi/ic_launcher.png"
     }
 ]

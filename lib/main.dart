@@ -3,11 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
+import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 import 'package:graduation/view/presentations/ticket/cubit/ticket_cubit.dart';
+import 'package:graduation/view/presentations/ticket/ticket.dart';
 
 import 'package:graduation/view/shared/component/constants.dart';
-
-import 'view/presentations/ticket/ticket.dart';
 
 void main() {
   runApp(DevicePreview(builder: (context) => const MyApp()));

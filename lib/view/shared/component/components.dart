@@ -5,7 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
-import '../../presentations/Searching_Screen/cubit/SecondSearching_Screen.dart';
+import '../../presentations/Searching_Screen/SecondSearching_Screen.dart';
+
 import 'constants.dart';
 import 'helperfunctions.dart';
 import 'layout.dart';
