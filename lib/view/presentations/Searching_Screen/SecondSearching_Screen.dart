@@ -15,6 +15,7 @@ class SecondSearchingScreen extends StatelessWidget {
     if (SearchCubit.get(context).personFields.isEmpty) {
       SearchCubit.get(context).addMorePerson();
     }
+    SearchCubit.get(context).clearPersons();
 
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},

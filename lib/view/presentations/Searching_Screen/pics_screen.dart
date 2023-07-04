@@ -1,11 +1,19 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 
 import '../../shared/component/components.dart';
+import '../../shared/component/models.dart';
 
+// ignore: must_be_immutable
 class PicScreen extends StatelessWidget {
-  const PicScreen({super.key});
+  List<Person> person;
+  PicScreen({
+    Key? key,
+    required this.person,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -22,7 +30,7 @@ class PicScreen extends StatelessWidget {
             child: defaultTextButton(
                 text: "Take Photo",
                 onpressed: () {
-                  SearchCubit.get(context).pickImageCamera();
+                  print(this.person);
                 }),
           ),
         );

@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 import 'dart:io';
 
 import '../../../shared/component/components.dart';
@@ -24,8 +25,12 @@ class SearchCubit extends Cubit<SearchState> {
 
   //used for the second searching screen
   List<Widget> personFields = [];
-  List<Person> person = [];
+  List<Person> persons = [];
   bool showUndoButton = false;
+
+  void clearPersons() {
+    persons.clear();
+  }
 
   final List<String> countries = [
     'Afghanistan',
@@ -80,27 +85,80 @@ class SearchCubit extends Cubit<SearchState> {
   void p(BuildContext context) {
     for (var widget in personFields) {
       final formKey = widget.key as GlobalKey<FormState>;
-      if (formKey.currentState!.validate()) {
-        nextScreen(context, const PicScreen());
-      } else {
-        print("in Vaild ");
+      if (widget is Form) {
+        Widget formChild = widget.child;
+        if (formChild is Column) {
+          List<Widget> columnChildren = formChild.children;
+
+          int currentintex = 0;
+          Person newperson = Person(
+              firstName: "firstName",
+              lastName: "lastName",
+              nationality: "nationality",
+              email: "email",
+              phoneNumber: "phoneNumber",
+              age: "age",
+              gender: "gender");
+          for (var childWidget in columnChildren) {
+            if (childWidget is Container &&
+                childWidget.child is TextFormField) {
+              TextFormField textFormField = childWidget.child as TextFormField;
+
+              String textValue = textFormField.controller!.text;
+              if (currentintex == 0) {
+                newperson.firstName = textValue;
+              }
+              if (currentintex == 1) {
+                newperson.lastName = textValue;
+              }
+              if (currentintex == 2) {
+                newperson.nationality = textValue;
+              }
+              if (currentintex == 3) {
+                newperson.email = textValue;
+              }
+              if (currentintex == 4) {
+                newperson.age = textValue;
+              }
+              if (currentintex == 5) {
+                newperson.gender = textValue;
+              }
+              currentintex++;
+            } else if (childWidget is SizedBox &&
+                childWidget.child is IntlPhoneField) {
+              IntlPhoneField phoneField = childWidget.child as IntlPhoneField;
+
+              String phoneNumber = phoneField.controller!.text;
+              newperson.phoneNumber = phoneNumber;
+            }
+          }
+          persons.add(newperson);
+        }
+
+        if (formKey.currentState!.validate()) {
+          nextScreenRep(
+              context,
+              PicScreen(
+                person: persons,
+              ));
+        }
       }
     }
-  }
 
-  pickImageCamera() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) {
-        return;
-      } else {
-        //here we save the path of the image ;
-        final tempImage = File(image.path);
-        img = tempImage;
-        emit(ImageCameraSuccessful());
+    pickImageCamera() async {
+      try {
+        final image = await ImagePicker().pickImage(source: ImageSource.camera);
+        if (image == null) {
+          return;
+        } else {
+          //here we save the path of the image ;
+          final tempImage = File(image.path);
+          img = tempImage;
+          emit(ImageCameraSuccessful());
+        }
+      } on PlatformException catch (e) {
+        emit(ImageCameraError(e.toString()));
       }
-    } on PlatformException catch (e) {
-      emit(ImageCameraError(e.toString()));
     }
   }
 }
