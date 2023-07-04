@@ -40,8 +40,8 @@ class SearchCubit extends Cubit<SearchState> {
     'Angola',
     'Antigua and Barbuda',
     'Argentina',
-    // ...and so on
   ];
+
   void sumbitCountery(item, TextEditingController controller) {
     controller.text = item;
     emit(ChangeCountery());
