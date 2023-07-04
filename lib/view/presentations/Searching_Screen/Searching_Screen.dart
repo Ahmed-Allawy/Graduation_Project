@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, depend_on_referenced_packages, unnecessary_brace_in_string_interps, iterable_contains_unrelated_type
 // ignore_for_file: file_names
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
@@ -14,18 +14,19 @@ import 'package:graduation/view/presentations/auth/register/register_screen.dart
 import 'package:graduation/view/shared/component/constants.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 
+import '../../../model/airports.dart';
 import '../../shared/component/components.dart';
 import '../../shared/component/layout.dart';
 
 // ignore: must_be_immutable
 class SearchingScreen extends StatelessWidget {
-  final GlobalKey<AutoCompleteTextFieldState<String>> arrivalCompleteKey =
+  final GlobalKey<AutoCompleteTextFieldState<Airport>> arrivalCompleteKey =
       GlobalKey();
 
   final TextEditingController arrivaltextEditingController =
       TextEditingController();
 
-  final GlobalKey<AutoCompleteTextFieldState<String>> deupartureCompleteKey =
+  final GlobalKey<AutoCompleteTextFieldState<Airport>> deupartureCompleteKey =
       GlobalKey();
 
   final TextEditingController deupartureEditingController =
@@ -41,6 +42,7 @@ class SearchingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SearchCubit.get(context).fetchAirports();
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -67,17 +69,24 @@ class SearchingScreen extends StatelessWidget {
               ),
               Gap(AppLayout.getHeigth(25)),
               Gap(AppLayout.getHeigth(25)),
-              customTextFieldSerach(
+              CustomTextFieldSearch(
                 hint: "Departure",
                 autoCompleteKey: deupartureCompleteKey,
                 textEditingController: deupartureEditingController,
                 selectedCountry: deupartureEditingController.text,
                 countries: SearchCubit.get(context).countries,
-                sumbit: (item) {},
-                build: (context, item) {
+                sumbit: (item) {
+                  print(item.runtimeType);
+                },
+                buildit: (context, item) {
                   return ListTile(
-                    title: Text(item),
+                    title: AirPortInfo(
+                      airportCity: item.city,
+                      airportCountry: item.country,
+                      airportName: item.name,
+                    ),
                     onTap: () {
+                      print("svsdgsdsds");
                       SearchCubit.get(context)
                           .sumbitCountery(item, deupartureEditingController);
                     },
@@ -85,17 +94,22 @@ class SearchingScreen extends StatelessWidget {
                 },
               ),
               Gap(AppLayout.getHeigth(15)),
-              customTextFieldSerach(
+              CustomTextFieldSearch(
                 hint: "Arrival",
                 autoCompleteKey: arrivalCompleteKey,
                 textEditingController: arrivaltextEditingController,
                 selectedCountry: arrivaltextEditingController.text,
                 countries: SearchCubit.get(context).countries,
                 sumbit: (item) {},
-                build: (context, item) {
+                buildit: (context, item) {
                   return ListTile(
-                    title: Text(item),
+                    title: AirPortInfo(
+                      airportCity: item.city,
+                      airportCountry: item.country,
+                      airportName: item.name,
+                    ),
                     onTap: () {
+                      print("dgfggdgdfgggdsddsfsdfdsfdsf");
                       SearchCubit.get(context)
                           .sumbitCountery(item, arrivaltextEditingController);
                     },
@@ -216,6 +230,42 @@ class SearchingScreen extends StatelessWidget {
           ),
         );
       },
+    );
+  }
+}
+
+class AirPortInfo extends StatelessWidget {
+  const AirPortInfo({
+    super.key,
+    required this.airportCity,
+    required this.airportName,
+    required this.airportCountry,
+  });
+  final String airportCity;
+  final String airportName;
+  final String airportCountry;
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Column(
+            children: <Widget>[
+              Text(
+                airportCountry,
+                style: Styles.headLinestyle2,
+              ),
+              const SizedBox(
+                height: 5,
+              ),
+              Text(airportCity),
+            ],
+          ),
+          Text(airportName),
+        ],
+      ),
     );
   }
 }

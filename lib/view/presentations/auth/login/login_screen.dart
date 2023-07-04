@@ -204,7 +204,7 @@ Future<bool> login(emial, pass) async {
     // Read the response body as a string
     String token = await response.headers["x-auth-token"]!;
     // Save the token to shared preferences or some other storage
-    CacheHelper.saveData(key: 'token', value: token);
+    CacheHelper.saveData(key: 'mainUserToken', value: token);
 
     return true;
   } else if (response.statusCode == 400) {

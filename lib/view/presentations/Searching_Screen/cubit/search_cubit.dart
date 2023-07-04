@@ -1,14 +1,18 @@
-// ignore_for_file: avoid_print
+// ignore_for_file: avoid_print, depend_on_referenced_packages
 
+import 'dart:convert';
+import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/model/airports.dart';
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 
 import '../../../shared/component/components.dart';
+import '../../../shared/component/constants.dart';
 import '../../../shared/component/models.dart';
 
 part 'search_state.dart';
@@ -27,16 +31,20 @@ class SearchCubit extends Cubit<SearchState> {
   List<Person> person = [];
   bool showUndoButton = false;
 
-  final List<String> countries = [
-    'Afghanistan',
-    'Albania',
-    'Algeria',
-    'Andorra',
-    'Angola',
-    'Antigua and Barbuda',
-    'Argentina',
-    // ...and so on
-  ];
+  List<Airport> countries = [];
+
+  Future<void> fetchAirports() async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request('GET', Uri.parse('${uri}api/airport'));
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      var body = await response.stream.bytesToString();
+      List<dynamic> jsonList = jsonDecode(body);
+      countries = jsonList.map((json) => Airport.fromJson(json)).toList();
+    }
+  }
+
   void sumbitCountery(item, TextEditingController controller) {
     controller.text = item;
     emit(ChangeCountery());
