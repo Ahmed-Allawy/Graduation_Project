@@ -5,6 +5,7 @@ class Person {
   String email;
   String phoneNumber;
   String age;
+  String gender;
 
   Person({
     required this.firstName,
@@ -13,5 +14,6 @@ class Person {
     required this.email,
     required this.phoneNumber,
     required this.age,
+    required this.gender,
   });
 }

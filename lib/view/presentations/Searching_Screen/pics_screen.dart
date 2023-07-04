@@ -1,11 +1,17 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 
 import '../../shared/component/components.dart';
+import '../../shared/component/models.dart';
+import 'cubit/search_cubit.dart';
 
 class PicScreen extends StatelessWidget {
-  const PicScreen({super.key});
+  List<Person> person;
+  PicScreen({
+    Key? key,
+    required this.person,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,12 +24,27 @@ class PicScreen extends StatelessWidget {
             centerTitle: true,
             title: const Text("Adding Face pic"),
           ),
-          body: Center(
-            child: defaultTextButton(
-                text: "Take Photo",
-                onpressed: () {
-                  SearchCubit.get(context).pickImageCamera();
-                }),
+          body: ListView.builder(
+            itemCount: person.length,
+            itemBuilder: (context, index) {
+              Person currentPerson = person[index];
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      defaultTextButton(
+                        text: "Take Photo",
+                        onpressed: () {},
+                      ),
+                      SizedBox(width: 8),
+                      Text(currentPerson.firstName),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                ],
+              );
+            },
           ),
         );
       },

@@ -307,7 +307,7 @@ Widget buildPersonFields() {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
-
+  TextEditingController phoneNumberController = TextEditingController();
   return Form(
     key: formKey,
     child: Column(
@@ -369,6 +369,7 @@ Widget buildPersonFields() {
         SizedBox(
           width: double.infinity,
           child: IntlPhoneField(
+            controller: phoneNumberController,
             decoration: const InputDecoration(
               border: OutlineInputBorder(
                 borderSide: BorderSide(),
@@ -393,7 +394,7 @@ Widget buildPersonFields() {
         const Gap(25),
         defaultTextField(
           width: double.infinity,
-          prefix: Icons.people,
+          prefix: Icons.male,
           controller: genderController,
           textInputType: TextInputType.name,
           hintText: "Gender",
