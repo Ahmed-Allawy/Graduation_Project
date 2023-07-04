@@ -1,11 +1,17 @@
+// ignore_for_file: use_build_context_synchronously, avoid_print, depend_on_referenced_packages
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../../../../model/userdata.dart';
 import '../../../shared/component/components.dart';
 import '../../../shared/component/constants.dart';
+import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
+import '../../Searching_Screen/Searching_Screen.dart';
+import 'package:http/http.dart' as http;
 
 class Register extends StatefulWidget {
   const Register({super.key});
@@ -19,13 +25,19 @@ class _RegisterState extends State<Register> {
   final lastNameController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  late DateTime dateTime;
-  String? phoneNumber;
-  final faceImageController = TextEditingController();
+  // late DateTime dateTime;
+  String phoneNumber = '0';
 
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    User user = User(
+        country: 'Egypt',
+        email: emailController.text,
+        fname: firstNameController.text,
+        lname: lastNameController.text,
+        password: passwordController.text,
+        phone: phoneNumber);
     return BlocConsumer<AuthCubit, AuthState>(
         //here I am going to listen the changes that happened
         listener: (context, state) {
@@ -122,20 +134,6 @@ class _RegisterState extends State<Register> {
                                       return "Password shouldn't be empty";
                                     }
                                   }),
-                              // SizedBox(
-                              //   height: AppLayout.getHeigth(space1),
-                              // ),
-                              // defaultButton(
-                              //     text: "select your date",
-                              //     onPressed: () {
-                              //       showDatePicker(
-                              //               context: context,
-                              //               initialDate: DateTime.now(),
-                              //               firstDate: DateTime(1800),
-                              //               lastDate: DateTime(3000))
-                              //           .then((value) =>
-                              //               dateTime = value!);
-                              //     }),
                               SizedBox(
                                 height: AppLayout.getHeigth(space1),
                               ),
@@ -153,48 +151,19 @@ class _RegisterState extends State<Register> {
                                   initialCountryCode: 'EG',
                                 ),
                               ),
-
                               SizedBox(
                                 height: AppLayout.getHeigth(space1),
                               ),
-                              SizedBox(
-                                width: AppLayout.getWidth(fieldWidth),
-                                child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      defaultTextButton(
-                                          text: "Take Photo",
-                                          onpressed: () {
-                                            AuthCubit.get(context)
-                                                .pickImageCamera();
-                                          }),
-                                      defaultTextButton(
-                                          text: "Upload Photo",
-                                          onpressed: () {
-                                            AuthCubit.get(context)
-                                                .pickImageGallery();
-                                          })
-                                    ]),
-                              ),
-                              SizedBox(
-                                height: AppLayout.getHeigth(space2),
-                              ),
-                              SizedBox(
-                                  child: AuthCubit.get(context).img != null
-                                      ? Image.file(
-                                          AuthCubit.get(context).img!,
-                                          height: heigthPic,
-                                          width: heigthPic,
-                                        )
-                                      : const FlutterLogo(size: logosize)),
                               SizedBox(
                                 height: AppLayout.getHeigth(space2),
                               ),
                               defaultButton(
                                   text: 'Create Account',
                                   onPressed: () {
-                                    if (formKey.currentState!.validate()) {}
+                                    if (formKey.currentState!.validate()) {
+                                      print(phoneNumber);
+                                      signup(user, context);
+                                    }
                                     // print(phoneNumber);
                                   }),
                               SizedBox(
@@ -212,25 +181,28 @@ class _RegisterState extends State<Register> {
                               SizedBox(
                                 height: AppLayout.getHeigth(space3),
                               ),
-                              // Text.rich(TextSpan(
-                              //     text:
-                              //         "Already have an account? Sign in",
-                              //     style: TextStyle(
-                              //         decoration:
-                              //             TextDecoration.underline,
-                              //         fontSize: AppLayout.getWidth(
-                              //             fieldFontSize),
-                              //         color: fontColor),
-                              //     recognizer: TapGestureRecognizer()
-                              //       ..onTap = () {
-                              //         nextScreen(
-                              //             context, const LoginHome());
-                              //       })),
-                              // SizedBox(
-                              //   height: AppLayout.getHeigth(space3),
-                              // ),
                             ]),
                       )))));
     });
+  }
+}
+
+signup(User user, BuildContext context) async {
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse('${uri}api/user'));
+  request.body = user.toJson();
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  if (response.statusCode == 200) {
+    print(response);
+    nextScreen(
+        context,
+        SearchingScreen(
+          isloged: true,
+        ));
+  } else {
+    print('failed $response');
   }
 }

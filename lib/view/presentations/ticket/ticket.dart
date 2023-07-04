@@ -1,7 +1,6 @@
-// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_final_fields, unused_element, deprecated_member_use
+// ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_final_fields, unused_element, deprecated_member_use, non_constant_identifier_names, avoid_print
 
 import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -47,7 +46,6 @@ class _TicketState extends State<Ticket> {
   }
 
   Future<void> _downloadTicket(File imagePath) async {
-    print(imagePath);
     final pdf = pw.Document();
     final image = pw.MemoryImage(
       imagePath.readAsBytesSync(),
@@ -194,19 +192,19 @@ class _TicketState extends State<Ticket> {
     super.dispose();
   }
 
-  Future<dynamic> ShowCapturedWidget(
-      BuildContext context, Uint8List capturedImage) {
-    return showDialog(
-      useSafeArea: false,
-      context: context,
-      builder: (context) => Scaffold(
-        appBar: AppBar(
-          title: Text("Captured widget screenshot"),
-        ),
-        body: Center(child: Image.memory(capturedImage)),
-      ),
-    );
-  }
+  // Future<dynamic> ShowCapturedWidget(
+  //     BuildContext context, Uint8List capturedImage) {
+  //   return showDialog(
+  //     useSafeArea: false,
+  //     context: context,
+  //     builder: (context) => Scaffold(
+  //       appBar: AppBar(
+  //         title: const Text("Captured widget screenshot"),
+  //       ),
+  //       body: Center(child: Image.memory(capturedImage)),
+  //     ),
+  //   );
+  // }
 }
 
 // class Ticket extends StatelessWidget {

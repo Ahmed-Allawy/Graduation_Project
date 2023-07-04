@@ -32,10 +32,11 @@ class SearchingScreen extends StatelessWidget {
       TextEditingController();
 
   DateTime? selectedDate;
-
+  final bool isloged;
   SearchingScreen({
     Key? key,
     this.selectedDate,
+    required this.isloged,
   }) : super(key: key);
 
   @override
@@ -59,7 +60,7 @@ class SearchingScreen extends StatelessWidget {
                   ),
                   IconButton(
                       onPressed: () {
-                        _showOptionsModal(context);
+                        _showOptionsModal(context, isloged);
                       },
                       icon: const Icon(Icons.info))
                 ],
@@ -219,41 +220,45 @@ class SearchingScreen extends StatelessWidget {
   }
 }
 
-void _showOptionsModal(BuildContext context) {
+void _showOptionsModal(BuildContext context, bool isLoged) {
   showModalBottomSheet(
     context: context,
     builder: (BuildContext context) {
       return Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          ListTile(
-            leading: const Icon(Icons.person),
-            title: const Text("Profile"),
-            onTap: () {
-              nextScreen(context, const UserProfile());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.flight),
-            title: const Text("My Trips"),
-            onTap: () {
-              nextScreen(context, const MyTrips());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.login),
-            title: const Text("Login"),
-            onTap: () {
-              nextScreen(context, const LoginHome());
-            },
-          ),
-          ListTile(
-            leading: const Icon(Icons.person_add),
-            title: const Text("Register"),
-            onTap: () {
-              nextScreen(context, const Register());
-            },
-          ),
+          if (isLoged)
+            ListTile(
+              leading: const Icon(Icons.person),
+              title: const Text("Profile"),
+              onTap: () {
+                nextScreen(context, const UserProfile());
+              },
+            ),
+          if (isLoged)
+            ListTile(
+              leading: const Icon(Icons.flight),
+              title: const Text("My Trips"),
+              onTap: () {
+                nextScreen(context, const MyTrips());
+              },
+            ),
+          if (!isLoged)
+            ListTile(
+              leading: const Icon(Icons.login),
+              title: const Text("Login"),
+              onTap: () {
+                nextScreen(context, const LoginHome());
+              },
+            ),
+          if (!isLoged)
+            ListTile(
+              leading: const Icon(Icons.person_add),
+              title: const Text("Register"),
+              onTap: () {
+                nextScreen(context, const Register());
+              },
+            ),
         ],
       );
     },

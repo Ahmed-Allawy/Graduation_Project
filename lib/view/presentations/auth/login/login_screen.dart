@@ -1,13 +1,18 @@
+// ignore_for_file: depend_on_referenced_packages, await_only_futures
+
+import 'dart:convert';
+
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
 import 'package:graduation/view/shared/component/components.dart';
-
+import 'package:http/http.dart' as http;
 import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
 import '../../../shared/component/constants.dart';
+import '../../../shared/network/local/cach_helper.dart';
 import '../register/register_screen.dart';
 
 class LoginHome extends StatefulWidget {
@@ -106,7 +111,30 @@ class _LoginHomeState extends State<LoginHome> {
                       onPressed: () {
                         // this is the build in validate function
                         //this function will check every TextFormField and compare the textcontroller.text to the valdator function and return the result
-                        if (formKey.currentState!.validate()) {}
+                        if (formKey.currentState!.validate()) {
+                          login(emailController.text, passwordController.text)
+                              .then((value) {
+                            if (value) {
+                              nextScreen(
+                                  context, SearchingScreen(isloged: true));
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Login Failed'),
+                                  content: const Text(
+                                      'Invalid email or password. Please try again.'),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                ),
+                              );
+                            }
+                          });
+                        }
                       },
                     ),
                     SizedBox(
@@ -144,7 +172,11 @@ class _LoginHomeState extends State<LoginHome> {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  nextScreen(context, SearchingScreen());
+                                  nextScreen(
+                                      context,
+                                      SearchingScreen(
+                                        isloged: false,
+                                      ));
                                 })
                         ])),
                   ],
@@ -155,5 +187,29 @@ class _LoginHomeState extends State<LoginHome> {
         );
       },
     );
+  }
+}
+
+Future<bool> login(emial, pass) async {
+  var headers = {'Content-Type': 'application/json'};
+  var request = http.Request('POST', Uri.parse('${uri}api/login'));
+  //here I send the password and the phone number for login by passing them to the body
+  request.body = json.encode({"password": pass, "email": emial});
+  request.headers.addAll(headers);
+
+  http.StreamedResponse response = await request.send();
+
+  // Check the status code and decode the response body
+  if (response.statusCode == 200) {
+    // Read the response body as a string
+    String token = await response.headers["x-auth-token"]!;
+    // Save the token to shared preferences or some other storage
+    CacheHelper.saveData(key: 'token', value: token);
+
+    return true;
+  } else if (response.statusCode == 400) {
+    return false;
+  } else {
+    return false;
   }
 }
