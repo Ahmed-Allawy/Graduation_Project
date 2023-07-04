@@ -43,7 +43,11 @@ class _SelectSeatState extends State<SelectSeat> {
         ),
         leading: BackButton(
           onPressed: () {
-            nextScreenRep(context, const PicScreen());
+            nextScreenRep(
+                context,
+                PicScreen(
+                  person: [],
+                ));
           },
         ),
       ),

@@ -139,4 +139,33 @@
 10830	13189	1688422160178183417	CMakeFiles/graduation.dir/my_application.cc.o	ae4fa253e89a5b14
 13189	13532	1688422160530184066	intermediates_do_not_run/graduation	98fab92424f543eb
 13532	13926	0	CMakeFiles/install.util	3343ce09d549a917
+<<<<<<< HEAD
 >>>>>>> 4be4866 (adding persons)
+=======
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/libflutter_linux_gtk.so	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_basic_message_channel.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_binary_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_binary_messenger.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_dart_project.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_engine.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_json_message_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_json_method_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_message_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_method_call.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_method_channel.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_method_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_method_response.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_plugin_registrar.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_plugin_registry.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_standard_message_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_standard_method_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_string_codec.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_value.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/fl_view.h	48b80fd6d9b2b821
+64	9895	0	/home/sw/project/graduation/Graduation_Project/linux/flutter/ephemeral/flutter_linux/flutter_linux.h	48b80fd6d9b2b821
+64	9895	0	flutter/_phony_	48b80fd6d9b2b821
+9896	12234	1688486539242445052	CMakeFiles/graduation.dir/flutter/generated_plugin_registrant.cc.o	cc5a3e6955ef8145
+9896	12295	1688486539306415899	CMakeFiles/graduation.dir/my_application.cc.o	ae4fa253e89a5b14
+12295	12653	1688486539670250094	intermediates_do_not_run/graduation	98fab92424f543eb
+12653	13231	0	CMakeFiles/install.util	3343ce09d549a917
+>>>>>>> b384c57 (anything)
