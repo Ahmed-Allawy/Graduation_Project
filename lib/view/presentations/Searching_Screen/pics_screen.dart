@@ -1,13 +1,11 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
-
 import '../../shared/component/components.dart';
 import '../../shared/component/models.dart';
+import 'cubit/search_cubit.dart';
 
-// ignore: must_be_immutable
 class PicScreen extends StatelessWidget {
   List<Person> person;
   PicScreen({
@@ -26,12 +24,27 @@ class PicScreen extends StatelessWidget {
             centerTitle: true,
             title: const Text("Adding Face pic"),
           ),
-          body: Center(
-            child: defaultTextButton(
-                text: "Take Photo",
-                onpressed: () {
-                  print(this.person);
-                }),
+          body: ListView.builder(
+            itemCount: person.length,
+            itemBuilder: (context, index) {
+              Person currentPerson = person[index];
+              return Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Row(
+                    children: [
+                      defaultTextButton(
+                        text: "Take Photo",
+                        onpressed: () {},
+                      ),
+                      SizedBox(width: 8),
+                      Text(currentPerson.firstName),
+                    ],
+                  ),
+                  SizedBox(height: 16),
+                ],
+              );
+            },
           ),
         );
       },
