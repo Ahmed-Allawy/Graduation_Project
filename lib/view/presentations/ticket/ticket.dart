@@ -14,6 +14,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:screenshot/screenshot.dart';
 import 'package:share_plus/share_plus.dart';
 
+import '../../../model/ticketdata.dart';
 import '../../shared/component/components.dart';
 
 import 'cubit/ticket_cubit.dart';
@@ -191,60 +192,7 @@ class _TicketState extends State<Ticket> {
     _flightTicketCubit.close();
     super.dispose();
   }
-
-  // Future<dynamic> ShowCapturedWidget(
-  //     BuildContext context, Uint8List capturedImage) {
-  //   return showDialog(
-  //     useSafeArea: false,
-  //     context: context,
-  //     builder: (context) => Scaffold(
-  //       appBar: AppBar(
-  //         title: const Text("Captured widget screenshot"),
-  //       ),
-  //       body: Center(child: Image.memory(capturedImage)),
-  //     ),
-  //   );
-  // }
 }
-
-// class Ticket extends StatelessWidget {
-//   const Ticket({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       backgroundColor: const Color(0xc61859ba),
-//       appBar: AppBar(
-//         backgroundColor: const Color(0xc61859ba),
-//         centerTitle: true,
-//         title: const Text("Ticket"),
-//         leading: BackButton(
-//           onPressed: () => nextScreenRep(context, const SelectSeat()),
-//         ),
-//       ),
-//       body: ListView.builder(
-//         itemCount: 3,
-//         itemBuilder: (BuildContext context, int index) {
-//           return Column(children: <Widget>[
-//             const Center(
-//               child: TicketShape(
-//                 arrivalTime: '',
-//                 departureTime: '',
-//                 duration: '',
-//                 flightNumber: '',
-//                 passengerName: '',
-//                 seatClass: '',
-//                 seatNumber: '',
-//                 arrival: '',
-//                 departure: '',
-//               ),
-//             ),
-//           ]);
-//         },
-//       ),
-//     );
-//   }
-// }
 
 class TicketShape extends StatelessWidget {
   final String? passengerName;

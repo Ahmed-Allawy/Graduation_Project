@@ -50,9 +50,6 @@ class SearchCubit extends Cubit<SearchState> {
       List<Airport> c = jsonList.map((json) => Airport.fromJson(json)).toList();
       print('countries form api : $c');
       return c;
-      // print('c1 is ${countries1.runtimeType}');
-      // print('c2 is ${countries.runtimeType}');
-      // countries = jsonList.map((json) => Airport.fromJson(json)).toList();
     } else {
       print("dgfd");
       return [];
@@ -60,7 +57,7 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   void sumbitCountery(item, TextEditingController controller) {
-    controller.text = item;
+    controller.text = item.name;
     emit(ChangeCountery());
   }
 

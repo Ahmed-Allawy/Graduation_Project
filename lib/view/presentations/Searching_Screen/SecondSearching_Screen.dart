@@ -3,12 +3,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
+import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../shared/component/components.dart';
+import '../../shared/network/local/cach_helper.dart';
 
 class SecondSearchingScreen extends StatelessWidget {
-  const SecondSearchingScreen({Key? key}) : super(key: key);
+  const SecondSearchingScreen({
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,6 +30,13 @@ class SecondSearchingScreen extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 105, 116, 235),
             centerTitle: true,
             title: const Text("Adding the passenger"),
+            leading: BackButton(
+              onPressed: () => nextScreenRep(
+                  context,
+                  SearchingScreen(
+                    isloged: CacheHelper.getData(key: 'isLoged'),
+                  )),
+            ),
           ),
           body: Padding(
             padding: const EdgeInsets.all(25),

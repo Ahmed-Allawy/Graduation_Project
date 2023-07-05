@@ -169,19 +169,9 @@ class SearchingScreen extends StatelessWidget {
                   onPressed: () {
                     if (deupartureEditingController.text.isNotEmpty &&
                         arrivaltextEditingController.text.isNotEmpty) {
-                      if (SearchCubit.get(context)
-                              .countries
-                              .contains(deupartureEditingController.text) &&
-                          SearchCubit.get(context)
-                              .countries
-                              .contains(arrivaltextEditingController.text)) {
-                      } else {
-                        showSnackbar(
-                            context: context,
-                            message:
-                                const Text("you should select the countiers"),
-                            color: errorColor);
-                      }
+                      print(
+                          'fefwjfje is -> :${deupartureEditingController.text}');
+                      print(SearchCubit.get(context).selectedDate);
                     } else {
                       showSnackbar(
                           context: context,

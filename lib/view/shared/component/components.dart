@@ -380,6 +380,7 @@ class TripWidget extends StatelessWidget {
   final String tripTime;
   final String price;
   final String planeID;
+
   @override
   Widget build(BuildContext context) {
     return Card(

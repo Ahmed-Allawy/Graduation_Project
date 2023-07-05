@@ -120,11 +120,13 @@ class _LoginHomeState extends State<LoginHome> {
                                   .fetchAirports()
                                   .then((value) {
                                 SearchCubit.get(context).countries = value;
-
+                                CacheHelper.saveData(
+                                    key: 'isLoged', value: true);
                                 nextScreen(
                                     context,
                                     SearchingScreen(
-                                      isloged: true,
+                                      isloged:
+                                          CacheHelper.getData(key: 'isLoged'),
                                     ));
                               });
                             } else {
@@ -182,6 +184,8 @@ class _LoginHomeState extends State<LoginHome> {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
+                                  CacheHelper.saveData(
+                                      key: 'isLoged', value: false);
                                   SearchCubit.get(context)
                                       .fetchAirports()
                                       .then((value) {
@@ -190,7 +194,8 @@ class _LoginHomeState extends State<LoginHome> {
                                     nextScreen(
                                         context,
                                         SearchingScreen(
-                                          isloged: false,
+                                          isloged: CacheHelper.getData(
+                                              key: 'isLoged'),
                                         ));
                                   });
                                 })

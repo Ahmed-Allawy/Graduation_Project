@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../model/ticketdata.dart';
 import 'ticket_state.dart';
 
 class FlightTicketCubit extends Cubit<FlightTicketState> {

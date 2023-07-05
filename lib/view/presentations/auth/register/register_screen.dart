@@ -10,6 +10,7 @@ import '../../../shared/component/components.dart';
 import '../../../shared/component/constants.dart';
 import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
+import '../../../shared/network/local/cach_helper.dart';
 import '../../Searching_Screen/Searching_Screen.dart';
 import 'package:http/http.dart' as http;
 
@@ -197,11 +198,11 @@ signup(User user, BuildContext context) async {
     print(response);
     SearchCubit.get(context).fetchAirports().then((value) {
       SearchCubit.get(context).countries = value;
-
+      CacheHelper.saveData(key: 'isloged', value: true);
       nextScreen(
           context,
           SearchingScreen(
-            isloged: false,
+            isloged: CacheHelper.getData(key: 'isLoged'),
           ));
     });
   } else {
