@@ -1,11 +1,12 @@
-// ignore_for_file: void_checks
+// ignore_for_file: void_checks, non_constant_identifier_names
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:graduation/model/airports.dart';
+
 import 'package:intl_phone_field/intl_phone_field.dart';
 
+import '../../../model/airports.dart';
 import '../../presentations/Searching_Screen/SecondSearching_Screen.dart';
 
 import 'constants.dart';
@@ -201,102 +202,44 @@ Widget airPlaneDoted() {
   );
 }
 
-// Widget customTextFieldSerach(
-//     {required GlobalKey<AutoCompleteTextFieldState<Airport>> autoCompleteKey,
-//     required TextEditingController textEditingController,
-//     required String selectedCountry,
-//     required List<Airport> countries,
-//     required Function sumbit,
-//     required Function build,
-//     required String hint}) {
-//   return Container(
-//     decoration: BoxDecoration(
-//         borderRadius: BorderRadius.circular(15), color: Colors.white),
-//     child: AutoCompleteTextField<Airport>(
-//       key: autoCompleteKey,
-//       controller: textEditingController,
-//       clearOnSubmit: false,
-//       suggestions: countries,
-//       style: const TextStyle(color: Colors.black, fontSize: 16.0),
-//       decoration: InputDecoration(
-//           border: InputBorder.none,
-//           hintText: hint,
-//           prefixIcon: const Icon(
-//             Icons.flight_takeoff_rounded,
-//             color: Colors.black,
-//           )),
-//       itemFilter: (item, query) {
-//         return item.name.toLowerCase().startsWith(query.toLowerCase());
-//       },
-//       itemSorter: (a, b) {
-//         return a.name.compareTo(b.name);
-//       },
-//       itemSubmitted: (item) {
-//         return sumbit(item);
-//       },
-//       itemBuilder: (context, item) {
-//         return build(context, item);
-//       },
-//     ),
-//   );
-// }
-
-class CustomTextFieldSearch extends StatelessWidget {
-  final GlobalKey<AutoCompleteTextFieldState<Airport>> autoCompleteKey;
-  final TextEditingController textEditingController;
-  final String selectedCountry;
-  final List<Airport> countries;
-  final Function(Airport) sumbit;
-  final Widget Function(BuildContext, Airport) buildit;
-  final String hint;
-
-  const CustomTextFieldSearch({
-    super.key,
-    required this.autoCompleteKey,
-    required this.textEditingController,
-    required this.selectedCountry,
-    required this.countries,
-    required this.sumbit,
-    required this.buildit,
-    required this.hint,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(15),
-        color: Colors.white,
-      ),
-      child: AutoCompleteTextField<Airport>(
-        key: autoCompleteKey,
-        controller: textEditingController,
-        clearOnSubmit: false,
-        suggestions: countries,
-        style: const TextStyle(color: Colors.black, fontSize: 16.0),
-        decoration: InputDecoration(
+Widget CustomTextFieldSearch(
+    {required GlobalKey<AutoCompleteTextFieldState<Airport>> autoCompleteKey,
+    required TextEditingController textEditingController,
+    required String selectedCountry,
+    required List<Airport> countries,
+    required Function sumbit,
+    required Function build,
+    required String hint}) {
+  return Container(
+    decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(15), color: Colors.white),
+    child: AutoCompleteTextField<Airport>(
+      key: autoCompleteKey,
+      controller: textEditingController,
+      clearOnSubmit: false,
+      suggestions: countries,
+      style: const TextStyle(color: Colors.black, fontSize: 16.0),
+      decoration: InputDecoration(
           border: InputBorder.none,
           hintText: hint,
           prefixIcon: const Icon(
             Icons.flight_takeoff_rounded,
             color: Colors.black,
-          ),
-        ),
-        itemFilter: (item, query) {
-          return item.name.toLowerCase().startsWith(query.toLowerCase());
-        },
-        itemSorter: (a, b) {
-          return a.name.compareTo(b.name);
-        },
-        itemSubmitted: (item) {
-          return sumbit(item);
-        },
-        itemBuilder: (context, item) {
-          return buildit(context, item);
-        },
-      ),
-    );
-  }
+          )),
+      itemFilter: (item, query) {
+        return item.country.toLowerCase().startsWith(query.toLowerCase());
+      },
+      itemSorter: (a, b) {
+        return a.country.compareTo(b.country);
+      },
+      itemSubmitted: (item) {
+        return sumbit(item);
+      },
+      itemBuilder: (context, item) {
+        return build(context, item);
+      },
+    ),
+  );
 }
 
 Widget buildPersonFields() {

@@ -46,7 +46,7 @@ class _SelectSeatState extends State<SelectSeat> {
             nextScreenRep(
                 context,
                 PicScreen(
-                  person: [],
+                  person: const [],
                 ));
           },
         ),

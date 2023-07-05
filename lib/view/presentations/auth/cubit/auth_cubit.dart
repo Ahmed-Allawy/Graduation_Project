@@ -1,9 +1,8 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:image_picker/image_picker.dart';
 
 part 'auth_state.dart';
 
@@ -23,37 +22,37 @@ class AuthCubit extends Cubit<AuthState> {
     emit(ScurityState());
   }
 
-  //this function for takeing the pic form the Gallery
-  pickImageGallery() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.gallery);
-      if (image == null) {
-        return;
-      } else {
-        final tempImage = File(image.path);
-        img = tempImage;
-        emit(ImageGallerySuccessful());
-      }
-    } on PlatformException catch (e) {
-      emit(ImageGalleryError(e.toString()));
-    }
-  }
+  // //this function for takeing the pic form the Gallery
+  // pickImageGallery() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.gallery);
+  //     if (image == null) {
+  //       return;
+  //     } else {
+  //       final tempImage = File(image.path);
+  //       img = tempImage;
+  //       emit(ImageGallerySuccessful());
+  //     }
+  //   } on PlatformException catch (e) {
+  //     emit(ImageGalleryError(e.toString()));
+  //   }
+  // }
 
   //this function for takeing the pic form the From Camera
 
-  pickImageCamera() async {
-    try {
-      final image = await ImagePicker().pickImage(source: ImageSource.camera);
-      if (image == null) {
-        return;
-      } else {
-        //here we save the path of the image ;
-        final tempImage = File(image.path);
-        img = tempImage;
-        emit(ImageCameraSuccessful());
-      }
-    } on PlatformException catch (e) {
-      emit(ImageCameraError(e.toString()));
-    }
-  }
+  // pickImageCamera() async {
+  //   try {
+  //     final image = await ImagePicker().pickImage(source: ImageSource.camera);
+  //     if (image == null) {
+  //       return;
+  //     } else {
+  //       //here we save the path of the image ;
+  //       final tempImage = File(image.path);
+  //       img = tempImage;
+  //       emit(ImageCameraSuccessful());
+  //     }
+  //   } on PlatformException catch (e) {
+  //     emit(ImageCameraError(e.toString()));
+  //   }
+  // }
 }

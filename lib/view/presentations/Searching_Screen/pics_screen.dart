@@ -1,9 +1,12 @@
-import 'package:flutter/cupertino.dart';
+// ignore_for_file: must_be_immutable
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/Searching_Screen/SecondSearching_Screen.dart';
+import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../shared/component/components.dart';
-import '../../shared/component/models.dart';
+import '../../../model/persondata.dart';
 import 'cubit/search_cubit.dart';
 
 class PicScreen extends StatelessWidget {
@@ -23,6 +26,11 @@ class PicScreen extends StatelessWidget {
             backgroundColor: const Color.fromARGB(255, 105, 116, 235),
             centerTitle: true,
             title: const Text("Adding Face pic"),
+            leading: BackButton(
+              onPressed: () {
+                nextScreenRep(context, const SecondSearchingScreen());
+              },
+            ),
           ),
           body: ListView.builder(
             itemCount: person.length,
@@ -37,11 +45,11 @@ class PicScreen extends StatelessWidget {
                         text: "Take Photo",
                         onpressed: () {},
                       ),
-                      SizedBox(width: 8),
+                      const SizedBox(width: 8),
                       Text(currentPerson.firstName),
                     ],
                   ),
-                  SizedBox(height: 16),
+                  const SizedBox(height: 16),
                 ],
               );
             },

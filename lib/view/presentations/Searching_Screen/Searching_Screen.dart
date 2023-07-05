@@ -1,4 +1,4 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first, depend_on_referenced_packages, unnecessary_brace_in_string_interps, iterable_contains_unrelated_type
+// ignore_for_file: public_member_api_docs, sort_constructors_first, depend_on_referenced_packages, unnecessary_brace_in_string_interps, iterable_contains_unrelated_type, avoid_print
 // ignore_for_file: file_names
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
@@ -42,7 +42,6 @@ class SearchingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    SearchCubit.get(context).fetchAirports();
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -75,15 +74,11 @@ class SearchingScreen extends StatelessWidget {
                 textEditingController: deupartureEditingController,
                 selectedCountry: deupartureEditingController.text,
                 countries: SearchCubit.get(context).countries,
-                sumbit: (item) {
-                  print(item.runtimeType);
-                },
-                buildit: (context, item) {
+                sumbit: (item) {},
+                build: (context, item) {
                   return ListTile(
                     title: AirPortInfo(
-                      airportCity: item.city,
-                      airportCountry: item.country,
-                      airportName: item.name,
+                      airportData: item,
                     ),
                     onTap: () {
                       print("svsdgsdsds");
@@ -101,12 +96,10 @@ class SearchingScreen extends StatelessWidget {
                 selectedCountry: arrivaltextEditingController.text,
                 countries: SearchCubit.get(context).countries,
                 sumbit: (item) {},
-                buildit: (context, item) {
+                build: (context, item) {
                   return ListTile(
                     title: AirPortInfo(
-                      airportCity: item.city,
-                      airportCountry: item.country,
-                      airportName: item.name,
+                      airportData: item,
                     ),
                     onTap: () {
                       print("dgfggdgdfgggdsddsfsdfdsfdsf");
@@ -237,21 +230,23 @@ class SearchingScreen extends StatelessWidget {
 class AirPortInfo extends StatelessWidget {
   const AirPortInfo({
     super.key,
-    required this.airportCity,
-    required this.airportName,
-    required this.airportCountry,
+    required this.airportData,
   });
-  final String airportCity;
-  final String airportName;
-  final String airportCountry;
+  final Airport airportData;
+
   @override
   Widget build(BuildContext context) {
+    String airportCity = airportData.city;
+    String airportName = airportData.name;
+    String airportCountry = airportData.country;
+
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Text(
                 airportCountry,
@@ -260,10 +255,16 @@ class AirPortInfo extends StatelessWidget {
               const SizedBox(
                 height: 5,
               ),
-              Text(airportCity),
+              Text(
+                airportCity,
+                style: Styles.headLinestyle3,
+              ),
             ],
           ),
-          Text(airportName),
+          Text(
+            airportName,
+            style: Styles.headLinestyle3,
+          ),
         ],
       ),
     );

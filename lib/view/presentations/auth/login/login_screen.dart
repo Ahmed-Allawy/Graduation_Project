@@ -13,6 +13,7 @@ import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
 import '../../../shared/component/constants.dart';
 import '../../../shared/network/local/cach_helper.dart';
+import '../../Searching_Screen/cubit/search_cubit.dart';
 import '../register/register_screen.dart';
 
 class LoginHome extends StatefulWidget {
@@ -115,8 +116,17 @@ class _LoginHomeState extends State<LoginHome> {
                           login(emailController.text, passwordController.text)
                               .then((value) {
                             if (value) {
-                              nextScreen(
-                                  context, SearchingScreen(isloged: true));
+                              SearchCubit.get(context)
+                                  .fetchAirports()
+                                  .then((value) {
+                                SearchCubit.get(context).countries = value;
+
+                                nextScreen(
+                                    context,
+                                    SearchingScreen(
+                                      isloged: true,
+                                    ));
+                              });
                             } else {
                               showDialog(
                                 context: context,
@@ -172,11 +182,17 @@ class _LoginHomeState extends State<LoginHome> {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
-                                  nextScreen(
-                                      context,
-                                      SearchingScreen(
-                                        isloged: false,
-                                      ));
+                                  SearchCubit.get(context)
+                                      .fetchAirports()
+                                      .then((value) {
+                                    SearchCubit.get(context).countries = value;
+
+                                    nextScreen(
+                                        context,
+                                        SearchingScreen(
+                                          isloged: false,
+                                        ));
+                                  });
                                 })
                         ])),
                   ],
