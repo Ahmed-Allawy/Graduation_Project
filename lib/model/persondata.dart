@@ -1,8 +1,10 @@
 class Person {
   String firstName;
   String lastName;
+  String passport;
   String nationality;
   String email;
+  String password;
   String phoneNumber;
   String age;
   String gender;
@@ -11,8 +13,10 @@ class Person {
   Person({
     required this.firstName,
     required this.lastName,
+    required this.passport,
     required this.nationality,
     required this.email,
+    required this.password,
     required this.phoneNumber,
     required this.age,
     required this.gender,

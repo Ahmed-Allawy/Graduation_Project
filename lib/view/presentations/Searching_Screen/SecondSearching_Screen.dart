@@ -82,7 +82,10 @@ class SecondSearchingScreen extends StatelessWidget {
                   const Gap(25),
                   defaultButton(
                     text: "Submit",
-                    onPressed: () => SearchCubit.get(context).p(context),
+                    onPressed: () {
+                      SearchCubit.get(context).sumbit(context);
+                      SearchCubit.get(context).sendClients();
+                    },
                   ),
                 ],
               ),

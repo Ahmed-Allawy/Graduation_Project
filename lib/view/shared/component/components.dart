@@ -246,8 +246,10 @@ Widget buildPersonFields() {
   var formKey = GlobalKey<FormState>();
   final TextEditingController firstNameController = TextEditingController();
   final TextEditingController lastNameController = TextEditingController();
+  final TextEditingController passportController = TextEditingController();
   final TextEditingController nationalityController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   final TextEditingController ageController = TextEditingController();
   final TextEditingController genderController = TextEditingController();
   TextEditingController phoneNumberController = TextEditingController();
@@ -270,13 +272,26 @@ Widget buildPersonFields() {
         const Gap(25),
         defaultTextField(
           width: double.infinity,
-          prefix: Icons.numbers,
+          prefix: Icons.person,
           controller: lastNameController,
-          textInputType: TextInputType.number,
-          hintText: "Passport Number",
+          textInputType: TextInputType.name,
+          hintText: "LastName",
           validator: (val) {
             if (val.isEmpty) {
               return "Last Name shouldn't be empty";
+            }
+          },
+        ),
+        const Gap(25),
+        defaultTextField(
+          width: double.infinity,
+          prefix: Icons.numbers,
+          controller: passportController,
+          textInputType: TextInputType.number,
+          hintText: "Passport",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "Passport shouldn't be empty";
             }
           },
         ),
@@ -306,6 +321,19 @@ Widget buildPersonFields() {
                     .hasMatch(val!)
                 ? null
                 : "Please enter a valid email";
+          },
+        ),
+        const Gap(25),
+        defaultTextField(
+          width: double.infinity,
+          prefix: Icons.visibility,
+          controller: passwordController,
+          textInputType: TextInputType.name,
+          hintText: "password",
+          validator: (val) {
+            if (val.isEmpty) {
+              return "Password shouldn't be empty";
+            }
           },
         ),
         const Gap(25),

@@ -1,4 +1,0 @@
-#Wed Jul 05 16:33:26 EET 2023
-base.0=/home/allawy/Desktop/Graduation_Project/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-path.0=classes.dex
-renamed.0=classes.dex

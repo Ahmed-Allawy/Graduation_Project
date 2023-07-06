@@ -56,6 +56,39 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
+  Future sendClients() async {
+    var headers = {'Content-Type': 'application/json'};
+
+    List<Map<String, dynamic>> modifiedPersons = persons.map((person) {
+      return {
+        "Fname": person.firstName,
+        "Lname": person.lastName,
+        "email": person.email,
+        "password": person.password,
+        "country": person.nationality,
+        "gender": person.gender,
+        "phone": person.phoneNumber,
+        "passport": person.passport,
+      };
+    }).toList();
+
+    print(modifiedPersons);
+
+    var request =
+        http.Request('POST', Uri.parse('${uri}api/user/addMultipleClients'));
+
+    request.body = json.encode(modifiedPersons);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      print(await response.stream.bytesToString());
+    } else {
+      print(response.reasonPhrase);
+    }
+  }
+
   void sumbitCountery(item, TextEditingController controller) {
     controller.text = item.name;
     emit(ChangeCountery());
@@ -96,7 +129,7 @@ class SearchCubit extends Cubit<SearchState> {
     emit(RemovePersonField());
   }
 
-  void p(BuildContext context) {
+  void sumbit(BuildContext context) async {
     for (var widget in personFields) {
       final formKey = widget.key as GlobalKey<FormState>;
       if (widget is Form) {
@@ -112,7 +145,9 @@ class SearchCubit extends Cubit<SearchState> {
               email: "email",
               phoneNumber: "phoneNumber",
               age: "age",
-              gender: "gender");
+              gender: "gender",
+              passport: '',
+              password: '');
           for (var childWidget in columnChildren) {
             if (childWidget is Container &&
                 childWidget.child is TextFormField) {
@@ -126,15 +161,21 @@ class SearchCubit extends Cubit<SearchState> {
                 newperson.lastName = textValue;
               }
               if (currentintex == 2) {
-                newperson.nationality = textValue;
+                newperson.passport = textValue;
               }
               if (currentintex == 3) {
-                newperson.email = textValue;
+                newperson.nationality = textValue;
               }
               if (currentintex == 4) {
-                newperson.age = textValue;
+                newperson.email = textValue;
               }
               if (currentintex == 5) {
+                newperson.password = textValue;
+              }
+              if (currentintex == 6) {
+                newperson.age = textValue;
+              }
+              if (currentintex == 7) {
                 newperson.gender = textValue;
               }
               currentintex++;
@@ -147,6 +188,7 @@ class SearchCubit extends Cubit<SearchState> {
             }
           }
           persons.add(newperson);
+          print(persons);
         }
 
         if (formKey.currentState!.validate()) {
