@@ -1,60 +1,75 @@
-// ignore_for_file: must_be_immutable
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/view/presentations/Searching_Screen/SecondSearching_Screen.dart';
+import 'package:gap/gap.dart';
+import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../shared/component/components.dart';
 import '../../../model/persondata.dart';
 import 'cubit/search_cubit.dart';
 
+// ignore: must_be_immutable
 class PicScreen extends StatelessWidget {
   List<Person> person;
+  List<String> token;
   PicScreen({
     Key? key,
     required this.person,
+    required this.token,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    print(SearchCubit.get(context).tokens);
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          appBar: AppBar(
-            backgroundColor: const Color.fromARGB(255, 105, 116, 235),
-            centerTitle: true,
-            title: const Text("Adding Face pic"),
-            leading: BackButton(
-              onPressed: () {
-                nextScreenRep(context, const SecondSearchingScreen());
-              },
+            appBar: AppBar(
+              backgroundColor: const Color.fromARGB(255, 105, 116, 235),
+              centerTitle: true,
+              title: const Text("Adding Face pic"),
             ),
-          ),
-          body: ListView.builder(
-            itemCount: person.length,
-            itemBuilder: (context, index) {
-              Person currentPerson = person[index];
-              return Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Row(
-                    children: [
-                      defaultTextButton(
-                        text: "Take Photo",
-                        onpressed: () {},
-                      ),
-                      const SizedBox(width: 8),
-                      Text(currentPerson.firstName),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                ],
-              );
-            },
-          ),
-        );
+            body: Column(
+              children: [
+                const Spacer(),
+                ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: person.length,
+                    itemBuilder: ((context, index) => Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  person[index].firstName,
+                                  style: const TextStyle(fontSize: 15),
+                                ),
+                                const Gap(20),
+                                defaultTextButton(
+                                    text: "Teake photo",
+                                    onpressed: () {
+                                      SearchCubit.get(context)
+                                          .pickImageCamera();
+                                    })
+                              ],
+                            ),
+                          ],
+                        ))),
+                const Spacer(),
+                defaultButton(
+                    text: "Submit",
+                    onPressed: () {
+                      nextScreen(
+                          context,
+                          SelectSeat(
+                            peopleNumber: person.length,
+                          ));
+                    }),
+                const Gap(10)
+              ],
+            ));
       },
     );
   }

@@ -1,14 +1,21 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: library_private_types_in_public_api, duplicate_ignore, avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/presentations/ticket/ticket.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:graduation/view/shared/network/local/cach_helper.dart';
+
 import '../../shared/component/components.dart';
 
 class SelectSeat extends StatefulWidget {
-  const SelectSeat({Key? key}) : super(key: key);
+  int peopleNumber;
+  SelectSeat({
+    Key? key,
+    required this.peopleNumber,
+  }) : super(key: key);
 
   @override
   // ignore: library_private_types_in_public_api
@@ -46,6 +53,7 @@ class _SelectSeatState extends State<SelectSeat> {
             nextScreenRep(
                 context,
                 PicScreen(
+                  token: [],
                   person: const [],
                 ));
           },
@@ -55,7 +63,9 @@ class _SelectSeatState extends State<SelectSeat> {
         Expanded(
             child: SingleChildScrollView(
                 child: Plane(
-                    screenHeight: _screenHeight, screenWidth: _screenWidth))),
+                    number: widget.peopleNumber,
+                    screenHeight: _screenHeight,
+                    screenWidth: _screenWidth))),
         SizedBox(
           height: _screenHeight * 0.02,
         ),
@@ -77,11 +87,13 @@ class Plane extends StatelessWidget {
     super.key,
     required double screenHeight,
     required double screenWidth,
+    required this.number,
   })  : _screenHeight = screenHeight,
         _screenWidth = screenWidth;
 
   final double _screenHeight;
   final double _screenWidth;
+  final int number;
 
   @override
   Widget build(BuildContext context) {
@@ -103,7 +115,10 @@ class Plane extends StatelessWidget {
             )
           ],
         ),
-        PlaneBody(screenHeight: _screenHeight, screenWidth: _screenWidth),
+        PlaneBody(
+            number: number,
+            screenHeight: _screenHeight,
+            screenWidth: _screenWidth),
       ],
     );
   }
@@ -113,6 +128,7 @@ class PlaneBody extends StatelessWidget {
   const PlaneBody({
     super.key,
     required double screenHeight,
+    required int number,
     required double screenWidth,
   })  : _screenHeight = screenHeight,
         _screenWidth = screenWidth;

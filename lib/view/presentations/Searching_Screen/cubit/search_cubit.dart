@@ -1,5 +1,3 @@
-// ignore_for_file: avoid_print, depend_on_referenced_packages, unused_element
-
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -32,6 +30,7 @@ class SearchCubit extends Cubit<SearchState> {
   //used for the second searching screen
   List<Widget> personFields = [];
   List<Person> persons = [];
+  List<String> tokens = [];
   bool showUndoButton = false;
   void clearPersons() {
     persons.clear();
@@ -51,12 +50,11 @@ class SearchCubit extends Cubit<SearchState> {
       print('countries form api : $c');
       return c;
     } else {
-      print("dgfd");
       return [];
     }
   }
 
-  Future sendClients() async {
+  Future<List<String>> sendClients() async {
     var headers = {'Content-Type': 'application/json'};
 
     List<Map<String, dynamic>> modifiedPersons = persons.map((person) {
@@ -72,8 +70,6 @@ class SearchCubit extends Cubit<SearchState> {
       };
     }).toList();
 
-    print(modifiedPersons);
-
     var request =
         http.Request('POST', Uri.parse('${uri}api/user/addMultipleClients'));
 
@@ -83,9 +79,12 @@ class SearchCubit extends Cubit<SearchState> {
     http.StreamedResponse response = await request.send();
 
     if (response.statusCode == 200) {
-      print(await response.stream.bytesToString());
+      String responseBody = await response.stream.bytesToString();
+      List<String> responseList = json.decode(responseBody).cast<String>();
+      return responseList;
     } else {
       print(response.reasonPhrase);
+      return [];
     }
   }
 
@@ -188,33 +187,33 @@ class SearchCubit extends Cubit<SearchState> {
             }
           }
           persons.add(newperson);
-          print(persons);
         }
 
         if (formKey.currentState!.validate()) {
           nextScreenRep(
               context,
               PicScreen(
+                token: tokens,
                 person: persons,
               ));
         }
       }
     }
+  }
 
-    pickImageCamera() async {
-      try {
-        final image = await ImagePicker().pickImage(source: ImageSource.camera);
-        if (image == null) {
-          return;
-        } else {
-          //here we save the path of the image ;
-          final tempImage = File(image.path);
-          img = tempImage;
-          emit(ImageCameraSuccessful());
-        }
-      } on PlatformException catch (e) {
-        emit(ImageCameraError(e.toString()));
+  pickImageCamera() async {
+    try {
+      final image = await ImagePicker().pickImage(source: ImageSource.camera);
+      if (image == null) {
+        return;
+      } else {
+        //here we save the path of the image ;
+        final tempImage = File(image.path);
+        img = tempImage;
+        emit(ImageCameraSuccessful());
       }
+    } on PlatformException catch (e) {
+      emit(ImageCameraError(e.toString()));
     }
   }
 }
