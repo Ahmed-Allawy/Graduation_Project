@@ -23,7 +23,9 @@ class SearchCubit extends Cubit<SearchState> {
 
   static SearchCubit get(BuildContext context) => BlocProvider.of(context);
 
-  bool value = true;
+  bool wayValue = true;
+  bool classValue = true;
+  bool flexable = false;
 
   File? img;
 
@@ -94,8 +96,18 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   void changeValues(val) {
-    value = val;
+    wayValue = val;
     emit(ChangeWays());
+  }
+
+  void changeClas(val) {
+    classValue = val;
+    emit(ChangeClass());
+  }
+
+  void changeFlexable(val) {
+    flexable = val;
+    emit(ChangeFlexable());
   }
 
   DateTime selectedDate = DateTime.now();

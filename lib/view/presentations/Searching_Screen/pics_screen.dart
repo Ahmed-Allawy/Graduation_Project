@@ -48,7 +48,7 @@ class PicScreen extends StatelessWidget {
                                 ),
                                 const Gap(20),
                                 defaultTextButton(
-                                    text: "Teake photo",
+                                    text: "Take photo",
                                     onpressed: () {
                                       SearchCubit.get(context)
                                           .pickImageCamera();

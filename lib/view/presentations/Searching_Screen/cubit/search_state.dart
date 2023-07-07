@@ -9,7 +9,11 @@ class ChangeCountery extends SearchState {}
 
 class ChangeWays extends SearchState {}
 
+class ChangeClass extends SearchState {}
+
 class ChangeDate extends SearchState {}
+
+class ChangeFlexable extends SearchState {}
 
 class AddPersonField extends SearchState {}
 

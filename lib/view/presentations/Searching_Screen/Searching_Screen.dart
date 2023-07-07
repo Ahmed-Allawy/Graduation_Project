@@ -32,6 +32,11 @@ class SearchingScreen extends StatelessWidget {
   final TextEditingController deupartureEditingController =
       TextEditingController();
 
+  final TextEditingController adultEditingController = TextEditingController();
+
+  final TextEditingController childEditingController = TextEditingController();
+  var formKey = GlobalKey<FormState>();
+
   DateTime? selectedDate;
   final bool isloged;
   SearchingScreen({
@@ -47,169 +52,255 @@ class SearchingScreen extends StatelessWidget {
       builder: (context, state) {
         return Scaffold(
           backgroundColor: Styles.bgColor,
-          body: ListView(
-            padding: EdgeInsets.symmetric(
-                horizontal: AppLayout.getWidth(20),
-                vertical: AppLayout.getHeigth(40)),
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(
-                    "What are \nyou looking for?",
-                    style: Styles.headLinestyle1,
-                  ),
-                  IconButton(
-                      onPressed: () {
-                        _showOptionsModal(context, isloged);
+          body: Form(
+            key: formKey,
+            child: ListView(
+              padding: EdgeInsets.symmetric(
+                  horizontal: AppLayout.getWidth(20),
+                  vertical: AppLayout.getHeigth(40)),
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      "What are \nyou looking for?",
+                      style: Styles.headLinestyle1,
+                    ),
+                    IconButton(
+                        onPressed: () {
+                          _showOptionsModal(context, isloged);
+                        },
+                        icon: const Icon(Icons.info))
+                  ],
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                Gap(AppLayout.getHeigth(25)),
+                CustomTextFieldSearch(
+                  hint: "Departure",
+                  autoCompleteKey: deupartureCompleteKey,
+                  textEditingController: deupartureEditingController,
+                  selectedCountry: deupartureEditingController.text,
+                  countries: SearchCubit.get(context).countries,
+                  sumbit: (item) {},
+                  build: (context, item) {
+                    return ListTile(
+                      title: AirPortInfo(
+                        airportData: item,
+                      ),
+                      onTap: () {
+                        print("svsdgsdsds");
+                        SearchCubit.get(context)
+                            .sumbitCountery(item, deupartureEditingController);
                       },
-                      icon: const Icon(Icons.info))
-                ],
-              ),
-              Gap(AppLayout.getHeigth(25)),
-              Gap(AppLayout.getHeigth(25)),
-              CustomTextFieldSearch(
-                hint: "Departure",
-                autoCompleteKey: deupartureCompleteKey,
-                textEditingController: deupartureEditingController,
-                selectedCountry: deupartureEditingController.text,
-                countries: SearchCubit.get(context).countries,
-                sumbit: (item) {},
-                build: (context, item) {
-                  return ListTile(
-                    title: AirPortInfo(
-                      airportData: item,
+                    );
+                  },
+                ),
+                Gap(AppLayout.getHeigth(15)),
+                CustomTextFieldSearch(
+                  hint: "Arrival",
+                  autoCompleteKey: arrivalCompleteKey,
+                  textEditingController: arrivaltextEditingController,
+                  selectedCountry: arrivaltextEditingController.text,
+                  countries: SearchCubit.get(context).countries,
+                  sumbit: (item) {},
+                  build: (context, item) {
+                    return ListTile(
+                      title: AirPortInfo(
+                        airportData: item,
+                      ),
+                      onTap: () {
+                        print("dgfggdgdfgggdsddsfsdfdsfdsf");
+                        SearchCubit.get(context)
+                            .sumbitCountery(item, arrivaltextEditingController);
+                      },
+                    );
+                  },
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile(
+                          title: const Text('One way'),
+                          value: true,
+                          groupValue: SearchCubit.get(context).wayValue,
+                          activeColor: const Color.fromARGB(255, 105, 116, 235),
+                          onChanged: (val) {
+                            return SearchCubit.get(context).changeValues(val);
+                          }),
                     ),
-                    onTap: () {
-                      print("svsdgsdsds");
-                      SearchCubit.get(context)
-                          .sumbitCountery(item, deupartureEditingController);
-                    },
-                  );
-                },
-              ),
-              Gap(AppLayout.getHeigth(15)),
-              CustomTextFieldSearch(
-                hint: "Arrival",
-                autoCompleteKey: arrivalCompleteKey,
-                textEditingController: arrivaltextEditingController,
-                selectedCountry: arrivaltextEditingController.text,
-                countries: SearchCubit.get(context).countries,
-                sumbit: (item) {},
-                build: (context, item) {
-                  return ListTile(
-                    title: AirPortInfo(
-                      airportData: item,
+                    Expanded(
+                      child: RadioListTile(
+                          title: const Text('Return'),
+                          value: false,
+                          groupValue: SearchCubit.get(context).wayValue,
+                          activeColor: const Color.fromARGB(255, 105, 116, 235),
+                          onChanged: (val) {
+                            return SearchCubit.get(context).changeValues(val);
+                          }),
+                    )
+                  ],
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                Row(
+                  children: [
+                    Expanded(
+                      child: RadioListTile(
+                          title: const Text('Economy'),
+                          value: true,
+                          groupValue: SearchCubit.get(context).classValue,
+                          activeColor: const Color.fromARGB(255, 105, 116, 235),
+                          onChanged: (val) {
+                            return SearchCubit.get(context).changeClas(val);
+                          }),
                     ),
-                    onTap: () {
-                      print("dgfggdgdfgggdsddsfsdfdsfdsf");
-                      SearchCubit.get(context)
-                          .sumbitCountery(item, arrivaltextEditingController);
-                    },
-                  );
-                },
-              ),
-              Gap(AppLayout.getHeigth(25)),
-              Row(
-                children: [
-                  Expanded(
-                    child: RadioListTile(
-                        title: const Text('One way'),
-                        value: true,
-                        groupValue: SearchCubit.get(context).value,
-                        activeColor: const Color.fromARGB(255, 105, 116, 235),
-                        onChanged: (val) {
-                          return SearchCubit.get(context).changeValues(val);
-                        }),
+                    Expanded(
+                      child: RadioListTile(
+                          title: const Text('Business'),
+                          value: false,
+                          groupValue: SearchCubit.get(context).classValue,
+                          activeColor: const Color.fromARGB(255, 105, 116, 235),
+                          onChanged: (val) {
+                            return SearchCubit.get(context).changeClas(val);
+                          }),
+                    )
+                  ],
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                defaultTextField(
+                  width: double.infinity,
+                  prefix: Icons.person_2,
+                  controller: adultEditingController,
+                  textInputType: TextInputType.number,
+                  hintText: "Number of Adults",
+                  validator: (val) {
+                    if (val.isEmpty) {
+                      return "this field cann't be empty";
+                    }
+                    int? value = int.tryParse(val);
+                    if (value! > 10) {
+                      return "please enter a desiered value less than 10";
+                    }
+                  },
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                defaultTextField(
+                  width: double.infinity,
+                  prefix: Icons.child_care,
+                  controller: childEditingController,
+                  textInputType: TextInputType.number,
+                  hintText: "Number of Children",
+                  validator: (val) {
+                    if (val.isNotEmpty) {
+                      int? value = int.tryParse(val);
+                      if (value! > 10) {
+                        return "please enter a desiered value";
+                      }
+                    }
+                  },
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                Center(
+                  child: Container(
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: const Color.fromARGB(255, 105, 116, 235)),
+                    child: TextButton(
+                        onPressed: () {
+                          SearchCubit.get(context).selectDate(context);
+                        },
+                        child: Text(
+                          "Select date",
+                          style: Styles.headLinestyle4
+                              .copyWith(color: Colors.white),
+                        )),
                   ),
-                  Expanded(
-                    child: RadioListTile(
-                        title: const Text('Return'),
-                        value: false,
-                        groupValue: SearchCubit.get(context).value,
-                        activeColor: const Color.fromARGB(255, 105, 116, 235),
-                        onChanged: (val) {
-                          return SearchCubit.get(context).changeValues(val);
-                        }),
-                  )
-                ],
-              ),
-              Gap(AppLayout.getHeigth(25)),
-              Center(
-                child: Container(
+                ),
+                Gap(AppLayout.getHeigth(10)),
+                Center(
+                  child: Text(
+                      "${SearchCubit.get(context).selectedDate.toLocal()}"
+                          .split(' ')[0]),
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                Center(
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Checkbox(
+                        value: SearchCubit.get(context).flexable,
+                        onChanged: (newValue) {
+                          return SearchCubit.get(context)
+                              .changeFlexable(newValue);
+                        },
+                      ),
+                      const Text(
+                        'Flexable',
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+                Gap(AppLayout.getHeigth(25)),
+                Container(
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(15),
                       color: const Color.fromARGB(255, 105, 116, 235)),
                   child: TextButton(
-                      onPressed: () {
-                        SearchCubit.get(context).selectDate(context);
-                      },
-                      child: Text(
-                        "Select date",
-                        style:
-                            Styles.headLinestyle4.copyWith(color: Colors.white),
-                      )),
-                ),
-              ),
-              Gap(AppLayout.getHeigth(10)),
-              Center(
-                child: Text("${SearchCubit.get(context).selectedDate.toLocal()}"
-                    .split(' ')[0]),
-              ),
-              Gap(AppLayout.getHeigth(25)),
-              Container(
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: const Color.fromARGB(255, 105, 116, 235)),
-                child: TextButton(
-                  child: Text(
-                    "Find tickets",
-                    style: Styles.headLinestyle4.copyWith(color: Colors.white),
+                    child: Text(
+                      "Find tickets",
+                      style:
+                          Styles.headLinestyle4.copyWith(color: Colors.white),
+                    ),
+                    onPressed: () {
+                      if (formKey.currentState!.validate()) {
+                        if (deupartureEditingController.text.isNotEmpty &&
+                            arrivaltextEditingController.text.isNotEmpty) {
+                          print(
+                              'fefwjfje is -> :${deupartureEditingController.text}');
+                          print(SearchCubit.get(context).selectedDate);
+                        } else {
+                          showSnackbar(
+                              context: context,
+                              message:
+                                  const Text("the fields Shouldn't be Empty "),
+                              color: errorColor);
+                        }
+                      }
+                    },
                   ),
-                  onPressed: () {
-                    if (deupartureEditingController.text.isNotEmpty &&
-                        arrivaltextEditingController.text.isNotEmpty) {
-                      print(
-                          'fefwjfje is -> :${deupartureEditingController.text}');
-                      print(SearchCubit.get(context).selectedDate);
-                    } else {
-                      showSnackbar(
-                          context: context,
-                          message: const Text("the fields Shouldn't be Empty "),
-                          color: errorColor);
-                    }
-                  },
                 ),
-              ),
-              Gap(AppLayout.getHeigth(25)),
-              const TripWidget(
-                arrivalCity: '',
-                arrivalDate: '',
-                departureCity: '',
-                departureDate: '',
-                planeID: '',
-                price: '',
-                tripTime: '',
-              ),
-              const TripWidget(
-                arrivalCity: '',
-                arrivalDate: '',
-                departureCity: '',
-                departureDate: '',
-                planeID: '',
-                price: '',
-                tripTime: '',
-              ),
-              const TripWidget(
-                arrivalCity: '',
-                arrivalDate: '',
-                departureCity: '',
-                departureDate: '',
-                planeID: '',
-                price: '',
-                tripTime: '',
-              ),
-            ],
+                Gap(AppLayout.getHeigth(25)),
+                const TripWidget(
+                  arrivalCity: '',
+                  arrivalDate: '',
+                  departureCity: '',
+                  departureDate: '',
+                  planeID: '',
+                  price: '',
+                  tripTime: '',
+                ),
+                const TripWidget(
+                  arrivalCity: '',
+                  arrivalDate: '',
+                  departureCity: '',
+                  departureDate: '',
+                  planeID: '',
+                  price: '',
+                  tripTime: '',
+                ),
+                const TripWidget(
+                  arrivalCity: '',
+                  arrivalDate: '',
+                  departureCity: '',
+                  departureDate: '',
+                  planeID: '',
+                  price: '',
+                  tripTime: '',
+                ),
+              ],
+            ),
           ),
         );
       },
