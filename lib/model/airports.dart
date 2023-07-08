@@ -10,6 +10,7 @@ class Airport {
     required this.city,
     required this.country,
   });
+
   factory Airport.fromJson(Map<String, dynamic> json) {
     return Airport(
       name: json['AP_name'],

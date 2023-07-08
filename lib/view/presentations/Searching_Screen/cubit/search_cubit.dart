@@ -1,3 +1,5 @@
+// ignore_for_file: depend_on_referenced_packages
+
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
@@ -47,7 +49,7 @@ class SearchCubit extends Cubit<SearchState> {
       var body = await response.stream.bytesToString();
       List<dynamic> jsonList = jsonDecode(body);
       List<Airport> c = jsonList.map((json) => Airport.fromJson(json)).toList();
-      print('countries form api : $c');
+
       return c;
     } else {
       return [];
@@ -83,7 +85,6 @@ class SearchCubit extends Cubit<SearchState> {
       List<String> responseList = json.decode(responseBody).cast<String>();
       return responseList;
     } else {
-      print(response.reasonPhrase);
       return [];
     }
   }

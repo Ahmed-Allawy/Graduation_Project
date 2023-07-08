@@ -11,8 +11,10 @@ import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubi
 import 'package:graduation/view/presentations/User_profile/user_profile.dart';
 import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 import 'package:graduation/view/presentations/auth/register/register_screen.dart';
+import 'package:graduation/view/presentations/find_ticket/find_tickt.dart';
 import 'package:graduation/view/shared/component/constants.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
+import 'package:graduation/view/shared/network/local/cach_helper.dart';
 
 import '../../../model/airports.dart';
 import '../../shared/component/components.dart';
@@ -298,6 +300,24 @@ void _showOptionsModal(BuildContext context, bool isLoged) {
               title: const Text("Register"),
               onTap: () {
                 nextScreen(context, const Register());
+              },
+            ),
+          ListTile(
+            leading: const Icon(Icons.airplane_ticket),
+            title: const Text("Find Tickt"),
+            onTap: () {
+              nextScreen(context, const FindTickt());
+            },
+          ),
+          if (isLoged)
+            ListTile(
+              leading: const Icon(Icons.logout),
+              title: const Text("Logout"),
+              onTap: () {
+                CacheHelper.removeData(
+                  key: 'mainUserToken',
+                );
+                nextScreen(context, const LoginHome());
               },
             ),
         ],

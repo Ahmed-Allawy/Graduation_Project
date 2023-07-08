@@ -20,7 +20,6 @@ class PicScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print(SearchCubit.get(context).tokens);
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -61,11 +60,7 @@ class PicScreen extends StatelessWidget {
                 defaultButton(
                     text: "Submit",
                     onPressed: () {
-                      nextScreen(
-                          context,
-                          SelectSeat(
-                            peopleNumber: person.length,
-                          ));
+                      nextScreen(context, SelectSeat());
                     }),
                 const Gap(10)
               ],

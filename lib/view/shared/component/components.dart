@@ -557,3 +557,314 @@ class TripWidget extends StatelessWidget {
     );
   }
 }
+
+class TicketShape extends StatelessWidget {
+  final String? passengerName;
+  final String? flightNumber;
+  final String? departureTime;
+  final String? arrivalTime;
+  final String? duration;
+  final String? seatNumber;
+  final String? seatClass;
+  final String? departure;
+  final String? arrival;
+  final String id;
+  const TicketShape({
+    super.key,
+    required this.passengerName,
+    required this.flightNumber,
+    required this.departureTime,
+    required this.arrivalTime,
+    required this.duration,
+    required this.seatNumber,
+    required this.seatClass,
+    required this.departure,
+    required this.arrival,
+    required this.id,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      elevation: 8,
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 20),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(20),
+      ),
+      child: Container(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  'Ticket No :',
+                  style: Styles.headLinestyle3,
+                ),
+                Text(
+                  id,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            FromToShape(
+              arrival: arrival,
+              departure: departure,
+            ),
+            const SizedBox(height: 30),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Passenger Name',
+                    style: Styles.headLinestyle3,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    passengerName!,
+                    style: Styles.headLinestyle2,
+                  ),
+                ]),
+            const SizedBox(height: 20),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Flight No',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          flightNumber!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Duration',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          duration!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                ]),
+            const SizedBox(height: 20),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Departure Time',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          departureTime!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Arrival Time',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          arrivalTime!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                ]),
+            const SizedBox(height: 20),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Seat No',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          seatNumber!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Class',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          seatClass!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                ]),
+
+            const SizedBox(height: 20),
+            SizedBox(
+                width: double.infinity,
+                height: 100,
+                child: Image.asset('assets/images/barcode.jpg')),
+
+            /// after line (second part)
+            const SizedBox(height: 20),
+            const DotedWidget(
+              color: Color.fromARGB(255, 105, 116, 235),
+              section: 10,
+              width: 6,
+            ),
+
+            ///airplane and frm to shape
+            const SizedBox(height: 20),
+            Row(
+              children: [
+                Text(
+                  'Ticket No :',
+                  style: Styles.headLinestyle3,
+                ),
+                Text(
+                  id,
+                  style: const TextStyle(fontWeight: FontWeight.bold),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+            FromToShape(
+              arrival: arrival,
+              departure: departure,
+            ),
+            const SizedBox(height: 20),
+            Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    'Passenger Name',
+                    style: Styles.headLinestyle3,
+                  ),
+                  const SizedBox(height: 10),
+                  Text(
+                    passengerName!,
+                    style: Styles.headLinestyle2,
+                  ),
+                ]),
+            const SizedBox(height: 20),
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Flight No',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          flightNumber!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Seat No',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          seatNumber!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                ]),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class FromToShape extends StatelessWidget {
+  final String? departure;
+  final String? arrival;
+  const FromToShape({
+    super.key,
+    required this.departure,
+    required this.arrival,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            "LHD",
+            style: Styles.headLinestyle2.copyWith(color: Styles.textColor),
+          ),
+        ),
+        const ThickContainer(
+          iscolor: true,
+        ),
+        Expanded(
+          child: Stack(
+            children: [
+              const SizedBox(
+                height: 24,
+                child: DotedWidget(
+                  color: Color.fromARGB(255, 105, 116, 235),
+                  section: 6,
+                  width: 4,
+                ),
+              ),
+              Center(
+                child: Transform.rotate(
+                  angle: 1.5,
+                  child: const Icon(
+                    Icons.airplanemode_on_outlined,
+                    color: Colors.blue,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const ThickContainer(
+          iscolor: true,
+        ),
+        Padding(
+          padding: const EdgeInsets.all(5.0),
+          child: Text(
+            "CIR",
+            style: Styles.headLinestyle2.copyWith(color: Styles.textColor),
+          ),
+        ),
+      ],
+    );
+  }
+}

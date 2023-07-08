@@ -1,9 +1,12 @@
-// ignore_for_file: public_member_api_docs, sort_constructors_first
+// ignore_for_file: public_member_api_docs, sort_constructors_first, must_be_immutable
 // ignore_for_file: library_private_types_in_public_api, duplicate_ignore, avoid_print, non_constant_identifier_names
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
+import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
+import 'package:graduation/view/presentations/Seat_screen/cubit/seat_state.dart';
 import 'package:graduation/view/presentations/ticket/ticket.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:graduation/view/shared/network/local/cach_helper.dart';
@@ -11,10 +14,8 @@ import 'package:graduation/view/shared/network/local/cach_helper.dart';
 import '../../shared/component/components.dart';
 
 class SelectSeat extends StatefulWidget {
-  int peopleNumber;
-  SelectSeat({
+  const SelectSeat({
     Key? key,
-    required this.peopleNumber,
   }) : super(key: key);
 
   @override
@@ -25,6 +26,37 @@ class SelectSeat extends StatefulWidget {
 class _SelectSeatState extends State<SelectSeat> {
   double _screenWidth = 0;
   double _screenHeight = 0;
+  List seatsList = [
+    {
+      'position': '1B',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '1B',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804435t33'
+    },
+    {
+      'position': '1B',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb72683'
+    },
+    {
+      'position': '1B',
+      'state': 'not available',
+      'id': '4722sds214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '2B',
+      'state': 'available',
+      'id': '435t4722214f-f00f-46df-955a-ffb726836804adad33'
+    },
+  ];
+  List<String> usersID = [
+    "35d84bf1-995e-435d-8221-add745525ebd",
+    "cf793d93-e26f-4cc2-a806-b3d604bd5a54"
+  ];
 
   @override
   void initState() {
@@ -39,45 +71,57 @@ class _SelectSeatState extends State<SelectSeat> {
 
   @override
   Widget build(BuildContext context) {
-    CacheHelper.init();
     return Scaffold(
       backgroundColor: const Color(0xffffffff),
       appBar: AppBar(
         backgroundColor: const Color(0xc61859ba),
         centerTitle: true,
         title: const Text(
-          'Seat Map',
+          'Select Seat',
         ),
         leading: BackButton(
           onPressed: () {
             nextScreenRep(
                 context,
                 PicScreen(
-                  token: [],
+                  token: const [],
                   person: const [],
                 ));
           },
         ),
       ),
-      body: Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
-        Expanded(
-            child: SingleChildScrollView(
-                child: Plane(
-                    number: widget.peopleNumber,
-                    screenHeight: _screenHeight,
-                    screenWidth: _screenWidth))),
-        SizedBox(
-          height: _screenHeight * 0.02,
-        ),
-        defaultButton(
-            text: 'check out',
-            onPressed: () {
-              String s = CacheHelper.getData(key: 'seletedSeats');
-              if (s.isNotEmpty) {
-                nextScreen(context, const Ticket());
-              }
-            }),
-      ]),
+      body: BlocConsumer<SeatCubit, SeatState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          return Column(mainAxisSize: MainAxisSize.max, children: <Widget>[
+            Expanded(
+                child: SingleChildScrollView(
+                    child: Plane(
+              screenHeight: _screenHeight,
+              screenWidth: _screenWidth,
+              number: usersID.length,
+              seatsList: seatsList,
+            ))),
+            SizedBox(
+              height: _screenHeight * 0.02,
+            ),
+            defaultButton(
+                text: 'check out',
+                onPressed: () {
+                  print(
+                    CacheHelper.getData(key: 'seletedSeats').runtimeType,
+                  );
+
+                  SeatCubit.get(context).postSeatsUsers(
+                      CacheHelper.getData(key: 'seletedSeats'), usersID);
+                  String s = CacheHelper.getData(key: 'seletedSeats');
+                  if (s.isNotEmpty) {
+                    nextScreen(context, const Ticket());
+                  }
+                }),
+          ]);
+        },
+      ),
     );
   }
 }
@@ -87,14 +131,15 @@ class Plane extends StatelessWidget {
     super.key,
     required double screenHeight,
     required double screenWidth,
+    required this.seatsList,
     required this.number,
   })  : _screenHeight = screenHeight,
         _screenWidth = screenWidth;
 
   final double _screenHeight;
   final double _screenWidth;
+  final List seatsList;
   final int number;
-
   @override
   Widget build(BuildContext context) {
     return Stack(
@@ -116,9 +161,10 @@ class Plane extends StatelessWidget {
           ],
         ),
         PlaneBody(
-            number: number,
             screenHeight: _screenHeight,
-            screenWidth: _screenWidth),
+            screenWidth: _screenWidth,
+            number: number,
+            seatsList: seatsList),
       ],
     );
   }
@@ -128,14 +174,16 @@ class PlaneBody extends StatelessWidget {
   const PlaneBody({
     super.key,
     required double screenHeight,
-    required int number,
     required double screenWidth,
+    required this.seatsList,
+    required this.number,
   })  : _screenHeight = screenHeight,
         _screenWidth = screenWidth;
 
   final double _screenHeight;
   final double _screenWidth;
-
+  final List seatsList;
+  final int number;
   @override
   Widget build(BuildContext context) {
     return Stack(children: <Widget>[
@@ -155,7 +203,12 @@ class PlaneBody extends StatelessWidget {
           ),
         ],
       ),
-      InnerPlane(screenHeight: _screenHeight, screenWidth: _screenWidth),
+      InnerPlane(
+        screenHeight: _screenHeight,
+        screenWidth: _screenWidth,
+        number: number,
+        seatsList: seatsList,
+      ),
     ]);
   }
 }
@@ -163,11 +216,14 @@ class PlaneBody extends StatelessWidget {
 class InnerPlane extends StatefulWidget {
   final double screenHeight;
   final double screenWidth;
-
+  final List seatsList;
+  final int number;
   const InnerPlane({
     Key? key,
     required this.screenHeight,
     required this.screenWidth,
+    required this.seatsList,
+    required this.number,
   }) : super(key: key);
 
   @override
@@ -175,66 +231,9 @@ class InnerPlane extends StatefulWidget {
 }
 
 class _InnerPlaneState extends State<InnerPlane> {
-  List classType = ['Economy', 'business'];
-  List seatsList = [
-    {'position': '1B', 'state': 'available', 'class': 'Economy'},
-    {'position': '2B', 'state': 'available', 'class': 'Economy'},
-    {'position': '3B', 'state': 'available', 'class': 'Economy'},
-    {'position': '4B', 'state': 'available', 'class': 'Economy'},
-    {'position': '5F', 'state': 'available', 'class': 'Economy'},
-    {'position': '6F', 'state': 'not available', 'class': 'Economy'},
-    {'position': '8F', 'state': 'not available', 'class': 'Economy'},
-    {'position': '1D', 'state': 'not available', 'class': 'Economy'},
-    {'position': '3D', 'state': 'not available', 'class': 'Economy'},
-    {'position': '4D', 'state': 'not available', 'class': 'Economy'},
-    {'position': '6E', 'state': 'not available', 'class': 'Economy'},
-    {'position': '7E', 'state': 'not available', 'class': 'Economy'},
-    {'position': '8E', 'state': 'available', 'class': 'Economy'},
-    {'position': '1A', 'state': 'available', 'class': 'business'},
-    {'position': '2A', 'state': 'available', 'class': 'business'},
-    {'position': '4A', 'state': 'not available', 'class': 'business'},
-    {'position': '5A', 'state': 'not available', 'class': 'business'},
-    {'position': '7A', 'state': 'not available', 'class': 'Economy'},
-    {'position': '8A', 'state': 'not available', 'class': 'Economy'},
-    {'position': '2C', 'state': 'not available', 'class': 'Economy'},
-    {'position': '3C', 'state': 'not available', 'class': 'Economy'},
-    {'position': '4C', 'state': 'not available', 'class': 'business'},
-    {'position': '6C', 'state': 'not available', 'class': 'business'},
-    {'position': '7C', 'state': 'not available', 'class': 'business'},
-    {'position': '8C', 'state': 'not available', 'class': 'business'},
-    {'position': '3D', 'state': 'not available', 'class': 'Economy'},
-    {'position': '4D', 'state': 'not available', 'class': 'Economy'},
-    {'position': '6E', 'state': 'not available', 'class': 'Economy'},
-    {'position': '7E', 'state': 'not available', 'class': 'Economy'},
-    {'position': '8E', 'state': 'available', 'class': 'Economy'},
-    {'position': '1A', 'state': 'available', 'class': 'business'},
-    {'position': '2A', 'state': 'available', 'class': 'business'},
-    {'position': '4A', 'state': 'not available', 'class': 'business'},
-    {'position': '5A', 'state': 'not available', 'class': 'business'},
-    {'position': '7A', 'state': 'not available', 'class': 'Economy'},
-    {'position': '8A', 'state': 'not available', 'class': 'Economy'},
-    {'position': '2C', 'state': 'not available', 'class': 'Economy'},
-    {'position': '3C', 'state': 'not available', 'class': 'Economy'},
-    {'position': '4C', 'state': 'not available', 'class': 'business'},
-    {'position': '6C', 'state': 'not available', 'class': 'business'},
-    {'position': '7C', 'state': 'not available', 'class': 'business'},
-    {'position': '8C', 'state': 'not available', 'class': 'business'},
-  ];
-
-  String selectedClass = 'Economy';
-  List filteredSeatsList = [];
-
   @override
   void initState() {
     super.initState();
-    filterSeatsByClass();
-  }
-
-  void filterSeatsByClass() {
-    setState(() {
-      filteredSeatsList =
-          seatsList.where((seat) => seat['class'] == selectedClass).toList();
-    });
   }
 
   @override
@@ -242,27 +241,7 @@ class _InnerPlaneState extends State<InnerPlane> {
     return Center(
       child: Column(mainAxisSize: MainAxisSize.min, children: <Widget>[
         SizedBox(
-          height: widget.screenHeight * 0.15,
-        ),
-        DropdownButton(
-          iconEnabledColor: Colors.red,
-          hint: const Text(
-            'Economy',
-            style: TextStyle(color: Colors.black),
-          ),
-          value: selectedClass,
-          items: classType.map((value) {
-            return DropdownMenuItem(value: value, child: Text(value));
-          }).toList(),
-          onChanged: (value) {
-            setState(() {
-              selectedClass = value.toString();
-            });
-            filterSeatsByClass();
-          },
-        ),
-        SizedBox(
-          height: widget.screenHeight * 0.05,
+          height: widget.screenHeight * 0.3,
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -320,8 +299,8 @@ class _InnerPlaneState extends State<InnerPlane> {
         SizedBox(
           height: 300,
           child: Seats(
-            filteredSeatsList: filteredSeatsList,
-            peopleNumber: 3,
+            seatsList: widget.seatsList,
+            peopleNumber: widget.number,
           ),
         ),
       ]),
@@ -332,11 +311,11 @@ class _InnerPlaneState extends State<InnerPlane> {
 class Seats extends StatefulWidget {
   const Seats({
     Key? key,
-    required this.filteredSeatsList,
+    required this.seatsList,
     required this.peopleNumber,
   }) : super(key: key);
 
-  final List filteredSeatsList;
+  final List seatsList;
   final int peopleNumber;
 
   @override
@@ -359,6 +338,7 @@ class _SeatsState extends State<Seats> {
   @override
   Widget build(BuildContext context) {
     List<String> AllSelectedSeats = [];
+    List<String> AllSelectedSeatsName = [];
     CacheHelper.init();
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -366,9 +346,9 @@ class _SeatsState extends State<Seats> {
         crossAxisCount: 4,
         childAspectRatio: 1,
       ),
-      itemCount: widget.filteredSeatsList.length,
+      itemCount: widget.seatsList.length,
       itemBuilder: (BuildContext context, int index) {
-        final seat = widget.filteredSeatsList[index];
+        final seat = widget.seatsList[index];
         final seatState = seat['state'];
         final isSelected = selectedSeatsIndexes.contains(index);
         final isSelectable = seatState != 'not available' &&
@@ -382,12 +362,14 @@ class _SeatsState extends State<Seats> {
               isSelectable ? _toggleSeatSelection(index) : null;
               if (selectedSeatsIndexes.length == widget.peopleNumber) {
                 for (var element in selectedSeatsIndexes) {
-                  print(widget.filteredSeatsList[element]['position']);
-                  AllSelectedSeats.add(
-                      widget.filteredSeatsList[element]['position']);
+                  print(widget.seatsList[element]['id']);
+                  AllSelectedSeats.add(widget.seatsList[element]['id']);
+                  AllSelectedSeatsName.add(
+                      widget.seatsList[element]['position']);
                 }
                 CacheHelper.saveData(
-                    key: 'seletedSeats', value: AllSelectedSeats.toString());
+                    key: 'seletedSeats',
+                    value: AllSelectedSeatsName.toString());
               }
             },
             color: seatState == 'not available'

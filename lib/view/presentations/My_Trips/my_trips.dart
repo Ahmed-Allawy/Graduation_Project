@@ -249,16 +249,6 @@ class PersonTripCard extends StatelessWidget {
                   TextButton(
                     onPressed: () {},
                     child: Text(
-                      "Cansel",
-                      style: Styles.headLinestyle3.copyWith(
-                        color: const Color.fromARGB(255, 105, 116, 235),
-                      ),
-                    ),
-                  ),
-                  const Gap(10),
-                  TextButton(
-                    onPressed: () {},
-                    child: Text(
                       "Set Alarm",
                       style: Styles.headLinestyle3.copyWith(
                         color: const Color.fromARGB(255, 105, 116, 235),
