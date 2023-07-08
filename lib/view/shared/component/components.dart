@@ -27,7 +27,7 @@ Widget defaultTextField({
   bool scure = false,
 }) {
   return Container(
-    width: width ?? AppLayout.getWidth(fieldWidth),
+    width: width ?? AppLayout.getWidth(fieldWidth + 9),
     decoration: const BoxDecoration(
         color: fontColor, borderRadius: BorderRadius.all(Radius.circular(5))),
     child: TextFormField(
