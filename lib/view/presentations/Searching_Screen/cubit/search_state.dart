@@ -7,7 +7,13 @@ class SearchInitial extends SearchState {}
 
 class ChangeCountery extends SearchState {}
 
+class ChangePeople extends SearchState {}
+
+class ChangeCountry extends SearchState {}
+
 class ChangeWays extends SearchState {}
+
+class ChangeGender extends SearchState {}
 
 class ChangeClass extends SearchState {}
 

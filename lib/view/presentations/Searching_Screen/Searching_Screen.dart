@@ -179,8 +179,8 @@ class SearchingScreen extends StatelessWidget {
                       return "this field cann't be empty";
                     }
                     int? value = int.tryParse(val);
-                    if (value! > 10) {
-                      return "please enter a desiered value less than 10";
+                    if (value! > 10 || value < 1) {
+                      return "please enter a desiered betwean 0 and 10";
                     }
                   },
                 ),

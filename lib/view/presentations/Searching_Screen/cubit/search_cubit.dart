@@ -25,7 +25,11 @@ class SearchCubit extends Cubit<SearchState> {
 
   int people = 0;
 
+  String country = "Choose Country";
+
   bool wayValue = true;
+  bool gender = true;
+
   bool classValue = true;
   bool flexable = false;
 
@@ -102,6 +106,11 @@ class SearchCubit extends Cubit<SearchState> {
     emit(ChangeWays());
   }
 
+  void changeGender(val) {
+    gender = val;
+    emit(ChangeGender());
+  }
+
   void changeClas(val) {
     classValue = val;
     emit(ChangeClass());
@@ -114,6 +123,12 @@ class SearchCubit extends Cubit<SearchState> {
 
   void updatePeople(int value) {
     people = value;
+    emit(ChangePeople());
+  }
+
+  void changeCountrey(String c) {
+    country = c;
+    emit(ChangeCountry());
   }
 
   DateTime selectedDate = DateTime.now();

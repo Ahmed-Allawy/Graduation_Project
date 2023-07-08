@@ -9,6 +9,7 @@ import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../shared/component/components.dart';
+import '../../shared/component/constants.dart';
 import '../../shared/network/local/cach_helper.dart';
 
 // ignore: must_be_immutable
@@ -106,23 +107,19 @@ class SecondSearchingScreen extends StatelessWidget {
                               prefix: Icons.numbers,
                               controller: passportControllers[index],
                               textInputType: TextInputType.number,
-                              hintText: "Passport",
+                              hintText: "Passport number ",
                               validator: (val) {
                                 if (val.isEmpty) {
                                   return "Passport shouldn't be empty";
                                 }
-                              },
-                            ),
-                            const Gap(25),
-                            defaultTextField(
-                              width: double.infinity,
-                              prefix: Icons.flag,
-                              controller: nationalityControllers[index],
-                              textInputType: TextInputType.name,
-                              hintText: "Nationality",
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return "Nationality shouldn't be empty";
+                                final hasNumbers = RegExp(r'\d').hasMatch(val);
+                                final hasCapitalLetters =
+                                    RegExp(r'[A-Z]').hasMatch(val);
+
+                                if (!hasNumbers ||
+                                    !hasCapitalLetters ||
+                                    val.length != 9) {
+                                  return 'Passport number must be like this ABA9875413';
                                 }
                               },
                             ),
@@ -178,20 +175,84 @@ class SecondSearchingScreen extends StatelessWidget {
                                 if (val.isEmpty) {
                                   return "AGE shouldn't be empty";
                                 }
+                                int? age = int.tryParse(val);
+                                if (age! > 100 || age < 12) {
+                                  return "please enter a vaild Age";
+                                }
                               },
                             ),
                             const Gap(25),
-                            defaultTextField(
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
                               width: double.infinity,
-                              prefix: Icons.male,
-                              controller: genderControllers[index],
-                              textInputType: TextInputType.name,
-                              hintText: "Gender",
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return "Gender should be either male or female";
-                                }
-                              },
+                              child: DropdownButton(
+                                  autofocus: true,
+                                  focusColor: Colors.white,
+                                  dropdownColor: Colors.white,
+                                  hint: Text(
+                                    SearchCubit.get(context).country,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                  items: countryList
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  onChanged: (s) {
+                                    nationalityControllers[index].text = s!;
+                                    return SearchCubit.get(context)
+                                        .changeCountrey(s);
+                                  }),
+                            ),
+                            const Gap(25),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: RadioListTile(
+                                      title: const Text('Male'),
+                                      value: true,
+                                      groupValue:
+                                          SearchCubit.get(context).gender,
+                                      activeColor: const Color.fromARGB(
+                                          255, 105, 116, 235),
+                                      onChanged: (val) {
+                                        SearchCubit.get(context)
+                                            .changeGender(val);
+                                        if (SearchCubit.get(context).gender) {
+                                          genderControllers[index].text =
+                                              "Male";
+                                        } else {
+                                          genderControllers[index].text =
+                                              "Female";
+                                        }
+                                      }),
+                                ),
+                                Expanded(
+                                  child: RadioListTile(
+                                      title: const Text('Female'),
+                                      value: false,
+                                      groupValue:
+                                          SearchCubit.get(context).gender,
+                                      activeColor: const Color.fromARGB(
+                                          255, 105, 116, 235),
+                                      onChanged: (val) {
+                                        SearchCubit.get(context)
+                                            .changeGender(val);
+                                        if (SearchCubit.get(context).gender) {
+                                          genderControllers[index].text =
+                                              "Male";
+                                        } else {
+                                          genderControllers[index].text =
+                                              "Female";
+                                        }
+                                      }),
+                                )
+                              ],
                             ),
                             const Gap(25),
                             const SizedBox(
