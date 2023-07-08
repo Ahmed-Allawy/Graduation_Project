@@ -86,6 +86,11 @@ class SecondSearchingScreen extends StatelessWidget {
                                 if (val.isEmpty) {
                                   return "First Name shouldn't be empty";
                                 }
+                                final alphaRegex = RegExp(r'^[a-zA-Z]+$');
+                                if (alphaRegex.hasMatch(val)) {
+                                } else {
+                                  return "the name should have only latter";
+                                }
                               },
                             ),
                             const Gap(25),
@@ -97,7 +102,12 @@ class SecondSearchingScreen extends StatelessWidget {
                               hintText: "LastName",
                               validator: (val) {
                                 if (val.isEmpty) {
-                                  return "Last Name shouldn't be empty";
+                                  return "First Name shouldn't be empty";
+                                }
+                                final alphaRegex = RegExp(r'^[a-zA-Z]+$');
+                                if (alphaRegex.hasMatch(val)) {
+                                } else {
+                                  return "the name should have only latter";
                                 }
                               },
                             ),
@@ -272,12 +282,23 @@ class SecondSearchingScreen extends StatelessWidget {
                   const Gap(25),
                   defaultButton(
                     text: "Submit",
-                    onPressed: () {
+                    onPressed: () async {
                       for (var form in formKeys) {
                         if (form.currentState!.validate()) {
-                          print(formKeys.length);
-                        } else {
-                          print(formKeys);
+                          SearchCubit.get(context).sumbit(
+                              context,
+                              people,
+                              firstNameControllers,
+                              lastNameControllers,
+                              passportControllers,
+                              nationalityControllers,
+                              emailControllers,
+                              passwordControllers,
+                              phoneNumberControllers,
+                              ageControllers,
+                              genderControllers);
+
+                          await SearchCubit.get(context).sendClients();
                         }
                       }
                     },

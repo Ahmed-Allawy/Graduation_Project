@@ -5,13 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/model/airports.dart';
 
-import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
-import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import '../../../shared/component/components.dart';
 
 import '../../../shared/component/constants.dart';
 import '../../../../model/persondata.dart';
@@ -65,18 +61,8 @@ class SearchCubit extends Cubit<SearchState> {
   Future<List<String>> sendClients() async {
     var headers = {'Content-Type': 'application/json'};
 
-    List<Map<String, dynamic>> modifiedPersons = persons.map((person) {
-      return {
-        "Fname": person.firstName,
-        "Lname": person.lastName,
-        "email": person.email,
-        "password": person.password,
-        "country": person.nationality,
-        "gender": person.gender,
-        "phone": person.phoneNumber,
-        "passport": person.passport,
-      };
-    }).toList();
+    List<Map<String, dynamic>> modifiedPersons =
+        persons.map((person) => person.toMap()).toList();
 
     var request =
         http.Request('POST', Uri.parse('${uri}api/user/addMultipleClients'));
@@ -145,92 +131,30 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  void addMorePerson() {
-    personFields.add(buildPersonFields());
-    if (personFields.length > 1) {
-      showUndoButton = true;
-    }
-    emit(AddPersonField());
-  }
-
-  void removePerson() {
-    personFields.removeLast();
-    if (personFields.length < 2) {
-      showUndoButton = false;
-    }
-    emit(RemovePersonField());
-  }
-
-  void sumbit(BuildContext context) async {
-    for (var widget in personFields) {
-      final formKey = widget.key as GlobalKey<FormState>;
-      if (widget is Form) {
-        Widget formChild = widget.child;
-        if (formChild is Column) {
-          List<Widget> columnChildren = formChild.children;
-
-          int currentintex = 0;
-          Person newperson = Person(
-              firstName: "firstName",
-              lastName: "lastName",
-              nationality: "nationality",
-              email: "email",
-              phoneNumber: "phoneNumber",
-              age: "age",
-              gender: "gender",
-              passport: '',
-              password: '');
-          for (var childWidget in columnChildren) {
-            if (childWidget is Container &&
-                childWidget.child is TextFormField) {
-              TextFormField textFormField = childWidget.child as TextFormField;
-
-              String textValue = textFormField.controller!.text;
-              if (currentintex == 0) {
-                newperson.firstName = textValue;
-              }
-              if (currentintex == 1) {
-                newperson.lastName = textValue;
-              }
-              if (currentintex == 2) {
-                newperson.passport = textValue;
-              }
-              if (currentintex == 3) {
-                newperson.nationality = textValue;
-              }
-              if (currentintex == 4) {
-                newperson.email = textValue;
-              }
-              if (currentintex == 5) {
-                newperson.password = textValue;
-              }
-              if (currentintex == 6) {
-                newperson.age = textValue;
-              }
-              if (currentintex == 7) {
-                newperson.gender = textValue;
-              }
-              currentintex++;
-            } else if (childWidget is SizedBox &&
-                childWidget.child is IntlPhoneField) {
-              IntlPhoneField phoneField = childWidget.child as IntlPhoneField;
-
-              String phoneNumber = phoneField.controller!.text;
-              newperson.phoneNumber = phoneNumber;
-            }
-          }
-          persons.add(newperson);
-        }
-
-        if (formKey.currentState!.validate()) {
-          nextScreenRep(
-              context,
-              PicScreen(
-                token: tokens,
-                person: persons,
-              ));
-        }
-      }
+  void sumbit(
+      BuildContext context,
+      int people,
+      List<TextEditingController> firstnames,
+      List<TextEditingController> lastNames,
+      List<TextEditingController> passports,
+      List<TextEditingController> nationalitys,
+      List<TextEditingController> emails,
+      List<TextEditingController> passwords,
+      List<TextEditingController> phonenumbers,
+      List<TextEditingController> ages,
+      List<TextEditingController> genders) {
+    for (int i = 0; i < people; i++) {
+      Person newperson = Person(
+          firstName: firstnames[i].text,
+          lastName: lastNames[i].text,
+          passport: passports[i].text,
+          country: nationalitys[i].text,
+          email: emails[i].text,
+          password: passwords[i].text,
+          phoneNumber: phonenumbers[i].text,
+          age: ages[i].text,
+          gender: genders[i].text);
+      persons.add(newperson);
     }
   }
 

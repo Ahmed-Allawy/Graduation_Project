@@ -14,8 +14,6 @@ import '../../../shared/network/local/cach_helper.dart';
 import '../../Searching_Screen/Searching_Screen.dart';
 import 'package:http/http.dart' as http;
 
-import '../../Searching_Screen/cubit/search_cubit.dart';
-
 class Register extends StatefulWidget {
   const Register({super.key});
 

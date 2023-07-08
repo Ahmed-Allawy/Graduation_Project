@@ -2,7 +2,6 @@ import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/My_Trips/cubit/mytrips_cubit.dart';
-import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
