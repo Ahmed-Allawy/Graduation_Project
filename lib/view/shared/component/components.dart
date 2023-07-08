@@ -27,7 +27,7 @@ Widget defaultTextField({
   bool scure = false,
 }) {
   return Container(
-    width: width ?? AppLayout.getWidth(fieldWidth),
+    width: width ?? AppLayout.getWidth(fieldWidth + 9),
     decoration: const BoxDecoration(
         color: fontColor, borderRadius: BorderRadius.all(Radius.circular(5))),
     child: TextFormField(
@@ -399,7 +399,8 @@ class TripWidget extends StatelessWidget {
       required this.arrivalDate,
       required this.tripTime,
       required this.price,
-      required this.planeID})
+      required this.planeID,
+      required this.People})
       : super(key: key);
   final String departureCity;
   final String arrivalCity;
@@ -408,6 +409,7 @@ class TripWidget extends StatelessWidget {
   final String tripTime;
   final String price;
   final String planeID;
+  final int People;
 
   @override
   Widget build(BuildContext context) {
@@ -540,7 +542,12 @@ class TripWidget extends StatelessWidget {
                 const Spacer(),
                 TextButton(
                   onPressed: () {
-                    nextScreen(context, const SecondSearchingScreen());
+                    print(People);
+                    nextScreen(
+                        context,
+                        SecondSearchingScreen(
+                          people: People,
+                        ));
                   },
                   child: Text(
                     "Book Now",

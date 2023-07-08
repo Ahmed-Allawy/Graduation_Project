@@ -6,21 +6,45 @@ import 'package:gap/gap.dart';
 import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../shared/component/components.dart';
+import '../../shared/component/constants.dart';
 import '../../shared/network/local/cach_helper.dart';
 
+// ignore: must_be_immutable
 class SecondSearchingScreen extends StatelessWidget {
+  final int people;
   const SecondSearchingScreen({
     Key? key,
+    required this.people,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    if (SearchCubit.get(context).personFields.isEmpty) {
-      SearchCubit.get(context).addMorePerson();
-    }
-    SearchCubit.get(context).clearPersons();
+    var formKeys = List<GlobalKey<FormState>>.generate(
+      people,
+      (index) => GlobalKey<FormState>(),
+    );
+
+    var firstNameControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var lastNameControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var passportControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var nationalityControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var emailControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var passwordControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var ageControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var genderControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
+    var phoneNumberControllers = List<TextEditingController>.generate(
+        people, (index) => TextEditingController());
 
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
@@ -43,49 +67,240 @@ class SecondSearchingScreen extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  Column(
-                    children: SearchCubit.get(context).personFields,
-                  ),
-                  Flex(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    direction: Axis.horizontal,
-                    children: <Widget>[
-                      ElevatedButton(
-                        onPressed: () =>
-                            SearchCubit.get(context).addMorePerson(),
-                        style: ElevatedButton.styleFrom(
-                          shape: const CircleBorder(),
-                          padding: const EdgeInsets.all(16),
+                  ListView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: people,
+                    itemBuilder: (context, index) {
+                      return Form(
+                        key: formKeys[index],
+                        child: Column(
+                          children: [
+                            defaultTextField(
+                              width: double.infinity,
+                              prefix: Icons.person,
+                              controller: firstNameControllers[index],
+                              textInputType: TextInputType.name,
+                              hintText: "First Name",
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return "First Name shouldn't be empty";
+                                }
+                                final alphaRegex = RegExp(r'^[a-zA-Z]+$');
+                                if (alphaRegex.hasMatch(val)) {
+                                } else {
+                                  return "the name should have only latter";
+                                }
+                              },
+                            ),
+                            const Gap(25),
+                            defaultTextField(
+                              width: double.infinity,
+                              prefix: Icons.person,
+                              controller: lastNameControllers[index],
+                              textInputType: TextInputType.name,
+                              hintText: "LastName",
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return "First Name shouldn't be empty";
+                                }
+                                final alphaRegex = RegExp(r'^[a-zA-Z]+$');
+                                if (alphaRegex.hasMatch(val)) {
+                                } else {
+                                  return "the name should have only latter";
+                                }
+                              },
+                            ),
+                            const Gap(25),
+                            defaultTextField(
+                              width: double.infinity,
+                              prefix: Icons.numbers,
+                              controller: passportControllers[index],
+                              textInputType: TextInputType.number,
+                              hintText: "Passport number ",
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return "Passport shouldn't be empty";
+                                }
+                                final hasNumbers = RegExp(r'\d').hasMatch(val);
+                                final hasCapitalLetters =
+                                    RegExp(r'[A-Z]').hasMatch(val);
+
+                                if (!hasNumbers ||
+                                    !hasCapitalLetters ||
+                                    val.length != 9) {
+                                  return 'Passport number must be like this ABA9875413';
+                                }
+                              },
+                            ),
+                            const Gap(25),
+                            defaultTextField(
+                              width: double.infinity,
+                              controller: emailControllers[index],
+                              textInputType: TextInputType.emailAddress,
+                              prefix: Icons.email,
+                              hintText: "Email",
+                              validator: (val) {
+                                return RegExp(
+                                            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                        .hasMatch(val!)
+                                    ? null
+                                    : "Please enter a valid email";
+                              },
+                            ),
+                            const Gap(25),
+                            defaultTextField(
+                              width: double.infinity,
+                              prefix: Icons.visibility,
+                              controller: passwordControllers[index],
+                              textInputType: TextInputType.name,
+                              hintText: "password",
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return "Password shouldn't be empty";
+                                }
+                              },
+                            ),
+                            const Gap(25),
+                            SizedBox(
+                              width: double.infinity,
+                              child: IntlPhoneField(
+                                controller: phoneNumberControllers[index],
+                                decoration: const InputDecoration(
+                                  border: OutlineInputBorder(
+                                    borderSide: BorderSide(),
+                                  ),
+                                ),
+                                onChanged: (s) {},
+                                initialCountryCode: 'EG',
+                              ),
+                            ),
+                            defaultTextField(
+                              width: double.infinity,
+                              prefix: Icons.date_range,
+                              controller: ageControllers[index],
+                              textInputType: TextInputType.number,
+                              hintText: "AGE",
+                              validator: (val) {
+                                if (val.isEmpty) {
+                                  return "AGE shouldn't be empty";
+                                }
+                                int? age = int.tryParse(val);
+                                if (age! > 100 || age < 12) {
+                                  return "please enter a vaild Age";
+                                }
+                              },
+                            ),
+                            const Gap(25),
+                            Container(
+                              decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(10)),
+                              width: double.infinity,
+                              child: DropdownButton(
+                                  autofocus: true,
+                                  focusColor: Colors.white,
+                                  dropdownColor: Colors.white,
+                                  hint: Text(
+                                    SearchCubit.get(context).country,
+                                    style: const TextStyle(color: Colors.black),
+                                  ),
+                                  items: countryList
+                                      .map<DropdownMenuItem<String>>(
+                                          (String value) {
+                                    return DropdownMenuItem<String>(
+                                      value: value,
+                                      child: Text(value),
+                                    );
+                                  }).toList(),
+                                  onChanged: (s) {
+                                    nationalityControllers[index].text = s!;
+                                    return SearchCubit.get(context)
+                                        .changeCountrey(s);
+                                  }),
+                            ),
+                            const Gap(25),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: RadioListTile(
+                                      title: const Text('Male'),
+                                      value: true,
+                                      groupValue:
+                                          SearchCubit.get(context).gender,
+                                      activeColor: const Color.fromARGB(
+                                          255, 105, 116, 235),
+                                      onChanged: (val) {
+                                        SearchCubit.get(context)
+                                            .changeGender(val);
+                                        if (SearchCubit.get(context).gender) {
+                                          genderControllers[index].text =
+                                              "Male";
+                                        } else {
+                                          genderControllers[index].text =
+                                              "Female";
+                                        }
+                                      }),
+                                ),
+                                Expanded(
+                                  child: RadioListTile(
+                                      title: const Text('Female'),
+                                      value: false,
+                                      groupValue:
+                                          SearchCubit.get(context).gender,
+                                      activeColor: const Color.fromARGB(
+                                          255, 105, 116, 235),
+                                      onChanged: (val) {
+                                        SearchCubit.get(context)
+                                            .changeGender(val);
+                                        if (SearchCubit.get(context).gender) {
+                                          genderControllers[index].text =
+                                              "Male";
+                                        } else {
+                                          genderControllers[index].text =
+                                              "Female";
+                                        }
+                                      }),
+                                )
+                              ],
+                            ),
+                            const Gap(25),
+                            const SizedBox(
+                              height: 24,
+                              child: DotedWidget(
+                                color: Color.fromARGB(255, 67, 79, 210),
+                                section: 10,
+                                width: 4,
+                              ),
+                            ),
+                            const Gap(25),
+                          ],
                         ),
-                        child: const Icon(
-                          Icons.add,
-                          color: Colors.white, // Customize the icon color here
-                        ),
-                      ),
-                      const Gap(25),
-                      if (SearchCubit.get(context).showUndoButton)
-                        ElevatedButton(
-                          onPressed: () =>
-                              SearchCubit.get(context).removePerson(),
-                          style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
-                            padding: const EdgeInsets.all(16),
-                          ),
-                          child: const Icon(
-                            Icons.delete,
-                            color:
-                                Colors.white, // Customize the icon color here
-                          ),
-                        ),
-                    ],
+                      );
+                    },
                   ),
                   const Gap(25),
                   defaultButton(
                     text: "Submit",
                     onPressed: () async {
-                      SearchCubit.get(context).sumbit(context);
-                      SearchCubit.get(context).tokens =
+                      for (var form in formKeys) {
+                        if (form.currentState!.validate()) {
+                          SearchCubit.get(context).sumbit(
+                              context,
+                              people,
+                              firstNameControllers,
+                              lastNameControllers,
+                              passportControllers,
+                              nationalityControllers,
+                              emailControllers,
+                              passwordControllers,
+                              phoneNumberControllers,
+                              ageControllers,
+                              genderControllers);
+
                           await SearchCubit.get(context).sendClients();
+                        }
+                      }
                     },
                   ),
                 ],

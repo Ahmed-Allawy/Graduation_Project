@@ -14,8 +14,6 @@ import '../../../shared/network/local/cach_helper.dart';
 import '../../Searching_Screen/Searching_Screen.dart';
 import 'package:http/http.dart' as http;
 
-import '../../Searching_Screen/cubit/search_cubit.dart';
-
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -26,6 +24,7 @@ class Register extends StatefulWidget {
 class _RegisterState extends State<Register> {
   final firstNameController = TextEditingController();
   final lastNameController = TextEditingController();
+  final countruController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   // late DateTime dateTime;
@@ -35,7 +34,7 @@ class _RegisterState extends State<Register> {
   @override
   Widget build(BuildContext context) {
     User user = User(
-        country: 'Egypt',
+        country: countruController.text,
         email: emailController.text,
         fname: firstNameController.text,
         lname: lastNameController.text,
@@ -138,7 +137,7 @@ class _RegisterState extends State<Register> {
                                   ),
                                   Container(
                                     color: fontColor,
-                                    width: AppLayout.getWidth(fieldWidth),
+                                    width: AppLayout.getWidth(fieldWidth + 9),
                                     child: IntlPhoneField(
                                       decoration: const InputDecoration(
                                         border: OutlineInputBorder(
@@ -153,6 +152,43 @@ class _RegisterState extends State<Register> {
                                   SizedBox(
                                     height: AppLayout.getHeigth(space1),
                                   ),
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    width: fieldWidth + 9,
+                                    child: DropdownButton(
+                                        autofocus: true,
+                                        icon: const Icon(Icons.flag),
+                                        focusColor: Colors.white,
+                                        dropdownColor: Colors.white,
+                                        hint: Text(
+                                          AuthCubit.get(context).country,
+                                          style: const TextStyle(
+                                              color: Colors.black),
+                                        ),
+                                        items: countryList
+                                            .map<DropdownMenuItem<String>>(
+                                                (String value) {
+                                          return DropdownMenuItem<String>(
+                                            value: value,
+                                            child: Text(value),
+                                          );
+                                        }).toList(),
+                                        onChanged: (s) {
+                                          countruController.text = s!;
+                                          print(s);
+                                          return AuthCubit.get(context)
+                                              .changeCountrey(s);
+                                        }),
+                                  ),
+                                  SizedBox(
+                                    height: AppLayout.getHeigth(space1),
+                                  ),
+                                  SizedBox(
+                                    height: AppLayout.getHeigth(space1),
+                                  ),
                                   SizedBox(
                                     height: AppLayout.getHeigth(space2),
                                   ),
@@ -160,8 +196,13 @@ class _RegisterState extends State<Register> {
                                       text: 'Create Account',
                                       onPressed: () {
                                         if (formKey.currentState!.validate()) {
-                                          print(phoneNumber);
-                                          signup(user, context);
+                                          if (CacheHelper.getData(
+                                              key: "isloged")) {
+                                            nextScreenRep(context,
+                                                SearchingScreen(isloged: true));
+                                          } else {
+                                            signup(user);
+                                          }
                                         }
                                         // print(phoneNumber);
                                       }),
@@ -186,26 +227,22 @@ class _RegisterState extends State<Register> {
   }
 }
 
-signup(User user, BuildContext context) async {
+signup(
+  User user,
+) async {
   var headers = {'Content-Type': 'application/json'};
-  var request = http.Request('POST', Uri.parse('${uri}api/user'));
+  var request =
+      http.Request('POST', Uri.parse('http://18.204.219.211:3000/api/user'));
   request.body = user.toJson();
   request.headers.addAll(headers);
 
   http.StreamedResponse response = await request.send();
 
   if (response.statusCode == 200) {
-    print(response);
-    SearchCubit.get(context).fetchAirports().then((value) {
-      SearchCubit.get(context).countries = value;
-      CacheHelper.saveData(key: 'isloged', value: true);
-      nextScreen(
-          context,
-          SearchingScreen(
-            isloged: CacheHelper.getData(key: 'isLoged'),
-          ));
-    });
+    CacheHelper.putBoolean(key: "isloged", value: true);
+    print(await response.stream.bytesToString());
   } else {
-    print('failed $response');
+    CacheHelper.putBoolean(key: "isloged", value: false);
+    print(response.reasonPhrase);
   }
 }
