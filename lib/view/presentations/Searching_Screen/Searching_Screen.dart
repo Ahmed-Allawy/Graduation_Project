@@ -35,6 +35,7 @@ class SearchingScreen extends StatelessWidget {
   final TextEditingController adultEditingController = TextEditingController();
 
   final TextEditingController childEditingController = TextEditingController();
+
   var formKey = GlobalKey<FormState>();
 
   DateTime? selectedDate;
@@ -257,9 +258,14 @@ class SearchingScreen extends StatelessWidget {
                       if (formKey.currentState!.validate()) {
                         if (deupartureEditingController.text.isNotEmpty &&
                             arrivaltextEditingController.text.isNotEmpty) {
-                          print(
-                              'fefwjfje is -> :${deupartureEditingController.text}');
-                          print(SearchCubit.get(context).selectedDate);
+                          int adultCount =
+                              int.tryParse(adultEditingController.text) ?? 0;
+                          int childCount =
+                              int.tryParse(childEditingController.text) ?? 0;
+
+                          int people = adultCount + childCount;
+                          SearchCubit.get(context).updatePeople(people);
+                          print(SearchCubit.get(context).people);
                         } else {
                           showSnackbar(
                               context: context,
@@ -272,7 +278,7 @@ class SearchingScreen extends StatelessWidget {
                   ),
                 ),
                 Gap(AppLayout.getHeigth(25)),
-                const TripWidget(
+                TripWidget(
                   arrivalCity: '',
                   arrivalDate: '',
                   departureCity: '',
@@ -280,8 +286,9 @@ class SearchingScreen extends StatelessWidget {
                   planeID: '',
                   price: '',
                   tripTime: '',
+                  People: SearchCubit.get(context).people,
                 ),
-                const TripWidget(
+                TripWidget(
                   arrivalCity: '',
                   arrivalDate: '',
                   departureCity: '',
@@ -289,8 +296,9 @@ class SearchingScreen extends StatelessWidget {
                   planeID: '',
                   price: '',
                   tripTime: '',
+                  People: SearchCubit.get(context).people,
                 ),
-                const TripWidget(
+                TripWidget(
                   arrivalCity: '',
                   arrivalDate: '',
                   departureCity: '',
@@ -298,6 +306,7 @@ class SearchingScreen extends StatelessWidget {
                   planeID: '',
                   price: '',
                   tripTime: '',
+                  People: SearchCubit.get(context).people,
                 ),
               ],
             ),
