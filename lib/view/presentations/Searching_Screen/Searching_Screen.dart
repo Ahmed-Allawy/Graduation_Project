@@ -149,24 +149,52 @@ class SearchingScreen extends StatelessWidget {
                   children: [
                     Expanded(
                       child: RadioListTile(
-                          title: const Text('Economy'),
-                          value: true,
-                          groupValue: SearchCubit.get(context).classValue,
+                          title: const Text(
+                            'Economy',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          value: "Economy",
+                          groupValue: SearchCubit.get(context)
+                              .classValue[SearchCubit.get(context).classindex],
                           activeColor: const Color.fromARGB(255, 105, 116, 235),
                           onChanged: (val) {
-                            return SearchCubit.get(context).changeClas(val);
+                            return SearchCubit.get(context).changeClas(
+                              val,
+                            );
                           }),
                     ),
                     Expanded(
                       child: RadioListTile(
-                          title: const Text('Business'),
-                          value: false,
-                          groupValue: SearchCubit.get(context).classValue,
+                          title: const Text(
+                            'Business',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          value: 'Business',
+                          groupValue: SearchCubit.get(context)
+                              .classValue[SearchCubit.get(context).classindex],
                           activeColor: const Color.fromARGB(255, 105, 116, 235),
                           onChanged: (val) {
-                            return SearchCubit.get(context).changeClas(val);
+                            return SearchCubit.get(context).changeClas(
+                              val,
+                            );
                           }),
-                    )
+                    ),
+                    Expanded(
+                      child: RadioListTile(
+                          title: const Text(
+                            'First Class',
+                            style: TextStyle(fontSize: 15),
+                          ),
+                          value: 'First Class',
+                          groupValue: SearchCubit.get(context)
+                              .classValue[SearchCubit.get(context).classindex],
+                          activeColor: const Color.fromARGB(255, 105, 116, 235),
+                          onChanged: (val) {
+                            return SearchCubit.get(context).changeClas(
+                              val,
+                            );
+                          }),
+                    ),
                   ],
                 ),
                 Gap(AppLayout.getHeigth(25)),
@@ -268,6 +296,7 @@ class SearchingScreen extends StatelessWidget {
                           int people = adultCount + childCount;
                           SearchCubit.get(context).updatePeople(people);
                           print(SearchCubit.get(context).people);
+                          print(SearchCubit.get(context).country);
                         } else {
                           showSnackbar(
                               context: context,

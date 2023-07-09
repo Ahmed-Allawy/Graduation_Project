@@ -202,7 +202,7 @@ class SecondSearchingScreen extends StatelessWidget {
                                   focusColor: Colors.white,
                                   dropdownColor: Colors.white,
                                   hint: Text(
-                                    SearchCubit.get(context).country,
+                                    SearchCubit.get(context).country[index],
                                     style: const TextStyle(color: Colors.black),
                                   ),
                                   items: countryList
@@ -216,7 +216,7 @@ class SecondSearchingScreen extends StatelessWidget {
                                   onChanged: (s) {
                                     nationalityControllers[index].text = s!;
                                     return SearchCubit.get(context)
-                                        .changeCountrey(s);
+                                        .changeCountrey(s, index);
                                   }),
                             ),
                             const Gap(25),
