@@ -89,7 +89,6 @@ class FindTicketCubit extends Cubit<FindTicketState> {
 
   void makePDF(ScreenshotController screenshotController) {
     _screenShotTicket(screenshotController).then((value) {
-      print('value is :$value');
       _downloadTicket(value);
     });
     emit(FindTicketStatePdf());

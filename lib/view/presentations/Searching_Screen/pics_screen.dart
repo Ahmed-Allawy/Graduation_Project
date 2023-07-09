@@ -60,7 +60,7 @@ class PicScreen extends StatelessWidget {
                 defaultButton(
                     text: "Submit",
                     onPressed: () {
-                      nextScreen(context, SelectSeat());
+                      nextScreen(context, const SelectSeat());
                     }),
                 const Gap(10)
               ],

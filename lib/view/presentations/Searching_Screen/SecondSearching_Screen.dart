@@ -1,4 +1,4 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -116,7 +116,7 @@ class SecondSearchingScreen extends StatelessWidget {
                               width: double.infinity,
                               prefix: Icons.numbers,
                               controller: passportControllers[index],
-                              textInputType: TextInputType.number,
+                              textInputType: TextInputType.name,
                               hintText: "Passport number ",
                               validator: (val) {
                                 if (val.isEmpty) {
@@ -282,7 +282,7 @@ class SecondSearchingScreen extends StatelessWidget {
                   const Gap(25),
                   defaultButton(
                     text: "Submit",
-                    onPressed: () async {
+                    onPressed: () {
                       for (var form in formKeys) {
                         if (form.currentState!.validate()) {
                           SearchCubit.get(context).sumbit(
@@ -298,7 +298,9 @@ class SecondSearchingScreen extends StatelessWidget {
                               ageControllers,
                               genderControllers);
 
-                          await SearchCubit.get(context).sendClients();
+                          SearchCubit.get(context)
+                              .sendClients()
+                              .then((value) => print(value));
                         }
                       }
                     },

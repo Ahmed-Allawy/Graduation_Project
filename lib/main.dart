@@ -5,7 +5,7 @@ import 'package:graduation/view/presentations/My_Trips/cubit/mytrips_cubit.dart'
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
-import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
+
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
 import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 import 'package:graduation/view/presentations/find_ticket/cubit/find_ticket_cubit.dart';
@@ -42,7 +42,7 @@ class MyApp extends StatelessWidget {
         ),
         // builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        home: LoginHome(),
+        home: const LoginHome(),
       ),
     );
   }

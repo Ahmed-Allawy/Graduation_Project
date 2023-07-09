@@ -33,6 +33,21 @@ class _SelectSeatState extends State<SelectSeat> {
       'id': '4722214f-f00f-46df-955a-ffb726836804'
     },
     {
+      'position': '1A',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '1C',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '1D',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
       'position': '1B',
       'state': 'not available',
       'id': '4722214f-f00f-46df-955a-ffb726836804435t33'

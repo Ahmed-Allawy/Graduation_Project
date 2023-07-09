@@ -1,4 +1,4 @@
-// ignore_for_file: void_checks, non_constant_identifier_names
+// ignore_for_file: void_checks, non_constant_identifier_names, avoid_print
 
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
@@ -27,9 +27,10 @@ Widget defaultTextField({
   bool scure = false,
 }) {
   return Container(
+    padding: const EdgeInsets.only(left: 10),
     width: width ?? AppLayout.getWidth(fieldWidth + 9),
     decoration: const BoxDecoration(
-        color: fontColor, borderRadius: BorderRadius.all(Radius.circular(5))),
+        color: fontColor, borderRadius: BorderRadius.all(Radius.circular(30))),
     child: TextFormField(
         validator: (value) {
           return validator(value);
@@ -610,9 +611,11 @@ class TicketShape extends StatelessWidget {
                   'Ticket No :',
                   style: Styles.headLinestyle3,
                 ),
-                Text(
-                  id,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    id,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),
@@ -751,9 +754,11 @@ class TicketShape extends StatelessWidget {
                   'Ticket No :',
                   style: Styles.headLinestyle3,
                 ),
-                Text(
-                  id,
-                  style: const TextStyle(fontWeight: FontWeight.bold),
+                Expanded(
+                  child: Text(
+                    id,
+                    style: const TextStyle(fontWeight: FontWeight.bold),
+                  ),
                 ),
               ],
             ),

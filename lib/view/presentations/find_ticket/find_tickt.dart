@@ -22,7 +22,7 @@ class FindTickt extends StatefulWidget {
   _FindTicktState createState() => _FindTicktState();
 }
 
-bool isloading = true;
+bool isloading = false;
 
 class _FindTicktState extends State<FindTickt> {
   @override

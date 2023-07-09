@@ -29,6 +29,7 @@ class _LoginHomeState extends State<LoginHome> {
   var formKey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
+    CacheHelper.init();
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {},
       builder: (context, state) {

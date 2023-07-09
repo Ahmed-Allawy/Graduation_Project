@@ -1,5 +1,6 @@
 // ignore_for_file: use_build_context_synchronously, avoid_print, depend_on_referenced_packages
 
+import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
@@ -8,6 +9,7 @@ import 'package:intl_phone_field/intl_phone_field.dart';
 import '../../../../model/userdata.dart';
 import '../../../shared/component/components.dart';
 import '../../../shared/component/constants.dart';
+import '../../../shared/component/custom_button.dart';
 import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
 import '../../../shared/network/local/cach_helper.dart';
@@ -184,16 +186,10 @@ class _RegisterState extends State<Register> {
                                         }),
                                   ),
                                   SizedBox(
-                                    height: AppLayout.getHeigth(space1),
-                                  ),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space1),
-                                  ),
-                                  SizedBox(
                                     height: AppLayout.getHeigth(space2),
                                   ),
                                   defaultButton(
-                                      text: 'Create Account',
+                                      text: 'SignUp',
                                       onPressed: () {
                                         if (formKey.currentState!.validate()) {
                                           if (CacheHelper.getData(
@@ -206,21 +202,35 @@ class _RegisterState extends State<Register> {
                                         }
                                         // print(phoneNumber);
                                       }),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space3),
-                                  ),
-                                  defaultButton(
-                                      text: 'Continue with Google',
-                                      onPressed: () {}),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space3),
-                                  ),
-                                  defaultButton(
-                                      text: 'Continue with Apple',
-                                      onPressed: () {}),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space3),
-                                  ),
+                                  Row(children: <Widget>[
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            horizontal: 8),
+                                        child: CustomButtonWithIcon(
+                                          onTap: () {},
+                                          text: 'SignUp with',
+                                          color: const Color(0xFFdb3236),
+                                          iconData:
+                                              FontAwesomeIcons.googlePlusG,
+                                        ),
+                                      ),
+                                    ),
+                                    Flexible(
+                                      flex: 1,
+                                      child: Padding(
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 20, horizontal: 8),
+                                        child: CustomButtonWithIcon(
+                                          text: 'SignUp with',
+                                          color: const Color(0xFF4267B2),
+                                          iconData: FontAwesomeIcons.facebookF,
+                                          onTap: () {},
+                                        ),
+                                      ),
+                                    ),
+                                  ]),
                                 ]),
                           )))));
         });

@@ -353,9 +353,14 @@ class AirPortInfo extends StatelessWidget {
               ),
             ],
           ),
-          Text(
-            airportName,
-            style: Styles.headLinestyle3,
+          const SizedBox(
+            width: 50,
+          ),
+          Expanded(
+            child: Text(
+              airportName,
+              style: Styles.headLinestyle3,
+            ),
           ),
         ],
       ),

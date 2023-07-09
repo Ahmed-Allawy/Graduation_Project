@@ -131,7 +131,7 @@ class _TicketState extends State<Ticket> {
         centerTitle: true,
         title: const Text("Ticket"),
         leading: BackButton(
-          onPressed: () => nextScreenRep(context, SelectSeat()),
+          onPressed: () => nextScreenRep(context, const SelectSeat()),
         ),
       ),
       body: BlocBuilder<FlightTicketCubit, FlightTicketState>(
