@@ -226,14 +226,15 @@ class SecondSearchingScreen extends StatelessWidget {
                                   child: RadioListTile(
                                       title: const Text('Male'),
                                       value: true,
-                                      groupValue:
-                                          SearchCubit.get(context).gender,
+                                      groupValue: SearchCubit.get(context)
+                                          .gender[index],
                                       activeColor: const Color.fromARGB(
                                           255, 105, 116, 235),
                                       onChanged: (val) {
                                         SearchCubit.get(context)
-                                            .changeGender(val);
-                                        if (SearchCubit.get(context).gender) {
+                                            .changeGender(val, index);
+                                        if (SearchCubit.get(context)
+                                            .gender[index]) {
                                           genderControllers[index].text =
                                               "Male";
                                         } else {
@@ -246,14 +247,15 @@ class SecondSearchingScreen extends StatelessWidget {
                                   child: RadioListTile(
                                       title: const Text('Female'),
                                       value: false,
-                                      groupValue:
-                                          SearchCubit.get(context).gender,
+                                      groupValue: SearchCubit.get(context)
+                                          .gender[index],
                                       activeColor: const Color.fromARGB(
                                           255, 105, 116, 235),
                                       onChanged: (val) {
                                         SearchCubit.get(context)
-                                            .changeGender(val);
-                                        if (SearchCubit.get(context).gender) {
+                                            .changeGender(val, index);
+                                        if (SearchCubit.get(context)
+                                            .gender[index]) {
                                           genderControllers[index].text =
                                               "Male";
                                         } else {
