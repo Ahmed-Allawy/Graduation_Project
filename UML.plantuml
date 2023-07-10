@@ -1,18 +1,81 @@
-@startuml fisrtUMl
+@startuml
 set namespaceSeparator ::
 
-class "graduation::shared::network::local::cach_helper.dart::CacheHelper" {
-  {static} +SharedPreferences sharedPreferences
-  {static} +dynamic init()
-  {static} +Future<bool> putBoolean()
-  {static} +dynamic getData()
-  {static} +Future<bool> saveData()
-  {static} +Future<bool> removeData()
+class "graduation::model::userdata.dart::User" {
+  +String fname
+  +String lname
+  +String country
+  +String phone
+  +String email
+  +String password
+  +Map<String, dynamic> toMap()
+  +String toJson()
 }
 
-"graduation::shared::network::local::cach_helper.dart::CacheHelper" o-- "shared_preferences::shared_preferences.dart::SharedPreferences"
+class "graduation::model::persondata.dart::Person" {
+  +String firstName
+  +String lastName
+  +String passport
+  +String country
+  +String email
+  +String password
+  +String phoneNumber
+  +String age
+  +String gender
+  +Map<String, dynamic> toMap()
+  +String toJson()
+}
 
-class "graduation::shared::component::layout.dart::AppLayout" {
+class "graduation::model::ticketdata.dart::TicketData" {
+  +String passengerName
+  +String flightNumber
+  +String departureTime
+  +String arrivalTime
+  +String duration
+  +String seatNumber
+  +String seatClass
+  +String departure
+  +String arrival
+  +String id
+}
+
+class "graduation::model::airports.dart::Airport" {
+  +String name
+  +String city
+  +String country
+  +dynamic query
+  +Map<String, dynamic> toMap()
+  +String toJson()
+}
+
+class "graduation::view::shared::network::local::cach_helper.dart::CacheHelper" {
+  {static} +SharedPreferences sharedPreferences
+  {static} +dynamic init()
+  {static} +dynamic putBoolean()
+  {static} +dynamic getData()
+  {static} +dynamic saveData()
+  {static} +dynamic removeData()
+}
+
+"graduation::view::shared::network::local::cach_helper.dart::CacheHelper" o-- "shared_preferences::shared_preferences.dart::SharedPreferences"
+
+class "graduation::view::shared::component::constants.dart::Styles" {
+  {static} +Color textColor
+  {static} +Color bgColor
+  {static} +Color blueColor
+  {static} +Color orangeColor
+  {static} +Color kakiColor
+  {static} +TextStyle textStyele
+  {static} +TextStyle headLinestyle1
+  {static} +TextStyle headLinestyle2
+  {static} +TextStyle headLinestyle3
+  {static} +TextStyle headLinestyle4
+}
+
+"graduation::view::shared::component::constants.dart::Styles" o-- "dart::ui::Color"
+"graduation::view::shared::component::constants.dart::Styles" o-- "flutter::src::painting::text_style.dart::TextStyle"
+
+class "graduation::view::shared::component::layout.dart::AppLayout" {
   {static} +dynamic getSize()
   {static} +dynamic getScreenHeight()
   {static} +dynamic getScreenWidth()
@@ -20,7 +83,75 @@ class "graduation::shared::component::layout.dart::AppLayout" {
   {static} +dynamic getWidth()
 }
 
-class "graduation::shared::component::device_size.dart::LayoutSize" {
+class "graduation::view::shared::component::custom_button.dart::CustomButtonWithIcon" {
+  +String text
+  +IconData? iconData
+  +void Function()? onTap
+  +Color? color
+  +Widget build()
+}
+
+"graduation::view::shared::component::custom_button.dart::CustomButtonWithIcon" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"graduation::view::shared::component::custom_button.dart::CustomButtonWithIcon" o-- "dart::ui::void Function()"
+"graduation::view::shared::component::custom_button.dart::CustomButtonWithIcon" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::shared::component::custom_button.dart::CustomButtonWithIcon"
+
+class "graduation::view::shared::component::components.dart::DotedWidget" {
+  +int section
+  +double? width
+  +Color? color
+  +Widget build()
+}
+
+"graduation::view::shared::component::components.dart::DotedWidget" o-- "dart::ui::Color"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::shared::component::components.dart::DotedWidget"
+
+class "graduation::view::shared::component::components.dart::ThickContainer" {
+  +bool? iscolor
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::shared::component::components.dart::ThickContainer"
+
+class "graduation::view::shared::component::components.dart::TripWidget" {
+  +String departureCity
+  +String arrivalCity
+  +String departureDate
+  +String arrivalDate
+  +String tripTime
+  +String price
+  +String planeID
+  +int People
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::shared::component::components.dart::TripWidget"
+
+class "graduation::view::shared::component::components.dart::TicketShape" {
+  +String? passengerName
+  +String? flightNumber
+  +String? departureTime
+  +String? arrivalTime
+  +String? duration
+  +String? seatNumber
+  +String? seatClass
+  +String? departure
+  +String? arrival
+  +String id
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::shared::component::components.dart::TicketShape"
+
+class "graduation::view::shared::component::components.dart::FromToShape" {
+  +String? departure
+  +String? arrival
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::shared::component::components.dart::FromToShape"
+
+class "graduation::view::shared::component::device_size.dart::LayoutSize" {
   {static} +double? screenWigth
   {static} +double? screenHeight
   {static} +double? layoutValue
@@ -28,128 +159,485 @@ class "graduation::shared::component::device_size.dart::LayoutSize" {
   +void init()
 }
 
-"graduation::shared::component::device_size.dart::LayoutSize" o-- "flutter::src::widgets::media_query.dart::Orientation"
+"graduation::view::shared::component::device_size.dart::LayoutSize" o-- "flutter::src::widgets::media_query.dart::Orientation"
+
+class "graduation::view::presentations::Check_In::check_in.dart::CheckIn" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Check_In::check_in.dart::CheckIn"
+
+class "graduation::view::presentations::Searching_Screen::SecondSearching_Screen.dart::SecondSearchingScreen" {
+  +int people
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Searching_Screen::SecondSearching_Screen.dart::SecondSearchingScreen"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchCubit" {
+  +int people
+  +String country
+  +bool wayValue
+  +bool gender
+  +bool classValue
+  +bool flexable
+  +File? img
+  +List<Widget> personFields
+  +List<Person> persons
+  +List<String> tokens
+  +bool showUndoButton
+  +List<Airport> countries
+  +DateTime selectedDate
+  {static} +SearchCubit get()
+  +void clearPersons()
+  +dynamic fetchAirports()
+  +dynamic sendClients()
+  +void sumbitCountery()
+  +void changeValues()
+  +void changeGender()
+  +void changeClas()
+  +void changeFlexable()
+  +void updatePeople()
+  +void changeCountrey()
+  +dynamic selectDate()
+  +void sumbit()
+  +dynamic pickImageCamera()
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchCubit" o-- "dart::io::File"
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchCubit"
+
+abstract class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" {
+}
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchInitial" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchInitial"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeCountery" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeCountery"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangePeople" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangePeople"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeCountry" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeCountry"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeWays" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeWays"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeGender" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeGender"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeClass" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeClass"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeDate" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeDate"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeFlexable" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ChangeFlexable"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::AddPersonField" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::AddPersonField"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::RemovePersonField" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::RemovePersonField"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::GenderStateChanger" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::GenderStateChanger"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ImageCameraSuccessful" {
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ImageCameraSuccessful"
+
+class "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ImageCameraError" {
+  +String error
+}
+
+"graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::SearchState" <|-- "graduation::view::presentations::Searching_Screen::cubit::search_cubit.dart::ImageCameraError"
+
+class "graduation::view::presentations::Searching_Screen::Searching_Screen.dart::SearchingScreen" {
+  +GlobalKey<AutoCompleteTextFieldState<Airport>> arrivalCompleteKey
+  +TextEditingController arrivaltextEditingController
+  +GlobalKey<AutoCompleteTextFieldState<Airport>> deupartureCompleteKey
+  +TextEditingController deupartureEditingController
+  +TextEditingController adultEditingController
+  +TextEditingController childEditingController
+  +GlobalKey<FormState> formKey
+  +DateTime? selectedDate
+  +bool isloged
+  +Widget build()
+}
+
+"graduation::view::presentations::Searching_Screen::Searching_Screen.dart::SearchingScreen" o-- "flutter::src::widgets::framework.dart::GlobalKey<AutoCompleteTextFieldState<Airport>>"
+"graduation::view::presentations::Searching_Screen::Searching_Screen.dart::SearchingScreen" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"graduation::view::presentations::Searching_Screen::Searching_Screen.dart::SearchingScreen" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Searching_Screen::Searching_Screen.dart::SearchingScreen"
+
+class "graduation::view::presentations::Searching_Screen::Searching_Screen.dart::AirPortInfo" {
+  +Airport airportData
+  +Widget build()
+}
+
+"graduation::view::presentations::Searching_Screen::Searching_Screen.dart::AirPortInfo" o-- "graduation::model::airports.dart::Airport"
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Searching_Screen::Searching_Screen.dart::AirPortInfo"
+
+class "graduation::view::presentations::Searching_Screen::pics_screen.dart::PicScreen" {
+  +List<Person> person
+  +List<String> token
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Searching_Screen::pics_screen.dart::PicScreen"
+
+class "graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthCubit" {
+  +String country
+  +bool scuretiyPassword
+  +IconData suffixIcon
+  +File? img
+  {static} +AuthCubit get()
+  +void changeScureity()
+  +void changeCountrey()
+}
+
+"graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthCubit" o-- "flutter::src::widgets::icon_data.dart::IconData"
+"graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthCubit" o-- "dart::io::File"
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthCubit"
+
+abstract class "graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthState" {
+}
+
+class "graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthInitial" {
+}
+
+"graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthInitial"
+
+class "graduation::view::presentations::auth::cubit::auth_cubit.dart::ScurityState" {
+}
+
+"graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::view::presentations::auth::cubit::auth_cubit.dart::ScurityState"
+
+class "graduation::view::presentations::auth::cubit::auth_cubit.dart::ChangeCountry" {
+}
+
+"graduation::view::presentations::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::view::presentations::auth::cubit::auth_cubit.dart::ChangeCountry"
+
+class "graduation::view::presentations::auth::login::login_screen.dart::LoginHome" {
+  +State<LoginHome> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::auth::login::login_screen.dart::LoginHome"
+
+class "graduation::view::presentations::auth::login::login_screen.dart::_LoginHomeState" {
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  +GlobalKey<FormState> formKey
+  +Widget build()
+}
+
+"graduation::view::presentations::auth::login::login_screen.dart::_LoginHomeState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"graduation::view::presentations::auth::login::login_screen.dart::_LoginHomeState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::auth::login::login_screen.dart::_LoginHomeState"
+
+class "graduation::view::presentations::auth::register::register_screen.dart::Register" {
+  +State<Register> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::auth::register::register_screen.dart::Register"
+
+class "graduation::view::presentations::auth::register::register_screen.dart::_RegisterState" {
+  +TextEditingController firstNameController
+  +TextEditingController lastNameController
+  +TextEditingController countruController
+  +TextEditingController emailController
+  +TextEditingController passwordController
+  +String phoneNumber
+  +GlobalKey<FormState> formKey
+  +Widget build()
+}
+
+"graduation::view::presentations::auth::register::register_screen.dart::_RegisterState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
+"graduation::view::presentations::auth::register::register_screen.dart::_RegisterState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::auth::register::register_screen.dart::_RegisterState"
+
+class "graduation::view::presentations::ticket::cubit::ticket_cubit.dart::FlightTicketCubit" {
+  +List<TicketData> tickets
+  {static} +FlightTicketCubit get()
+  +void addTickets()
+  +void removeTicket()
+}
+
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::view::presentations::ticket::cubit::ticket_cubit.dart::FlightTicketCubit"
+
+abstract class "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketState" {
+}
+
+class "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketStateInitial" {
+}
+
+"graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketState" <|-- "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketStateInitial"
+
+class "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketStateRemove" {
+}
+
+"graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketState" <|-- "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketStateRemove"
+
+class "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketStateAdd" {
+}
+
+"graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketState" <|-- "graduation::view::presentations::ticket::cubit::ticket_state.dart::FlightTicketStateAdd"
+
+class "graduation::view::presentations::ticket::ticket.dart::Ticket" {
+  +_TicketState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::ticket::ticket.dart::Ticket"
+
+class "graduation::view::presentations::ticket::ticket.dart::_TicketState" {
+  -FlightTicketCubit _flightTicketCubit
+  -dynamic _screenShotTicket()
+  -dynamic _downloadTicket()
+  +void initState()
+  +Widget build()
+  +void dispose()
+}
+
+"graduation::view::presentations::ticket::ticket.dart::_TicketState" o-- "graduation::view::presentations::ticket::cubit::ticket_cubit.dart::FlightTicketCubit"
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::ticket::ticket.dart::_TicketState"
+
+class "graduation::view::presentations::User_profile::user_profile.dart::UserProfile" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::User_profile::user_profile.dart::UserProfile"
+
+class "graduation::view::presentations::find_ticket::find_tickt.dart::FindTickt" {
+  +_FindTicktState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::find_ticket::find_tickt.dart::FindTickt"
+
+class "graduation::view::presentations::find_ticket::find_tickt.dart::_FindTicktState" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::find_ticket::find_tickt.dart::_FindTicktState"
+
+abstract class "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketState" {
+}
+
+class "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketStateInitial" {
+}
+
+"graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketState" <|-- "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketStateInitial"
+
+class "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketStateFind" {
+}
+
+"graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketState" <|-- "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketStateFind"
+
+class "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketStatePdf" {
+}
+
+"graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketState" <|-- "graduation::view::presentations::find_ticket::cubit::find_ticket_state.dart::FindTicketStatePdf"
+
+class "graduation::view::presentations::find_ticket::cubit::find_ticket_cubit.dart::FindTicketCubit" {
+  +TicketData ticket
+  {static} +FindTicketCubit get()
+  +dynamic fetchTickt()
+  -dynamic _screenShotTicket()
+  -dynamic _downloadTicket()
+  +void makePDF()
+}
+
+"graduation::view::presentations::find_ticket::cubit::find_ticket_cubit.dart::FindTicketCubit" o-- "graduation::model::ticketdata.dart::TicketData"
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::view::presentations::find_ticket::cubit::find_ticket_cubit.dart::FindTicketCubit"
+
+class "graduation::view::presentations::My_Trips::my_trips.dart::MyTrips" {
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::My_Trips::my_trips.dart::MyTrips"
+
+class "graduation::view::presentations::My_Trips::my_trips.dart::PersonTripCard" {
+  +String departureCity
+  +String arrivalCity
+  +String departureDate
+  +String arrivalDate
+  +String tripTime
+  +String price
+  +String planeID
+  +String seatNo
+  +String passengerName
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::My_Trips::my_trips.dart::PersonTripCard"
+
+abstract class "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsState" {
+}
+
+class "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateInitial" {
+}
+
+"graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsState" <|-- "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateInitial"
+
+class "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateRemove" {
+}
+
+"graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsState" <|-- "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateRemove"
+
+class "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateGet" {
+}
+
+"graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsState" <|-- "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateGet"
+
+class "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateAlarm" {
+}
+
+"graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsState" <|-- "graduation::view::presentations::My_Trips::cubit::mytirps_state.dart::PersonTripsStateAlarm"
+
+class "graduation::view::presentations::My_Trips::cubit::mytrips_cubit.dart::PersonTripsCubit" {
+  {static} +PersonTripsCubit get()
+}
+
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::view::presentations::My_Trips::cubit::mytrips_cubit.dart::PersonTripsCubit"
+
+class "graduation::view::presentations::Seat_screen::cubit::seat_cubit.dart::SeatCubit" {
+  {static} +SeatCubit get()
+  +dynamic postSeatsUsers()
+  +List<String> convertToListString()
+}
+
+"bloc::src::cubit.dart::Cubit" <|-- "graduation::view::presentations::Seat_screen::cubit::seat_cubit.dart::SeatCubit"
+
+abstract class "graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatState" {
+}
+
+class "graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatStateInitial" {
+}
+
+"graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatState" <|-- "graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatStateInitial"
+
+class "graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatStateFetch" {
+}
+
+"graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatState" <|-- "graduation::view::presentations::Seat_screen::cubit::seat_state.dart::SeatStateFetch"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::SelectSeat" {
+  +State<SelectSeat> createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::SelectSeat"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::_SelectSeatState" {
+  -double _screenWidth
+  -double _screenHeight
+  +List<dynamic> seatsList
+  +List<String> usersID
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::_SelectSeatState"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::Plane" {
+  -double _screenHeight
+  -double _screenWidth
+  +List<dynamic> seatsList
+  +int number
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::Plane"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::PlaneBody" {
+  -double _screenHeight
+  -double _screenWidth
+  +List<dynamic> seatsList
+  +int number
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::PlaneBody"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::InnerPlane" {
+  +double screenHeight
+  +double screenWidth
+  +List<dynamic> seatsList
+  +int number
+  +_InnerPlaneState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::InnerPlane"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::_InnerPlaneState" {
+  +void initState()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::_InnerPlaneState"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::Seats" {
+  +List<dynamic> seatsList
+  +int peopleNumber
+  +_SeatsState createState()
+}
+
+"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::Seats"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::_SeatsState" {
+  +List<int> selectedSeatsIndexes
+  -void _toggleSeatSelection()
+  +Widget build()
+}
+
+"flutter::src::widgets::framework.dart::State" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::_SeatsState"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::_HeaderWavesPainter" {
+  +void paint()
+  +bool shouldRepaint()
+}
+
+"flutter::src::rendering::custom_paint.dart::CustomPainter" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::_HeaderWavesPainter"
+
+class "graduation::view::presentations::Seat_screen::select_seat.dart::_HeaderWavesPainter2" {
+  +void paint()
+  +bool shouldRepaint()
+}
+
+"flutter::src::rendering::custom_paint.dart::CustomPainter" <|-- "graduation::view::presentations::Seat_screen::select_seat.dart::_HeaderWavesPainter2"
 
 class "graduation::main.dart::MyApp" {
   +Widget build()
 }
 
 "flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::main.dart::MyApp"
-
-class "graduation::modules::Searching_Screen::Searching_Screen.dart::SearchingScreen" {
-  +Widget build()
-}
-
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::modules::Searching_Screen::Searching_Screen.dart::SearchingScreen"
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit" {
-  +bool scuretiyPassword
-  +IconData suffixIcon
-  +File? img
-  {static} +AuthCubit get()
-  +void changeScureity()
-  +dynamic pickImageGallery()
-  +dynamic pickImageCamera()
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit" o-- "flutter::src::widgets::icon_data.dart::IconData"
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit" o-- "dart::io::File"
-"bloc::src::cubit.dart::Cubit" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::AuthCubit"
-
-abstract class "graduation::modules::auth::cubit::auth_cubit.dart::AuthState" {
-}
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::AuthInitial" {
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::AuthInitial"
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::ScurityState" {
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ScurityState"
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraSuccessful" {
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraSuccessful"
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraError" {
-  +String error
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageCameraError"
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::ImageGallerySuccessful" {
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageGallerySuccessful"
-
-class "graduation::modules::auth::cubit::auth_cubit.dart::ImageGalleryError" {
-  +String error
-}
-
-"graduation::modules::auth::cubit::auth_cubit.dart::AuthState" <|-- "graduation::modules::auth::cubit::auth_cubit.dart::ImageGalleryError"
-
-class "graduation::modules::auth::login::login_screen.dart::LoginHome" {
-  +State<LoginHome> createState()
-}
-
-"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::modules::auth::login::login_screen.dart::LoginHome"
-
-class "graduation::modules::auth::login::login_screen.dart::_LoginHomeState" {
-  +TextEditingController emailController
-  +TextEditingController passwordController
-  +GlobalKey<FormState> formKey
-  +Widget build()
-}
-
-"graduation::modules::auth::login::login_screen.dart::_LoginHomeState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
-"graduation::modules::auth::login::login_screen.dart::_LoginHomeState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
-"flutter::src::widgets::framework.dart::State" <|-- "graduation::modules::auth::login::login_screen.dart::_LoginHomeState"
-
-class "graduation::modules::auth::register::register_screen.dart::Register" {
-  +State<Register> createState()
-}
-
-"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::modules::auth::register::register_screen.dart::Register"
-
-class "graduation::modules::auth::register::register_screen.dart::_RegisterState" {
-  +TextEditingController firstNameController
-  +TextEditingController lastNameController
-  +TextEditingController emailController
-  +TextEditingController passwordController
-  +DateTime dateTime
-  +String? phoneNumber
-  +TextEditingController faceImageController
-  +GlobalKey<FormState> formKey
-  +Widget build()
-}
-
-"graduation::modules::auth::register::register_screen.dart::_RegisterState" o-- "flutter::src::widgets::editable_text.dart::TextEditingController"
-"graduation::modules::auth::register::register_screen.dart::_RegisterState" o-- "flutter::src::widgets::framework.dart::GlobalKey<FormState>"
-"flutter::src::widgets::framework.dart::State" <|-- "graduation::modules::auth::register::register_screen.dart::_RegisterState"
-
-class "graduation::modules::home::home_screen.dart::HomeScreen" {
-  +State<HomeScreen> createState()
-}
-
-"flutter::src::widgets::framework.dart::StatefulWidget" <|-- "graduation::modules::home::home_screen.dart::HomeScreen"
-
-class "graduation::modules::home::home_screen.dart::_HomeScreenState" {
-  +List<Widget> pages
-  -int _pageIndex
-  -void _updateIndex()
-  +Widget build()
-}
-
-"flutter::src::widgets::framework.dart::State" <|-- "graduation::modules::home::home_screen.dart::_HomeScreenState"
-
-class "graduation::modules::Booking_screen::Booking_screen.dart::BookingScreen" {
-  +Widget build()
-}
-
-"flutter::src::widgets::framework.dart::StatelessWidget" <|-- "graduation::modules::Booking_screen::Booking_screen.dart::BookingScreen"
 
 
 @enduml
