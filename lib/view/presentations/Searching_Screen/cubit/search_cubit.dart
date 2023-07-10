@@ -11,6 +11,7 @@ import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 
+import '../../../../model/flight.dart';
 import '../../../shared/component/constants.dart';
 import '../../../../model/persondata.dart';
 
@@ -20,6 +21,7 @@ class SearchCubit extends Cubit<SearchState> {
   int _people = 0;
   List<String> country = [];
   List<bool> gender = [];
+  List<Flight> flights = [];
 
   int get people => _people;
 
@@ -40,11 +42,15 @@ class SearchCubit extends Cubit<SearchState> {
     emit(ChangePeople());
   }
 
+  void setFlights(List<Flight> newFlights) {
+    flights = newFlights;
+  }
+
   static SearchCubit get(BuildContext context) => BlocProvider.of(context);
 
   bool wayValue = true;
 
-  List<String> classValue = ["Economy", "Business", "First Class"];
+  List<String> classValue = ["economi", "business", "first"];
   int classindex = 0;
   bool flexable = false;
 
@@ -61,13 +67,46 @@ class SearchCubit extends Cubit<SearchState> {
 
   List<Airport> countries = [];
 
+  Future<List<Flight>> getallflight(String airportFrom, String airoportTo,
+      String date, String flightclass, int num) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'http://18.204.219.211:3000/api/flight/from-to-date-class-no'));
+    request.body = json.encode({
+      "airportFrom": airportFrom,
+      "airportTo": airoportTo,
+      "date": date,
+      "class": flightclass,
+      "no": num
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      String body = await response.stream.bytesToString();
+      List<dynamic> jsonList = jsonDecode(body);
+      List<Flight> flight =
+          jsonList.map((json) => Flight.fromJson(json)).toList();
+      emit(GetAllFligthScssful());
+      return flight;
+    } else {
+      print(response.statusCode);
+      emit(GetAllFligtherror(response.stream.toString()));
+      return [];
+    }
+  }
+
   Future<List<Airport>> fetchAirports() async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request('GET', Uri.parse('${uri}api/airport'));
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
-      var body = await response.stream.bytesToString();
+      String body = await response.stream.bytesToString();
+      print(body);
       List<dynamic> jsonList = jsonDecode(body);
       List<Airport> c = jsonList.map((json) => Airport.fromJson(json)).toList();
 

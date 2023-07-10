@@ -33,3 +33,11 @@ class ImageCameraError extends SearchState {
   final String error;
   ImageCameraError(this.error);
 }
+
+class GetAllFligthScssful extends SearchState {}
+
+class GetAllFligtherror extends SearchState {
+  final String error;
+
+  GetAllFligtherror(this.error);
+}

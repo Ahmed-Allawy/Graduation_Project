@@ -4,8 +4,6 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 
-import 'package:intl_phone_field/intl_phone_field.dart';
-
 import '../../../model/airports.dart';
 import '../../presentations/Searching_Screen/SecondSearching_Screen.dart';
 
@@ -243,174 +241,28 @@ Widget CustomTextFieldSearch(
   );
 }
 
-Widget buildPersonFields() {
-  var formKey = GlobalKey<FormState>();
-  final TextEditingController firstNameController = TextEditingController();
-  final TextEditingController lastNameController = TextEditingController();
-  final TextEditingController passportController = TextEditingController();
-  final TextEditingController nationalityController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController ageController = TextEditingController();
-  final TextEditingController genderController = TextEditingController();
-  TextEditingController phoneNumberController = TextEditingController();
-  return Form(
-    key: formKey,
-    child: Column(
-      children: [
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.person,
-          controller: firstNameController,
-          textInputType: TextInputType.name,
-          hintText: "Full Name",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "First Name shouldn't be empty";
-            }
-          },
-        ),
-        const Gap(25),
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.person,
-          controller: lastNameController,
-          textInputType: TextInputType.name,
-          hintText: "LastName",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "Last Name shouldn't be empty";
-            }
-          },
-        ),
-        const Gap(25),
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.numbers,
-          controller: passportController,
-          textInputType: TextInputType.number,
-          hintText: "Passport",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "Passport shouldn't be empty";
-            }
-          },
-        ),
-        const Gap(25),
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.flag,
-          controller: nationalityController,
-          textInputType: TextInputType.name,
-          hintText: "Nationality",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "Nationality shouldn't be empty";
-            }
-          },
-        ),
-        const Gap(25),
-        defaultTextField(
-          width: double.infinity,
-          controller: emailController,
-          textInputType: TextInputType.emailAddress,
-          prefix: Icons.email,
-          hintText: "Email",
-          validator: (val) {
-            return RegExp(
-                        r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                    .hasMatch(val!)
-                ? null
-                : "Please enter a valid email";
-          },
-        ),
-        const Gap(25),
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.visibility,
-          controller: passwordController,
-          textInputType: TextInputType.name,
-          hintText: "password",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "Password shouldn't be empty";
-            }
-          },
-        ),
-        const Gap(25),
-        SizedBox(
-          width: double.infinity,
-          child: IntlPhoneField(
-            controller: phoneNumberController,
-            decoration: const InputDecoration(
-              border: OutlineInputBorder(
-                borderSide: BorderSide(),
-              ),
-            ),
-            onChanged: (s) {},
-            initialCountryCode: 'EG',
-          ),
-        ),
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.date_range,
-          controller: ageController,
-          textInputType: TextInputType.number,
-          hintText: "AGE",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "AGE shouldn't be empty";
-            }
-          },
-        ),
-        const Gap(25),
-        defaultTextField(
-          width: double.infinity,
-          prefix: Icons.male,
-          controller: genderController,
-          textInputType: TextInputType.name,
-          hintText: "Gender",
-          validator: (val) {
-            if (val.isEmpty) {
-              return "Gender should be either male or female";
-            }
-          },
-        ),
-        const Gap(25),
-        const SizedBox(
-          height: 24,
-          child: DotedWidget(
-            color: Color.fromARGB(255, 67, 79, 210),
-            section: 10,
-            width: 4,
-          ),
-        ),
-        const Gap(25),
-      ],
-    ),
-  );
-}
-
 class TripWidget extends StatelessWidget {
   const TripWidget(
       {Key? key,
-      required this.departureCity,
-      required this.arrivalCity,
-      required this.departureDate,
+      required this.airportFrom,
+      required this.airportTo,
+      required this.takeOffDate,
       required this.arrivalDate,
-      required this.tripTime,
+      required this.duration,
       required this.price,
-      required this.planeID,
-      required this.People})
+      required this.flightNumber,
+      required this.takeOffTime,
+      required this.people})
       : super(key: key);
-  final String departureCity;
-  final String arrivalCity;
-  final String departureDate;
+  final String airportFrom;
+  final String airportTo;
+  final String takeOffDate;
   final String arrivalDate;
-  final String tripTime;
-  final String price;
-  final String planeID;
-  final int People;
+  final String duration;
+  final double price;
+  final String flightNumber;
+  final String takeOffTime;
+  final int people;
 
   @override
   Widget build(BuildContext context) {
@@ -435,7 +287,7 @@ class TripWidget extends StatelessWidget {
                     const Icon(Icons.airplanemode_active),
                     const Gap(15),
                     Text(
-                      "Plane ID",
+                      flightNumber,
                       style: Styles.headLinestyle4,
                     )
                   ],
@@ -449,13 +301,13 @@ class TripWidget extends StatelessWidget {
                       child: Column(
                         children: [
                           Text(
-                            "11:00",
+                            takeOffTime,
                             style: Styles.headLinestyle3
                                 .copyWith(color: Styles.textColor),
                           ),
                           const Gap(5),
                           Text(
-                            "LHD",
+                            airportFrom,
                             style: Styles.headLinestyle4
                                 .copyWith(color: Styles.textColor),
                           ),
@@ -502,7 +354,7 @@ class TripWidget extends StatelessWidget {
                           ),
                           const Gap(5),
                           Text(
-                            "CIR",
+                            airportTo,
                             style: Styles.headLinestyle4
                                 .copyWith(color: Styles.textColor),
                           ),
@@ -515,7 +367,7 @@ class TripWidget extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      "0h 15m",
+                      duration,
                       style: Styles.headLinestyle4
                           .copyWith(color: Styles.textColor),
                     ),
@@ -534,7 +386,7 @@ class TripWidget extends StatelessWidget {
             child: Row(
               children: [
                 Text(
-                  "510 \$",
+                  "$price\$",
                   style:
                       Styles.headLinestyle3.copyWith(color: Styles.textColor),
                 ),
@@ -543,11 +395,11 @@ class TripWidget extends StatelessWidget {
                 const Spacer(),
                 TextButton(
                   onPressed: () {
-                    print(People);
+                    print(people);
                     nextScreen(
                         context,
                         SecondSearchingScreen(
-                          people: People,
+                          people: people,
                         ));
                   },
                   child: Text(

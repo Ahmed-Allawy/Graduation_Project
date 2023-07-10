@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
+import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -300,9 +301,14 @@ class SecondSearchingScreen extends StatelessWidget {
                               ageControllers,
                               genderControllers);
 
-                          SearchCubit.get(context)
-                              .sendClients()
-                              .then((value) => print(value));
+                          SearchCubit.get(context).sendClients().then((value) {
+                            print(value);
+                            nextScreenRep(
+                                context,
+                                PicScreen(
+                                    token: value,
+                                    firstnames: firstNameControllers));
+                          });
                         }
                       }
                     },
