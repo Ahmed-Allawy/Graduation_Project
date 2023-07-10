@@ -101,7 +101,7 @@ class _SelectSeatState extends State<SelectSeat> {
                 context,
                 PicScreen(
                   token: const [],
-                  person: const [],
+                  firstnames: [],
                 ));
           },
         ),

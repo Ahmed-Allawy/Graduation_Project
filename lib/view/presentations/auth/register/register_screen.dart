@@ -16,6 +16,8 @@ import '../../../shared/network/local/cach_helper.dart';
 import '../../Searching_Screen/Searching_Screen.dart';
 import 'package:http/http.dart' as http;
 
+import '../../Searching_Screen/cubit/search_cubit.dart';
+
 class Register extends StatefulWidget {
   const Register({super.key});
 
@@ -191,14 +193,51 @@ class _RegisterState extends State<Register> {
                                   defaultButton(
                                       text: 'SignUp',
                                       onPressed: () {
+                                        ///set data to user object
+                                        user.country = countruController.text;
+                                        user.email = emailController.text;
+                                        user.fname = firstNameController.text;
+                                        user.lname = lastNameController.text;
+                                        user.password = passwordController.text;
+                                        user.phone = phoneNumber;
                                         if (formKey.currentState!.validate()) {
-                                          if (CacheHelper.getData(
-                                              key: "isloged")) {
-                                            nextScreen(context,
-                                                SearchingScreen(isloged: true));
-                                          } else {
-                                            signup(user);
-                                          }
+                                          nextScreen(context,
+                                              SearchingScreen(isloged: true));
+
+                                          signup(user).then((value) {
+                                            if (value) {
+                                              SearchCubit.get(context)
+                                                  .fetchAirports()
+                                                  .then((value) {
+                                                SearchCubit.get(context)
+                                                    .countries = value;
+                                                nextScreen(
+                                                    context,
+                                                    SearchingScreen(
+                                                      isloged: true,
+                                                    ));
+                                              });
+                                            } else {
+                                              showDialog(
+                                                context: context,
+                                                builder: (context) =>
+                                                    AlertDialog(
+                                                  title: const Text(
+                                                      'Sign Up Failed'),
+                                                  content: const Text(
+                                                      'Invalid email or password. Please try again.'),
+                                                  actions: [
+                                                    TextButton(
+                                                      child: const Text('OK'),
+                                                      onPressed: () =>
+                                                          Navigator.pop(
+                                                              context),
+                                                    ),
+                                                  ],
+                                                ),
+                                              );
+                                            }
+                                          });
                                         }
                                         // print(phoneNumber);
                                       }),
@@ -237,12 +276,11 @@ class _RegisterState extends State<Register> {
   }
 }
 
-signup(
+Future<bool> signup(
   User user,
 ) async {
   var headers = {'Content-Type': 'application/json'};
-  var request =
-      http.Request('POST', Uri.parse('http://18.204.219.211:3000/api/user'));
+  var request = http.Request('POST', Uri.parse('${uri}api/user'));
   request.body = user.toJson();
   request.headers.addAll(headers);
 
@@ -251,8 +289,10 @@ signup(
   if (response.statusCode == 200) {
     CacheHelper.putBoolean(key: "isloged", value: true);
     print(await response.stream.bytesToString());
+    return true;
   } else {
     CacheHelper.putBoolean(key: "isloged", value: false);
     print(response.reasonPhrase);
+    return false;
   }
 }

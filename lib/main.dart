@@ -5,9 +5,9 @@ import 'package:graduation/view/presentations/My_Trips/cubit/mytrips_cubit.dart'
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
-import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
+import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 
 import 'package:graduation/view/presentations/find_ticket/cubit/find_ticket_cubit.dart';
 
@@ -19,8 +19,10 @@ import 'package:graduation/view/shared/network/payment/cubit/paypal_cubit.dart';
 import 'view/shared/network/local/cach_helper.dart';
 
 void main() {
-  CacheHelper.init();
-  runApp(DevicePreview(builder: (context) => const MyApp()));
+  runApp(DevicePreview(builder: (context) {
+    CacheHelper.init();
+    return const MyApp();
+  }));
 }
 
 class MyApp extends StatelessWidget {
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
         ),
         // builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        home: const SelectSeat(),
+        home: const LoginHome(),
       ),
     );
   }

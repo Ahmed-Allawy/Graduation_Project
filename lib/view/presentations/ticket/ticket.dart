@@ -2,6 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 
 import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/constants.dart';
@@ -91,7 +92,11 @@ class _TicketState extends State<Ticket> {
         centerTitle: true,
         title: const Text("Ticket"),
         leading: BackButton(
-          onPressed: () => nextScreenRep(context, const SelectSeat()),
+          onPressed: () => nextScreenRep(
+              context,
+              SearchingScreen(
+                isloged: CacheHelper.getData(key: 'isLoged'),
+              )),
         ),
       ),
       body: BlocBuilder<FlightTicketCubit, FlightTicketState>(

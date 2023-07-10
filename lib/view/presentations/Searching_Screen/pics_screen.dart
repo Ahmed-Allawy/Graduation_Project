@@ -1,21 +1,22 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+
 import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../shared/component/components.dart';
-import '../../../model/persondata.dart';
 import 'cubit/search_cubit.dart';
 
 // ignore: must_be_immutable
 class PicScreen extends StatelessWidget {
-  List<Person> person;
   List<String> token;
+  List<TextEditingController> firstnames;
   PicScreen({
     Key? key,
-    required this.person,
     required this.token,
+    required this.firstnames,
   }) : super(key: key);
 
   @override
@@ -34,18 +35,13 @@ class PicScreen extends StatelessWidget {
                 const Spacer(),
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: person.length,
+                    itemCount: token.length,
                     itemBuilder: ((context, index) => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
-                                Text(
-                                  person[index].firstName,
-                                  style: const TextStyle(fontSize: 15),
-                                ),
-                                const Gap(20),
                                 defaultTextButton(
                                     text: "Take photo",
                                     onpressed: () {
