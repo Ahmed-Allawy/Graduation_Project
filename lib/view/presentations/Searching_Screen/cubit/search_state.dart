@@ -49,3 +49,5 @@ class GetAllFligthCustomeerror extends SearchState {
 
   GetAllFligthCustomeerror(this.error);
 }
+
+class SendMultibleUsers extends SearchState {}

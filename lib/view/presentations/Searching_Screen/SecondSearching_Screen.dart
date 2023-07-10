@@ -284,7 +284,7 @@ class SecondSearchingScreen extends StatelessWidget {
                   ),
                   const Gap(25),
                   defaultButton(
-                    text: "Submit",
+                    text: "Sumbit",
                     onPressed: () {
                       for (var form in formKeys) {
                         if (form.currentState!.validate()) {
@@ -303,11 +303,15 @@ class SecondSearchingScreen extends StatelessWidget {
 
                           SearchCubit.get(context).sendClients().then((value) {
                             print(value);
-                            nextScreenRep(
-                                context,
-                                PicScreen(
-                                    token: value,
-                                    firstnames: firstNameControllers));
+                            if (value.isNotEmpty) {
+                              nextScreen(
+                                  context,
+                                  PicScreen(
+                                      token: value,
+                                      firstnames: firstNameControllers));
+                              SearchCubit.get(context).clearPersons();
+                            }
+                            SearchCubit.get(context).clearPersons();
                           });
                         }
                       }

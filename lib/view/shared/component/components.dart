@@ -44,6 +44,7 @@ Widget defaultTextField({
             color: primarycolor,
           ),
           //here we will check if the suffixpressed is avaiable or not then pass it if it's avaiable
+
           suffixIcon: IconButton(
             icon: Icon(
               suffix,

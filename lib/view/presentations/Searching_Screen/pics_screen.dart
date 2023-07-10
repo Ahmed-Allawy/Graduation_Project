@@ -1,4 +1,5 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
@@ -7,6 +8,8 @@ import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 
 import '../../shared/component/components.dart';
+import '../../shared/component/constants.dart';
+import '../../shared/component/layout.dart';
 import 'cubit/search_cubit.dart';
 
 // ignore: must_be_immutable
@@ -21,6 +24,7 @@ class PicScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<bool> status = List<bool>.filled(token.length, false);
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
@@ -42,23 +46,65 @@ class PicScreen extends StatelessWidget {
                             Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                Text(
+                                  firstnames[index].text,
+                                  style: const TextStyle(fontSize: 20),
+                                ),
+                                const SizedBox(
+                                  width: 20,
+                                ),
                                 defaultTextButton(
                                     text: "Take photo",
                                     onpressed: () {
                                       SearchCubit.get(context)
                                           .pickImageCamera();
-                                    })
+                                    }),
+                                Gap(10),
+                                status[index]
+                                    ? const Icon(
+                                        Icons.car_crash,
+                                        color: Colors.green,
+                                      )
+                                    : const Icon(
+                                        Icons.car_crash,
+                                        color: Colors.red,
+                                      )
                               ],
                             ),
+                            const SizedBox(
+                              height: 20,
+                            )
                           ],
                         ))),
                 const Spacer(),
                 defaultButton(
-                    text: "Submit",
+                    text: "Sumbit",
                     onPressed: () {
+                      for (int i = 0; i < status.length; i++) {
+                        if (status[i] == false) {
+                          return;
+                        }
+                      }
                       nextScreen(context, const SelectSeat());
                     }),
-                const Gap(10)
+                const Gap(15),
+                Text.rich(TextSpan(
+                    text: "or you can Skip to the seat ",
+                    style: TextStyle(
+                        fontSize: AppLayout.getWidth(fontsize2),
+                        color: Colors.black),
+                    children: <TextSpan>[
+                      TextSpan(
+                          text: "Page",
+                          style: const TextStyle(
+                              color: textColor,
+                              decoration: TextDecoration.underline),
+                          recognizer: TapGestureRecognizer()
+                            ..onTap = () {
+                              nextScreen(context, const SelectSeat());
+                            })
+                    ])),
+                const Gap(15),
               ],
             ));
       },

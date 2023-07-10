@@ -90,7 +90,7 @@ class SearchCubit extends Cubit<SearchState> {
       List<Flight> flight =
           jsonList.map((json) => Flight.fromJson(json)).toList();
       emit(GetAllFligthCustomeSuccssful());
-      print("custom suc");
+
       return flight;
     } else {
       print(response.statusCode);
@@ -165,8 +165,11 @@ class SearchCubit extends Cubit<SearchState> {
     if (response.statusCode == 200) {
       String responseBody = await response.stream.bytesToString();
       List<String> responseList = json.decode(responseBody).cast<String>();
+      emit(SendMultibleUsers());
       return responseList;
     } else {
+      String responseBody = await response.stream.bytesToString();
+      print(responseBody);
       return [];
     }
   }

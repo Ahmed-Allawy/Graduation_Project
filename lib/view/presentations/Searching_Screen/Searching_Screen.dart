@@ -17,7 +17,6 @@ import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:graduation/view/shared/network/local/cach_helper.dart';
 
 import '../../../model/airports.dart';
-import '../../../model/flight.dart';
 import '../../shared/component/components.dart';
 import '../../shared/component/layout.dart';
 
