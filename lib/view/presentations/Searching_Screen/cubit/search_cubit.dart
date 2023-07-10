@@ -17,18 +17,35 @@ import '../../../../model/persondata.dart';
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
+  int _people = 0;
+  List<String> country = [];
+  List<bool> gender = [];
+
+  int get people => _people;
+
   SearchCubit() : super(SearchInitial());
+
+  List<String> _initializeCountryList() {
+    return List.generate(_people, (index) => "Egypt");
+  }
+
+  List<bool> _initalizeGenderList() {
+    return List.generate(_people, (index) => true);
+  }
+
+  void updatePeople(int value) {
+    _people = value;
+    country = _initializeCountryList();
+    gender = _initalizeGenderList();
+    emit(ChangePeople());
+  }
 
   static SearchCubit get(BuildContext context) => BlocProvider.of(context);
 
-  int people = 0;
-
-  String country = "Choose Country";
-
   bool wayValue = true;
-  bool gender = true;
 
-  bool classValue = true;
+  List<String> classValue = ["Economy", "Business", "First Class"];
+  int classindex = 0;
   bool flexable = false;
 
   File? img;
@@ -93,14 +110,16 @@ class SearchCubit extends Cubit<SearchState> {
     emit(ChangeWays());
   }
 
-  void changeGender(val) {
-    gender = val;
-    emit(ChangeGender());
+  void changeClas(
+    val,
+  ) {
+    classindex = classValue.indexOf(val);
+    emit(ChangeClass());
   }
 
-  void changeClas(val) {
-    classValue = val;
-    emit(ChangeClass());
+  void changeGender(val, int index) {
+    gender[index] = val;
+    emit(ChangeGender());
   }
 
   void changeFlexable(val) {
@@ -108,13 +127,8 @@ class SearchCubit extends Cubit<SearchState> {
     emit(ChangeFlexable());
   }
 
-  void updatePeople(int value) {
-    people = value;
-    emit(ChangePeople());
-  }
-
-  void changeCountrey(String c) {
-    country = c;
+  void changeCountrey(String c, int index) {
+    country[index] = c;
     emit(ChangeCountry());
   }
 

@@ -5,6 +5,7 @@
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/lib/liburl_launcher_linux_plugin.so
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/NOTICES.Z
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/shaders/ink_sparkle.frag
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/packages/flutter_paypal/lib/src/assets/img/cloud_state.png
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/packages/awesome_icons/fonts/Free-Solid-900.otf
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/packages/awesome_icons/fonts/Brands-Regular-400.otf
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/packages/awesome_icons/fonts/Free-Regular-400.otf
@@ -274,3 +275,4 @@
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/3ef2582ea94414801edc3f61e80ee4c5.gif
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/barcode.jpg
 /home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/assets/images/one.jpg
+/home/allawy/Desktop/Graduation_Project/build/linux/x64/debug/bundle/data/flutter_assets/AssetManifest.smcbin

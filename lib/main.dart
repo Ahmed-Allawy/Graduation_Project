@@ -5,14 +5,16 @@ import 'package:graduation/view/presentations/My_Trips/cubit/mytrips_cubit.dart'
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
+import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
-import 'package:graduation/view/presentations/auth/login/login_screen.dart';
+
 import 'package:graduation/view/presentations/find_ticket/cubit/find_ticket_cubit.dart';
 
 import 'package:graduation/view/presentations/ticket/cubit/ticket_cubit.dart';
 
 import 'package:graduation/view/shared/component/constants.dart';
+import 'package:graduation/view/shared/network/payment/cubit/paypal_cubit.dart';
 
 import 'view/shared/network/local/cach_helper.dart';
 
@@ -35,6 +37,7 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => PersonTripsCubit())),
         BlocProvider(create: ((context) => FindTicketCubit())),
         BlocProvider(create: ((context) => SeatCubit())),
+        BlocProvider(create: ((context) => PaypalPaymentCubit())),
       ],
       child: MaterialApp(
         theme: ThemeData(
@@ -42,7 +45,7 @@ class MyApp extends StatelessWidget {
         ),
         // builder: DevicePreview.appBuilder,
         debugShowCheckedModeBanner: false,
-        home: const LoginHome(),
+        home: const SelectSeat(),
       ),
     );
   }

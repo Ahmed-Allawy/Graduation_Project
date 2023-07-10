@@ -194,7 +194,7 @@ class _RegisterState extends State<Register> {
                                         if (formKey.currentState!.validate()) {
                                           if (CacheHelper.getData(
                                               key: "isloged")) {
-                                            nextScreenRep(context,
+                                            nextScreen(context,
                                                 SearchingScreen(isloged: true));
                                           } else {
                                             signup(user);

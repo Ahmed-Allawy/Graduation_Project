@@ -194,6 +194,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "flutter_inappwebview",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/flutter_inappwebview-5.7.2+3",
+      "packageUri": "lib/",
+      "languageVersion": "2.14"
+    },
+    {
       "name": "flutter_keyboard_visibility",
       "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/flutter_keyboard_visibility-5.4.1",
       "packageUri": "lib/",
@@ -240,6 +246,12 @@
       "rootUri": "file:///home/allawy/flutter-install/flutter/packages/flutter_localizations",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "flutter_paypal_checkout",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/flutter_paypal_checkout-1.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.18"
     },
     {
       "name": "flutter_plugin_android_lifecycle",
@@ -291,9 +303,9 @@
     },
     {
       "name": "http",
-      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/http-1.1.0",
+      "rootUri": "file:///home/allawy/.pub-cache/hosted/pub.dev/http-0.13.6",
       "packageUri": "lib/",
-      "languageVersion": "3.0"
+      "languageVersion": "2.19"
     },
     {
       "name": "http_parser",
@@ -716,7 +728,7 @@
       "languageVersion": "2.19"
     }
   ],
-  "generated": "2023-07-09T03:39:02.868964Z",
+  "generated": "2023-07-10T16:13:16.146975Z",
   "generator": "pub",
   "generatorVersion": "3.0.5"
 }

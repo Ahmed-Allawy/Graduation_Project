@@ -202,7 +202,7 @@ class SecondSearchingScreen extends StatelessWidget {
                                   focusColor: Colors.white,
                                   dropdownColor: Colors.white,
                                   hint: Text(
-                                    SearchCubit.get(context).country,
+                                    SearchCubit.get(context).country[index],
                                     style: const TextStyle(color: Colors.black),
                                   ),
                                   items: countryList
@@ -216,7 +216,7 @@ class SecondSearchingScreen extends StatelessWidget {
                                   onChanged: (s) {
                                     nationalityControllers[index].text = s!;
                                     return SearchCubit.get(context)
-                                        .changeCountrey(s);
+                                        .changeCountrey(s, index);
                                   }),
                             ),
                             const Gap(25),
@@ -226,14 +226,15 @@ class SecondSearchingScreen extends StatelessWidget {
                                   child: RadioListTile(
                                       title: const Text('Male'),
                                       value: true,
-                                      groupValue:
-                                          SearchCubit.get(context).gender,
+                                      groupValue: SearchCubit.get(context)
+                                          .gender[index],
                                       activeColor: const Color.fromARGB(
                                           255, 105, 116, 235),
                                       onChanged: (val) {
                                         SearchCubit.get(context)
-                                            .changeGender(val);
-                                        if (SearchCubit.get(context).gender) {
+                                            .changeGender(val, index);
+                                        if (SearchCubit.get(context)
+                                            .gender[index]) {
                                           genderControllers[index].text =
                                               "Male";
                                         } else {
@@ -246,14 +247,15 @@ class SecondSearchingScreen extends StatelessWidget {
                                   child: RadioListTile(
                                       title: const Text('Female'),
                                       value: false,
-                                      groupValue:
-                                          SearchCubit.get(context).gender,
+                                      groupValue: SearchCubit.get(context)
+                                          .gender[index],
                                       activeColor: const Color.fromARGB(
                                           255, 105, 116, 235),
                                       onChanged: (val) {
                                         SearchCubit.get(context)
-                                            .changeGender(val);
-                                        if (SearchCubit.get(context).gender) {
+                                            .changeGender(val, index);
+                                        if (SearchCubit.get(context)
+                                            .gender[index]) {
                                           genderControllers[index].text =
                                               "Male";
                                         } else {

@@ -1,10 +1,16 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, deprecated_member_use
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../model/ticketdata.dart';
 import 'ticket_state.dart';
+import 'dart:io';
+import 'package:pdf/widgets.dart' as pw;
+
+import 'package:path_provider/path_provider.dart';
+import 'package:screenshot/screenshot.dart';
+import 'package:share_plus/share_plus.dart';
 
 class FlightTicketCubit extends Cubit<FlightTicketState> {
   FlightTicketCubit() : super(FlightTicketStateInitial());
@@ -19,9 +25,45 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
     emit(FlightTicketStateAdd());
   }
 
-  void removeTicket(int index) {
-    tickets.removeAt(index);
-    // List<TicketData>.from(state.tickets)..removeAt(index);
-    emit(FlightTicketStateRemove());
+  ////// make ticket as pdf
+  Future<File> _screenShotTicket(
+      ScreenshotController screenshotController) async {
+    final directory = await getApplicationDocumentsDirectory();
+    final imagePath = await File('${directory.path}/image.png').create();
+    await screenshotController
+        .capture(delay: const Duration(milliseconds: 10))
+        .then((image) async {
+      if (image != null) {
+        await imagePath.writeAsBytes(image);
+      }
+    });
+    return imagePath;
+  }
+
+  Future<void> _downloadTicket(File imagePath) async {
+    final pdf = pw.Document();
+    final image = pw.MemoryImage(
+      imagePath.readAsBytesSync(),
+    );
+
+    pdf.addPage(pw.Page(build: (pw.Context context) {
+      return pw.Center(
+        child: pw.Image(image),
+      ); // Center
+    })); // Pag
+
+    // Save the PDF document to disk
+    final String dir = (await getApplicationDocumentsDirectory()).path;
+    final String path = '$dir/ticket.pdf';
+    final File file = File(path);
+    await file.writeAsBytes(await pdf.save());
+    Share.shareFiles([file.path], text: 'ticket');
+  }
+
+  void makePDF(ScreenshotController screenshotController) {
+    _screenShotTicket(screenshotController).then((value) {
+      _downloadTicket(value);
+    });
+    emit(FlightTicketStatePDF());
   }
 }

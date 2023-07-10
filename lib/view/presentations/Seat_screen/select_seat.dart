@@ -7,9 +7,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_state.dart';
-import 'package:graduation/view/presentations/ticket/ticket.dart';
+
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:graduation/view/shared/network/local/cach_helper.dart';
+import 'package:graduation/view/shared/network/payment/paypal.dart';
 
 import '../../shared/component/components.dart';
 
@@ -131,7 +132,12 @@ class _SelectSeatState extends State<SelectSeat> {
                       CacheHelper.getData(key: 'seletedSeats'), usersID);
                   String s = CacheHelper.getData(key: 'seletedSeats');
                   if (s.isNotEmpty) {
-                    nextScreen(context, const Ticket());
+                    nextScreen(
+                        context,
+                        CheckoutPage(
+                          price: 10,
+                          quantity: usersID.length,
+                        ));
                   }
                 }),
           ]);

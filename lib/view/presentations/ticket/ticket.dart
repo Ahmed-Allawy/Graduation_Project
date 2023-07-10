@@ -1,7 +1,5 @@
 // ignore_for_file: camel_case_types, library_private_types_in_public_api, prefer_final_fields, unused_element, deprecated_member_use, non_constant_identifier_names, avoid_print
 
-import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -9,10 +7,8 @@ import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/constants.dart';
 
 import 'package:graduation/view/shared/component/helperfunctions.dart';
-import 'package:path_provider/path_provider.dart';
 
 import 'package:screenshot/screenshot.dart';
-import 'package:share_plus/share_plus.dart';
 
 import '../../../model/ticketdata.dart';
 import '../../shared/component/components.dart';
@@ -20,8 +16,6 @@ import '../../shared/component/components.dart';
 import '../../shared/network/local/cach_helper.dart';
 import 'cubit/ticket_cubit.dart';
 import 'cubit/ticket_state.dart';
-
-import 'package:pdf/widgets.dart' as pw;
 
 class Ticket extends StatefulWidget {
   const Ticket({
@@ -33,40 +27,6 @@ class Ticket extends StatefulWidget {
 }
 
 class _TicketState extends State<Ticket> {
-  Future<File> _screenShotTicket(
-      ScreenshotController screenshotController) async {
-    final directory = await getApplicationDocumentsDirectory();
-    final imagePath = await File('${directory.path}/image.png').create();
-    await screenshotController
-        .capture(delay: const Duration(milliseconds: 10))
-        .then((image) async {
-      if (image != null) {
-        await imagePath.writeAsBytes(image);
-      }
-    });
-    return imagePath;
-  }
-
-  Future<void> _downloadTicket(File imagePath) async {
-    final pdf = pw.Document();
-    final image = pw.MemoryImage(
-      imagePath.readAsBytesSync(),
-    );
-
-    pdf.addPage(pw.Page(build: (pw.Context context) {
-      return pw.Center(
-        child: pw.Image(image),
-      ); // Center
-    })); // Pag
-
-    // Save the PDF document to disk
-    final String dir = (await getApplicationDocumentsDirectory()).path;
-    final String path = '$dir/ticket.pdf';
-    final File file = File(path);
-    await file.writeAsBytes(await pdf.save());
-    Share.shareFiles([file.path], text: 'ticket');
-  }
-
   late final FlightTicketCubit _flightTicketCubit;
 
   @override
@@ -168,10 +128,8 @@ class _TicketState extends State<Ticket> {
                   ),
                   ElevatedButton(
                     onPressed: () {
-                      _screenShotTicket(screenshotController).then((value) {
-                        print('value is :$value');
-                        _downloadTicket(value);
-                      });
+                      FlightTicketCubit.get(context)
+                          .makePDF(screenshotController);
                     },
                     child: const Text('Download it'),
                   ),

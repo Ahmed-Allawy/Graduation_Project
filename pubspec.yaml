@@ -47,6 +47,9 @@ dependencies:
   pdf: ^3.10.1
   screenshot: ^2.0.0
   share_plus: ^7.0.2
+  flutter_paypal_checkout: ^1.0.1
+  
+  
 dev_dependencies:
 
   # The "flutter_lints" package below contains a set of recommended lints to
@@ -73,6 +76,8 @@ flutter:
     - assets/images/3ef2582ea94414801edc3f61e80ee4c5.gif
     - assets/images/one.jpg
     - assets/images/barcode.jpg
+    - assets/images/correct.png
+    - assets/images/paypalIcon.png
   #   - images/a_dot_ham.jpeg
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware
