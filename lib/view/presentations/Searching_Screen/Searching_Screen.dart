@@ -65,7 +65,7 @@ class SearchingScreen extends StatelessWidget {
                   child: SizedBox(
                     child: ListView(
                       shrinkWrap: true,
-                      physics: NeverScrollableScrollPhysics(),
+                      physics: const NeverScrollableScrollPhysics(),
                       padding: EdgeInsets.symmetric(
                           horizontal: AppLayout.getWidth(20),
                           vertical: AppLayout.getHeigth(40)),
@@ -91,7 +91,7 @@ class SearchingScreen extends StatelessWidget {
                           autoCompleteKey: deupartureCompleteKey,
                           textEditingController: deupartureEditingController,
                           selectedCountry: deupartureEditingController.text,
-                          countries: SearchCubit.get(context).countries,
+                          countries: cubit.countries,
                           sumbit: (item) {},
                           build: (context, item) {
                             return ListTile(
@@ -100,7 +100,7 @@ class SearchingScreen extends StatelessWidget {
                               ),
                               onTap: () {
                                 print("svsdgsdsds");
-                                SearchCubit.get(context).sumbitCountery(
+                                cubit.sumbitCountery(
                                     item, deupartureEditingController);
                               },
                             );
@@ -112,7 +112,7 @@ class SearchingScreen extends StatelessWidget {
                           autoCompleteKey: arrivalCompleteKey,
                           textEditingController: arrivaltextEditingController,
                           selectedCountry: arrivaltextEditingController.text,
-                          countries: SearchCubit.get(context).countries,
+                          countries: cubit.countries,
                           sumbit: (item) {},
                           build: (context, item) {
                             return ListTile(
@@ -121,7 +121,7 @@ class SearchingScreen extends StatelessWidget {
                               ),
                               onTap: () {
                                 print("dgfggdgdfgggdsddsfsdfdsfdsf");
-                                SearchCubit.get(context).sumbitCountery(
+                                cubit.sumbitCountery(
                                     item, arrivaltextEditingController);
                               },
                             );
@@ -134,24 +134,22 @@ class SearchingScreen extends StatelessWidget {
                               child: RadioListTile(
                                   title: const Text('One way'),
                                   value: true,
-                                  groupValue: SearchCubit.get(context).wayValue,
+                                  groupValue: cubit.wayValue,
                                   activeColor:
                                       const Color.fromARGB(255, 105, 116, 235),
                                   onChanged: (val) {
-                                    return SearchCubit.get(context)
-                                        .changeValues(val);
+                                    return cubit.changeValues(val);
                                   }),
                             ),
                             Expanded(
                               child: RadioListTile(
                                   title: const Text('Return'),
                                   value: false,
-                                  groupValue: SearchCubit.get(context).wayValue,
+                                  groupValue: cubit.wayValue,
                                   activeColor:
                                       const Color.fromARGB(255, 105, 116, 235),
                                   onChanged: (val) {
-                                    return SearchCubit.get(context)
-                                        .changeValues(val);
+                                    return cubit.changeValues(val);
                                   }),
                             )
                           ],
@@ -167,12 +165,11 @@ class SearchingScreen extends StatelessWidget {
                                   ),
                                   value: "economi",
                                   groupValue:
-                                      SearchCubit.get(context).classValue[
-                                          SearchCubit.get(context).classindex],
+                                      cubit.classValue[cubit.classindex],
                                   activeColor:
                                       const Color.fromARGB(255, 105, 116, 235),
                                   onChanged: (val) {
-                                    return SearchCubit.get(context).changeClas(
+                                    return cubit.changeClas(
                                       val,
                                     );
                                   }),
@@ -185,12 +182,11 @@ class SearchingScreen extends StatelessWidget {
                                   ),
                                   value: 'business',
                                   groupValue:
-                                      SearchCubit.get(context).classValue[
-                                          SearchCubit.get(context).classindex],
+                                      cubit.classValue[cubit.classindex],
                                   activeColor:
                                       const Color.fromARGB(255, 105, 116, 235),
                                   onChanged: (val) {
-                                    return SearchCubit.get(context).changeClas(
+                                    return cubit.changeClas(
                                       val,
                                     );
                                   }),
@@ -203,12 +199,11 @@ class SearchingScreen extends StatelessWidget {
                                   ),
                                   value: 'first',
                                   groupValue:
-                                      SearchCubit.get(context).classValue[
-                                          SearchCubit.get(context).classindex],
+                                      cubit.classValue[cubit.classindex],
                                   activeColor:
                                       const Color.fromARGB(255, 105, 116, 235),
                                   onChanged: (val) {
-                                    return SearchCubit.get(context).changeClas(
+                                    return cubit.changeClas(
                                       val,
                                     );
                                   }),
@@ -257,7 +252,7 @@ class SearchingScreen extends StatelessWidget {
                                     const Color.fromARGB(255, 105, 116, 235)),
                             child: TextButton(
                                 onPressed: () {
-                                  SearchCubit.get(context).selectDate(context);
+                                  cubit.selectDate(context);
                                 },
                                 child: Text(
                                   "Select date",
@@ -269,8 +264,7 @@ class SearchingScreen extends StatelessWidget {
                         Gap(AppLayout.getHeigth(10)),
                         Center(
                           child: Text(
-                              "${SearchCubit.get(context).selectedDate.toLocal()}"
-                                  .split(' ')[0]),
+                              "${cubit.selectedDate.toLocal()}".split(' ')[0]),
                         ),
                         Gap(AppLayout.getHeigth(25)),
                         Center(
@@ -278,10 +272,9 @@ class SearchingScreen extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Checkbox(
-                                value: SearchCubit.get(context).flexable,
+                                value: cubit.flexable,
                                 onChanged: (newValue) {
-                                  return SearchCubit.get(context)
-                                      .changeFlexable(newValue);
+                                  return cubit.changeFlexable(newValue);
                                 },
                               ),
                               const Text(
@@ -317,25 +310,33 @@ class SearchingScreen extends StatelessWidget {
                                       0;
 
                                   int people = adultCount + childCount;
-                                  SearchCubit.get(context).updatePeople(people);
-                                  SearchCubit.get(context)
-                                      .getallflight(
-                                          deupartureEditingController.text,
-                                          arrivaltextEditingController.text,
-                                          SearchCubit.get(context)
-                                              .selectedDate
-                                              .toString(),
-                                          SearchCubit.get(context).classValue[
-                                              SearchCubit.get(context)
-                                                  .classindex],
-                                          people)
-                                      .then((value) {
-                                    SearchCubit.get(context).flights = value;
-                                    print(SearchCubit.get(context)
-                                        .flights[0]
-                                        .classes
-                                        .length);
-                                  });
+                                  cubit.updatePeople(people);
+                                  cubit.flexable
+                                      ? cubit
+                                          .getAllFlightCoustom(
+                                              deupartureEditingController.text,
+                                              arrivaltextEditingController.text,
+                                              cubit.beforeDate.toString(),
+                                              cubit.afterDate.toString(),
+                                              cubit
+                                                  .classValue[cubit.classindex],
+                                              people)
+                                          .then((value) {
+                                          cubit.flights = value;
+                                        })
+                                      : cubit
+                                          .getallflight(
+                                              deupartureEditingController.text,
+                                              arrivaltextEditingController.text,
+                                              cubit.selectedDate.toString(),
+                                              cubit
+                                                  .classValue[cubit.classindex],
+                                              people)
+                                          .then((value) {
+                                          cubit.flights = value;
+                                          print(
+                                              cubit.flights[0].classes.length);
+                                        });
                                 } else {
                                   showSnackbar(
                                       context: context,
@@ -352,13 +353,12 @@ class SearchingScreen extends StatelessWidget {
                     ),
                   ),
                 ),
-                SearchCubit.get(context).flights.length != 0
+                cubit.flights.isNotEmpty
                     ? Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 10),
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
                         child: ListView.builder(
                             shrinkWrap: true,
-                            itemCount: SearchCubit.get(context)
-                                .flights
+                            itemCount: cubit.flights
                                 .length, // Replace with your actual item count
                             itemBuilder: (BuildContext context, int index) {
                               return TripWidget(

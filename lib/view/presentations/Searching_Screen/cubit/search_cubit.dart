@@ -67,6 +67,40 @@ class SearchCubit extends Cubit<SearchState> {
 
   List<Airport> countries = [];
 
+  Future<List<Flight>> getAllFlightCoustom(String airportFrom, String airportTo,
+      String dateFrom, String dateTo, String flightClass, int num) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request = http.Request(
+        'POST',
+        Uri.parse(
+            'http://18.204.219.211:3000/api/flight/from-to-elastic-date-class-no'));
+    request.body = json.encode({
+      "airportFrom": airportFrom,
+      "airportTo": airportTo,
+      "dateFrom": dateFrom,
+      "dateTo": dateTo,
+      "class": flightClass,
+      "no": num
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var body = await response.stream.bytesToString();
+      List<dynamic> jsonList = jsonDecode(body);
+      List<Flight> flight =
+          jsonList.map((json) => Flight.fromJson(json)).toList();
+      emit(GetAllFligthCustomeSuccssful());
+      print("custom suc");
+      return flight;
+    } else {
+      print(response.statusCode);
+      emit(GetAllFligthCustomeerror(response.stream.toString()));
+      return [];
+    }
+  }
+
   Future<List<Flight>> getallflight(String airportFrom, String airoportTo,
       String date, String flightclass, int num) async {
     var headers = {'Content-Type': 'application/json'};
@@ -90,7 +124,7 @@ class SearchCubit extends Cubit<SearchState> {
       List<dynamic> jsonList = jsonDecode(body);
       List<Flight> flight =
           jsonList.map((json) => Flight.fromJson(json)).toList();
-      emit(GetAllFligthScssful());
+      emit(GetAllFligthSuccssful());
       return flight;
     } else {
       print(response.statusCode);
@@ -172,6 +206,8 @@ class SearchCubit extends Cubit<SearchState> {
   }
 
   DateTime selectedDate = DateTime.now();
+  DateTime beforeDate = DateTime.now();
+  DateTime afterDate = DateTime.now();
 
   Future<void> selectDate(BuildContext context) async {
     final DateTime? picked = await showDatePicker(
@@ -181,6 +217,9 @@ class SearchCubit extends Cubit<SearchState> {
         lastDate: DateTime(2101));
     if (picked != null && picked != selectedDate) {
       selectedDate = picked;
+
+      beforeDate = selectedDate.subtract(const Duration(days: 3));
+      afterDate = selectedDate.add(const Duration(days: 3));
       emit(ChangeDate());
     }
   }
