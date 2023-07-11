@@ -48,6 +48,7 @@ dependencies:
   screenshot: ^2.0.0
   share_plus: ^7.0.2
   flutter_paypal_checkout: ^1.0.1
+  dio: ^5.2.1+1
   
   
 dev_dependencies:

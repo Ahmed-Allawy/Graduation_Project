@@ -4,18 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 
-import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
-import 'package:graduation/view/shared/component/helperfunctions.dart';
-
 import '../../shared/component/components.dart';
 import '../../shared/component/constants.dart';
+import '../../shared/component/helperfunctions.dart';
 import '../../shared/component/layout.dart';
+import '../Seat_screen/select_seat.dart';
 import 'cubit/search_cubit.dart';
 
 // ignore: must_be_immutable
 class PicScreen extends StatelessWidget {
   List<String> token;
-  List<TextEditingController> firstnames;
+  // List<TextEditingController> firstnames;
+  List<String> firstnames;
   PicScreen({
     Key? key,
     required this.token,
@@ -47,7 +47,8 @@ class PicScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  firstnames[index].text,
+                                  firstnames[index],
+                                  // firstnames[index].text,
                                   style: const TextStyle(fontSize: 20),
                                 ),
                                 const SizedBox(
@@ -57,9 +58,29 @@ class PicScreen extends StatelessWidget {
                                     text: "Take photo",
                                     onpressed: () {
                                       SearchCubit.get(context)
-                                          .pickImageCamera();
+                                          .pickImageCamera()
+                                          .then((value) {
+                                        status[index] = value;
+                                        if (!value) {
+                                          showDialog(
+                                            context: context,
+                                            builder: (context) => AlertDialog(
+                                              title: const Text('Photo Failed'),
+                                              content: const Text(
+                                                  '\t\tPlease enter another photo\n\t\tshowing the full face\n\t\tand with natural light'),
+                                              actions: [
+                                                TextButton(
+                                                  child: const Text('OK'),
+                                                  onPressed: () =>
+                                                      Navigator.pop(context),
+                                                ),
+                                              ],
+                                            ),
+                                          );
+                                        }
+                                      });
                                     }),
-                                Gap(10),
+                                const Gap(10),
                                 status[index]
                                     ? const Icon(
                                         Icons.car_crash,
@@ -72,7 +93,7 @@ class PicScreen extends StatelessWidget {
                               ],
                             ),
                             const SizedBox(
-                              height: 20,
+                              height: 40,
                             )
                           ],
                         ))),
@@ -80,12 +101,38 @@ class PicScreen extends StatelessWidget {
                 defaultButton(
                     text: "Sumbit",
                     onPressed: () {
+                      bool s = true;
                       for (int i = 0; i < status.length; i++) {
                         if (status[i] == false) {
-                          return;
+                          s = false;
                         }
                       }
-                      nextScreen(context, const SelectSeat());
+
+                      ////got to nextscreen if all photos is valid
+                      if (s) {
+                        nextScreen(
+                            context,
+                            SelectSeat(
+                              usersID: token,
+                            ));
+                      }
+                      ////show Dialog if all photos is valid
+                      if (!s) {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            title: const Text('Photo Failed'),
+                            content: const Text(
+                                'please make sure that all photos are valid'),
+                            actions: [
+                              TextButton(
+                                child: const Text('OK'),
+                                onPressed: () => Navigator.pop(context),
+                              ),
+                            ],
+                          ),
+                        );
+                      }
                     }),
                 const Gap(15),
                 Text.rich(TextSpan(
@@ -101,7 +148,7 @@ class PicScreen extends StatelessWidget {
                               decoration: TextDecoration.underline),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              nextScreen(context, const SelectSeat());
+                              //  nextScreen(context, const SelectSeat());
                             })
                     ])),
                 const Gap(15),

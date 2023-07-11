@@ -17,8 +17,9 @@ import '../../shared/component/components.dart';
 class SelectSeat extends StatefulWidget {
   const SelectSeat({
     Key? key,
+    required this.usersID,
   }) : super(key: key);
-
+  final List<String> usersID;
   @override
   // ignore: library_private_types_in_public_api
   State<SelectSeat> createState() => _SelectSeatState();
@@ -69,10 +70,10 @@ class _SelectSeatState extends State<SelectSeat> {
       'id': '435t4722214f-f00f-46df-955a-ffb726836804adad33'
     },
   ];
-  List<String> usersID = [
-    "35d84bf1-995e-435d-8221-add745525ebd",
-    "cf793d93-e26f-4cc2-a806-b3d604bd5a54"
-  ];
+  // List<String> usersID = [
+  //   "35d84bf1-995e-435d-8221-add745525ebd",
+  //   "cf793d93-e26f-4cc2-a806-b3d604bd5a54"
+  // ];
 
   @override
   void initState() {
@@ -101,7 +102,7 @@ class _SelectSeatState extends State<SelectSeat> {
                 context,
                 PicScreen(
                   token: const [],
-                  firstnames: [],
+                  firstnames: const [],
                 ));
           },
         ),
@@ -115,7 +116,7 @@ class _SelectSeatState extends State<SelectSeat> {
                     child: Plane(
               screenHeight: _screenHeight,
               screenWidth: _screenWidth,
-              number: usersID.length,
+              number: widget.usersID.length,
               seatsList: seatsList,
             ))),
             SizedBox(
@@ -129,14 +130,14 @@ class _SelectSeatState extends State<SelectSeat> {
                   );
 
                   SeatCubit.get(context).postSeatsUsers(
-                      CacheHelper.getData(key: 'seletedSeats'), usersID);
+                      CacheHelper.getData(key: 'seletedSeats'), widget.usersID);
                   String s = CacheHelper.getData(key: 'seletedSeats');
                   if (s.isNotEmpty) {
                     nextScreen(
                         context,
                         CheckoutPage(
                           price: 10,
-                          quantity: usersID.length,
+                          quantity: widget.usersID.length,
                         ));
                   }
                 }),

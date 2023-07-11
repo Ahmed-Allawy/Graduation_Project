@@ -6,6 +6,7 @@ import 'package:gap/gap.dart';
 import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
+import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
@@ -306,10 +307,30 @@ class SecondSearchingScreen extends StatelessWidget {
                             if (value.isNotEmpty) {
                               nextScreen(
                                   context,
-                                  PicScreen(
-                                      token: value,
-                                      firstnames: firstNameControllers));
+                                  SelectSeat(
+                                    usersID: value,
+                                  ));
+                              // nextScreen(
+                              //     context,
+                              //     PicScreen(
+                              //         token: value,
+                              //         firstnames: firstNameControllers));
                               SearchCubit.get(context).clearPersons();
+                            } else {
+                              showDialog(
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: const Text('Failed'),
+                                  content: const Text(
+                                      'Invalid user information\n[email, password, passport].\n\t\t\t\tPlease try again.'),
+                                  actions: [
+                                    TextButton(
+                                      child: const Text('OK'),
+                                      onPressed: () => Navigator.pop(context),
+                                    ),
+                                  ],
+                                ),
+                              );
                             }
                             SearchCubit.get(context).clearPersons();
                           });

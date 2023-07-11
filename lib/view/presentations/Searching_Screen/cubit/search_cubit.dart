@@ -2,14 +2,17 @@
 
 import 'dart:convert';
 
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:get/get.dart';
 import 'package:graduation/model/airports.dart';
-
+import 'package:http/io_client.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import '../../../../model/flight.dart';
 import '../../../shared/component/constants.dart';
@@ -93,7 +96,6 @@ class SearchCubit extends Cubit<SearchState> {
 
       return flight;
     } else {
-      print(response.statusCode);
       emit(GetAllFligthCustomeerror(response.stream.toString()));
       return [];
     }
@@ -125,7 +127,6 @@ class SearchCubit extends Cubit<SearchState> {
       emit(GetAllFligthSuccssful());
       return flight;
     } else {
-      print(response.statusCode);
       emit(GetAllFligtherror(response.stream.toString()));
       return [];
     }
@@ -138,7 +139,7 @@ class SearchCubit extends Cubit<SearchState> {
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       String body = await response.stream.bytesToString();
-      print(body);
+
       List<dynamic> jsonList = jsonDecode(body);
       List<Airport> c = jsonList.map((json) => Airport.fromJson(json)).toList();
 
@@ -168,8 +169,8 @@ class SearchCubit extends Cubit<SearchState> {
       emit(SendMultibleUsers());
       return responseList;
     } else {
-      String responseBody = await response.stream.bytesToString();
-      print(responseBody);
+      // String responseBody = await response.stream.bytesToString();
+      // print(responseBody);
       return [];
     }
   }
@@ -252,19 +253,62 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  pickImageCamera() async {
+  Future<bool> pickImageCamera() async {
+    bool isFase = false;
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) {
-        return;
+        return false;
       } else {
+        Uint8List imageBytes = await image.readAsBytes();
+
+        print('++++++++++++++++++++++this is tempImage :$imageBytes');
+        String imageBase64 = base64.encode(imageBytes);
+        String header = 'data:image/jpeg;base64,';
         //here we save the path of the image ;
-        final tempImage = File(image.path);
-        img = tempImage;
+
+        sendImage((header + imageBase64)).then((value) {
+          print('value from flask is : $value');
+          isFase = value;
+        });
+
         emit(ImageCameraSuccessful());
+
+        return isFase;
       }
     } on PlatformException catch (e) {
       emit(ImageCameraError(e.toString()));
+      return false;
+    }
+  }
+
+  Future<bool> sendImage(imageBase) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse('http://10.0.2.2:5000/capture'));
+    //here I send the password and the phone number for login by passing them to the body
+    var obj = {
+      'dataURL': imageBase,
+    };
+
+    request.body = json.encode(obj);
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    // Check the status code and decode the response body
+    if (response.statusCode == 200) {
+      // Read the response body as a string
+      print("grgrgrgfgdfgdgdgrf-------------------------");
+      // Save the token to shared preferences or some other storage
+      String output = await response.stream.bytesToString();
+
+      return json.decode(output)['isFace'];
+    } else if (response.statusCode == 400) {
+      print("+++++++++++++++++++++++++++++++++++jajajajjajajajjaajjajajajaja");
+      return false;
+    } else {
+      return false;
     }
   }
 }
