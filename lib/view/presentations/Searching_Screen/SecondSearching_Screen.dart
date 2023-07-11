@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
 import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
-import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
@@ -16,8 +15,8 @@ import '../../shared/network/local/cach_helper.dart';
 
 // ignore: must_be_immutable
 class SecondSearchingScreen extends StatelessWidget {
-  final int people;
-  const SecondSearchingScreen({
+  int people;
+  SecondSearchingScreen({
     Key? key,
     required this.people,
   }) : super(key: key);
@@ -28,6 +27,9 @@ class SecondSearchingScreen extends StatelessWidget {
       people,
       (index) => GlobalKey<FormState>(),
     );
+    if (CacheHelper.getData(key: "isloged")) {
+      people--;
+    }
 
     var firstNameControllers = List<TextEditingController>.generate(
         people, (index) => TextEditingController());
@@ -48,9 +50,14 @@ class SecondSearchingScreen extends StatelessWidget {
     var phoneNumberControllers = List<TextEditingController>.generate(
         people, (index) => TextEditingController());
 
+    List<String> userIds = [];
+
     return BlocConsumer<SearchCubit, SearchState>(
       listener: (context, state) {},
       builder: (context, state) {
+        if (CacheHelper.getData(key: "isloged")) {
+          userIds.add(CacheHelper.getData(key: "Mainusertoken"));
+        }
         return Scaffold(
           appBar: AppBar(
             backgroundColor: const Color.fromARGB(255, 105, 116, 235),
@@ -304,11 +311,12 @@ class SecondSearchingScreen extends StatelessWidget {
 
                           SearchCubit.get(context).sendClients().then((value) {
                             print(value);
+                            userIds.addAll(value);
                             if (value.isNotEmpty) {
                               nextScreen(
                                   context,
                                   SelectSeat(
-                                    usersID: value,
+                                    usersID: userIds,
                                   ));
                               // nextScreen(
                               //     context,

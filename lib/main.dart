@@ -13,7 +13,6 @@ import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 import 'package:graduation/view/presentations/find_ticket/cubit/find_ticket_cubit.dart';
 
 import 'package:graduation/view/presentations/ticket/cubit/ticket_cubit.dart';
-import 'package:graduation/view/presentations/ticket/ticket.dart';
 
 import 'package:graduation/view/shared/component/constants.dart';
 import 'package:graduation/view/shared/network/payment/cubit/paypal_cubit.dart';
@@ -44,16 +43,12 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => PaypalPaymentCubit())),
       ],
       child: MaterialApp(
-        theme: ThemeData(
-          primaryColor: primarycolor,
-        ),
-        // builder: DevicePreview.appBuilder,
-        debugShowCheckedModeBanner: false,
-        home: PicScreen(
-          firstnames: ['ahmed', 'allawy'],
-          token: ['gfgggfgggfdf', 'gsdgdsggsgsgd'],
-        ),
-      ),
+          theme: ThemeData(
+            primaryColor: primarycolor,
+          ),
+          // builder: DevicePreview.appBuilder,
+          debugShowCheckedModeBanner: false,
+          home: const LoginHome()),
     );
   }
 }
