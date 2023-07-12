@@ -30,18 +30,18 @@ class _SelectSeatState extends State<SelectSeat> {
   double _screenHeight = 0;
   List seatsList = [
     {
-      'position': '1B',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
       'position': '1A',
       'state': 'available',
       'id': '4722214f-f00f-46df-955a-ffb726836804'
     },
     {
+      'position': '1B',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
       'position': '1C',
-      'state': 'available',
+      'state': 'not available',
       'id': '4722214f-f00f-46df-955a-ffb726836804'
     },
     {
@@ -50,25 +50,101 @@ class _SelectSeatState extends State<SelectSeat> {
       'id': '4722214f-f00f-46df-955a-ffb726836804'
     },
     {
-      'position': '1B',
+      'position': '2A',
       'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804435t33'
-    },
-    {
-      'position': '1B',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb72683'
-    },
-    {
-      'position': '1B',
-      'state': 'not available',
-      'id': '4722sds214f-f00f-46df-955a-ffb726836804'
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
     },
     {
       'position': '2B',
-      'state': 'available',
-      'id': '435t4722214f-f00f-46df-955a-ffb726836804adad33'
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
     },
+    {
+      'position': '2C',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '2D',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '3A',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '3B',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '3C',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '3D',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '4A',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '4B',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '4C',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '4D',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '5A',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '5B',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '5C',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '5D',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '6A',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '6B',
+      'state': 'available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {
+      'position': '6C',
+      'state': 'not available',
+      'id': '4722214f-f00f-46df-955a-ffb726836804'
+    },
+    {'position': '6D', 'state': 'available', 'id': '4722214f-f00f-46'},
   ];
   // List<String> usersID = [
   //   "35d84bf1-995e-435d-8221-add745525ebd",
@@ -125,6 +201,11 @@ class _SelectSeatState extends State<SelectSeat> {
             defaultButton(
                 text: 'check out',
                 onPressed: () {
+                  SeatCubit.get(context)
+                      .fetchSeatsData('sdvdsvdvdvdvdfvfdvdfsvdfvfd')
+                      .then((value) {
+                    print(value);
+                  });
                   print(
                     CacheHelper.getData(key: 'seletedSeats').runtimeType,
                   );

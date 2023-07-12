@@ -68,7 +68,8 @@ class _FindTicktState extends State<FindTickt> {
                           child: TextFormField(
                             controller: ticktNumberController,
                             decoration: InputDecoration(
-                                hintText: 'Enter ticket number',
+                                hintText:
+                                    'f505faa0-0d6e-4694-8e2a-a0f758523c28',
                                 prefixIcon: const Icon(
                                   Icons.search,
                                   color: primarycolor,

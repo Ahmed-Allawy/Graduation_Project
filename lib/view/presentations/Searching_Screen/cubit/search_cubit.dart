@@ -55,6 +55,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   List<String> classValue = ["economi", "business", "first"];
   int classindex = 0;
+
   bool flexable = false;
 
   File? img;
@@ -253,22 +254,25 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  Future<bool> pickImageCamera() async {
+  Future<bool> pickImageCamera(String id) async {
     bool isFase = false;
     try {
       final image = await ImagePicker().pickImage(source: ImageSource.camera);
       if (image == null) {
         return false;
       } else {
+        ///read iamge as uint8list
         Uint8List imageBytes = await image.readAsBytes();
 
         print('++++++++++++++++++++++this is tempImage :$imageBytes');
+
+        ///decode iamge to base64 to send it to flask
         String imageBase64 = base64.encode(imageBytes);
         String header = 'data:image/jpeg;base64,';
         //here we save the path of the image ;
 
-        sendImage((header + imageBase64)).then((value) {
-          print('value from flask is : $value');
+        sendImage((header + imageBase64), id).then((value) {
+          // print('value from flask is : $value');
           isFase = value;
         });
 
@@ -282,13 +286,14 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  Future<bool> sendImage(imageBase) async {
+  Future<bool> sendImage(imageBase, id) async {
     var headers = {'Content-Type': 'application/json'};
     var request =
         http.Request('POST', Uri.parse('http://10.0.2.2:5000/capture'));
     //here I send the password and the phone number for login by passing them to the body
     var obj = {
       'dataURL': imageBase,
+      'id': id,
     };
 
     request.body = json.encode(obj);

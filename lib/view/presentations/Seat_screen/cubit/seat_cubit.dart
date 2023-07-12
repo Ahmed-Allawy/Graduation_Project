@@ -4,6 +4,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:graduation/model/seatsdata.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_state.dart';
 import 'package:http/http.dart' as http;
 
@@ -13,6 +14,34 @@ class SeatCubit extends Cubit<SeatState> {
   SeatCubit() : super(SeatStateInitial());
   static SeatCubit get(BuildContext context) => BlocProvider.of(context);
 
+//// get seats by class id from databse
+  List<SeatData> seats = [];
+
+  Future<List<SeatData>> fetchSeatsData(String id) async {
+    var headers = {'Content-Type': 'application/json'};
+    var request =
+        http.Request('POST', Uri.parse('${uri}api/flight/reserve-seats'));
+    request.body = json.encode({
+      "id": id,
+    });
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+    if (response.statusCode == 200) {
+      String body = await response.stream.bytesToString();
+      print('body from seats is :$body');
+      List<dynamic> jsonList = jsonDecode(body);
+      List<SeatData> c =
+          jsonList.map((json) => SeatData.fromJson(json)).toList();
+      emit(SeatStateFetch());
+      return c;
+    } else {
+      emit(SeatStateFetch());
+      return [];
+    }
+  }
+
+//////send seats and users ids to databse
   Future<void> postSeatsUsers(String seatsId, List<String> users) async {
     List<String> seats = convertToListString(seatsId);
     var headers = {'Content-Type': 'application/json'};
@@ -28,8 +57,10 @@ class SeatCubit extends Cubit<SeatState> {
 
     if (response.statusCode == 200) {
       print('Seats and users added successfully.');
+      emit(SeatStatePost());
     } else {
       print('Error adding seats and users: ${response.statusCode}');
+      emit(SeatStatePost());
     }
   }
 

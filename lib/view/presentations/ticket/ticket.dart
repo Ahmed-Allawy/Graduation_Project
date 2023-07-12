@@ -31,10 +31,10 @@ class _TicketState extends State<Ticket> {
   void initState() {
     super.initState();
 //////////////// data from api ***********************//////////
-    FlightTicketCubit.get(context).fetchTicketData().then((value) {
-      print(value);
-      FlightTicketCubit.get(context).tickets = value;
-    });
+    // FlightTicketCubit.get(context).fetchTicketData('4323').then((value) {
+    //   print(value);
+    //   FlightTicketCubit.get(context).tickets = value;
+    // });
   }
 
   @override
@@ -42,51 +42,51 @@ class _TicketState extends State<Ticket> {
     ///////////////////////locat data******************************///////
     ///
     ///
-    // String str = CacheHelper.getData(key: 'seletedSeats');
-    // List<String> list = str
-    //     .substring(1, str.length - 1) // Remove the brackets from the string
-    //     .split(',') // Split the string into a list of values
-    //     .map((e) => e.trim()) // Remove any whitespace around the values
-    //     .toList(); // Convert the iterable to a list
-    // print(list); // Output: [ib, is]
-    // final List<TicketData> tickets = [
-    //   TicketData(
-    //       passengerName: 'John Doe',
-    //       flightNumber: 'ABC123',
-    //       departureTime: '10:00 AM',
-    //       arrivalTime: '12:00 PM',
-    //       duration: '2 hours',
-    //       seatNumber: list[0],
-    //       seatClass: 'Economy',
-    //       departure: 'New York',
-    //       arrival: 'Los Angeles',
-    //       id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28'),
-    //   TicketData(
-    //       passengerName: 'ahmed mousa abdullaha',
-    //       flightNumber: 'ABC123',
-    //       departureTime: '10:00 AM',
-    //       arrivalTime: '12:00 PM',
-    //       duration: '2 hours',
-    //       seatNumber: '12A',
-    //       seatClass: 'Economy',
-    //       departure: 'New York',
-    //       arrival: 'Los Angeles',
-    //       id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28'),
-    //   TicketData(
-    //     passengerName: 'ali mousa ahmed',
-    //     flightNumber: 'ABC123',
-    //     departureTime: '10:00 AM',
-    //     arrivalTime: '12:00 PM',
-    //     duration: '2 hours',
-    //     seatNumber: '12A',
-    //     seatClass: 'Economy',
-    //     departure: 'New York',
-    //     arrival: 'Los Angeles',
-    //     id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28',
-    //   )
-    // ];
+    String str = CacheHelper.getData(key: 'seletedSeats');
+    List<String> list = str
+        .substring(1, str.length - 1) // Remove the brackets from the string
+        .split(',') // Split the string into a list of values
+        .map((e) => e.trim()) // Remove any whitespace around the values
+        .toList(); // Convert the iterable to a list
+    print(list); // Output: [ib, is]
+    final List<TicketData> tickets = [
+      TicketData(
+          passengerName: 'John Doe',
+          flightNumber: 'ABC123',
+          departureTime: '10:00 AM',
+          arrivalTime: '12:00 PM',
+          duration: '2 hours',
+          seatNumber: list[0],
+          seatClass: 'Economy',
+          departure: 'New York',
+          arrival: 'Los Angeles',
+          id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28'),
+      TicketData(
+          passengerName: 'ahmed mousa abdullaha',
+          flightNumber: 'ABC123',
+          departureTime: '10:00 AM',
+          arrivalTime: '12:00 PM',
+          duration: '2 hours',
+          seatNumber: '12A',
+          seatClass: 'Economy',
+          departure: 'New York',
+          arrival: 'Los Angeles',
+          id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28'),
+      TicketData(
+        passengerName: 'ali mousa ahmed',
+        flightNumber: 'ABC123',
+        departureTime: '10:00 AM',
+        arrivalTime: '12:00 PM',
+        duration: '2 hours',
+        seatNumber: '12A',
+        seatClass: 'Economy',
+        departure: 'New York',
+        arrival: 'Los Angeles',
+        id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28',
+      )
+    ];
 
-    // FlightTicketCubit.get(context).addTickets(tickets);
+    FlightTicketCubit.get(context).addTickets(tickets);
 
     return Scaffold(
       backgroundColor: const Color(0xc61859ba),

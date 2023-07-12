@@ -185,8 +185,10 @@ class _LoginHomeState extends State<LoginHome> {
                                   decoration: TextDecoration.underline),
                               recognizer: TapGestureRecognizer()
                                 ..onTap = () {
+                                  //user not login
                                   CacheHelper.saveData(
                                       key: 'isLoged', value: false);
+                                  //get airports data
                                   SearchCubit.get(context)
                                       .fetchAirports()
                                       .then((value) {

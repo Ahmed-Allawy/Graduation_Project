@@ -58,10 +58,10 @@ class PicScreen extends StatelessWidget {
                                     text: "Take photo",
                                     onpressed: () {
                                       SearchCubit.get(context)
-                                          .pickImageCamera()
+                                          .pickImageCamera(token[index])
                                           .then((value) {
-                                        status[index] = value;
-                                        if (!value) {
+                                        status[index] = !value;
+                                        if (value) {
                                           showDialog(
                                             context: context,
                                             builder: (context) => AlertDialog(

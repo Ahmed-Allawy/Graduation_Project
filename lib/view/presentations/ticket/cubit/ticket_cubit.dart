@@ -54,7 +54,6 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
         child: pw.Image(image),
       ); // Center
     })); // Pag
-
     // Save the PDF document to disk
     final String dir = (await getApplicationDocumentsDirectory()).path;
     final String path = '$dir/ticket.pdf';
@@ -72,7 +71,7 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
 
   ///get ticket data form api
 
-  Future<List<TicketData>> fetchTicketData() async {
+  Future<List<TicketData>> fetchTicketData(String id) async {
     var headers = {'Content-Type': 'application/json'};
     var request =
         http.Request('GET', Uri.parse('${uri}api/flight/ticket-details'));
