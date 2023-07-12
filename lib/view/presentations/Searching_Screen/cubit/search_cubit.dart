@@ -2,17 +2,13 @@
 
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:graduation/model/airports.dart';
-import 'package:http/io_client.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 import '../../../../model/flight.dart';
 import '../../../shared/component/constants.dart';
@@ -22,9 +18,12 @@ part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   int _people = 0;
+  List<String> userId = [];
   List<String> country = [];
   List<bool> gender = [];
   List<Flight> flights = [];
+  String classid = "";
+  double price = 0;
 
   int get people => _people;
 
@@ -43,6 +42,18 @@ class SearchCubit extends Cubit<SearchState> {
     country = _initializeCountryList();
     gender = _initalizeGenderList();
     emit(ChangePeople());
+  }
+
+  void updateUserId(List<String> uids) {
+    userId.addAll(uids);
+  }
+
+  void updateclassid(String flightid) {
+    classid = flightid;
+  }
+
+  void updateprice(double price) {
+    price = price;
   }
 
   void setFlights(List<Flight> newFlights) {
@@ -165,12 +176,14 @@ class SearchCubit extends Cubit<SearchState> {
 
     if (response.statusCode == 200) {
       String responseBody = await response.stream.bytesToString();
-      List<String> responseList = json.decode(responseBody).cast<String>();
+      var jsonResponse = jsonDecode(responseBody);
+      List<String> clientIds = jsonResponse['clients'].cast<String>();
+      print(clientIds);
       emit(SendMultibleUsers());
-      return responseList;
+      return clientIds;
     } else {
-      // String responseBody = await response.stream.bytesToString();
-      // print(responseBody);
+      String responseBody = await response.stream.bytesToString();
+      print(responseBody);
       return [];
     }
   }

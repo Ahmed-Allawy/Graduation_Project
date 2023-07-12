@@ -361,6 +361,8 @@ class SearchingScreen extends StatelessWidget {
                                 .length, // Replace with your actual item count
                             itemBuilder: (BuildContext context, int index) {
                               return TripWidget(
+                                  flightId:
+                                      cubit.flights[index].classes[0].class_id,
                                   airportFrom: cubit.flights[index].airportFrom,
                                   airportTo: cubit.flights[index].airportTo,
                                   takeOffDate: cubit.flights[index].takeOffTime,

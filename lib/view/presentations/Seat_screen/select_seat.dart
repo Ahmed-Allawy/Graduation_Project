@@ -18,8 +18,12 @@ class SelectSeat extends StatefulWidget {
   const SelectSeat({
     Key? key,
     required this.usersID,
+    required this.flightId,
+    required this.price,
   }) : super(key: key);
   final List<String> usersID;
+  final String flightId;
+  final double price;
   @override
   // ignore: library_private_types_in_public_api
   State<SelectSeat> createState() => _SelectSeatState();
