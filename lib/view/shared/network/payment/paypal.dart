@@ -17,7 +17,7 @@ import '../../component/helperfunctions.dart';
 class CheckoutPage extends StatefulWidget {
   const CheckoutPage({super.key, required this.quantity, required this.price});
   final int quantity;
-  final int price;
+  final double price;
 
   @override
   State<CheckoutPage> createState() => _CheckoutPageState();

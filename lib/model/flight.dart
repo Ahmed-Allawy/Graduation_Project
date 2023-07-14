@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first, non_constant_identifier_names
 class Flight {
   String flightNumber;
   String takeOffTime;
@@ -42,11 +43,13 @@ class Flight {
 }
 
 class FlightClass {
+  String class_id;
   String classType;
   double price;
   int seats;
 
   FlightClass({
+    required this.class_id,
     required this.classType,
     required this.price,
     required this.seats,
@@ -54,6 +57,7 @@ class FlightClass {
 
   factory FlightClass.fromJson(Map<String, dynamic> json) {
     return FlightClass(
+      class_id: json['class_id'],
       classType: json['class_type'],
       price: json['price'].toDouble(),
       seats: json['seats'],

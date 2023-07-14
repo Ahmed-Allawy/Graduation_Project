@@ -16,11 +16,12 @@ class SeatCubit extends Cubit<SeatState> {
 
 //// get seats by class id from databse
   List<SeatData> seats = [];
-
+//// return selected seats id
+  List<String> selectedSeatsID = [];
   Future<List<SeatData>> fetchSeatsData(String id) async {
     var headers = {'Content-Type': 'application/json'};
     var request =
-        http.Request('POST', Uri.parse('${uri}api/flight/reserve-seats'));
+        http.Request('POST', Uri.parse('${uri}api/flight/class-seats'));
     request.body = json.encode({
       "id": id,
     });
@@ -36,21 +37,27 @@ class SeatCubit extends Cubit<SeatState> {
       emit(SeatStateFetch());
       return c;
     } else {
+      print('body from seats is empty');
       emit(SeatStateFetch());
       return [];
     }
   }
 
 //////send seats and users ids to databse
-  Future<void> postSeatsUsers(String seatsId, List<String> users) async {
-    List<String> seats = convertToListString(seatsId);
+  Future<void> postSeatsUsers(List<String> seatsId, List<String> users) async {
+    // List<String> seats = convertToListString(seatsId);
     var headers = {'Content-Type': 'application/json'};
     var request =
         http.Request('POST', Uri.parse('${uri}api/flight/reserve-seats'));
-    request.body = json.encode({
-      'seats': seats,
-      'users': users,
-    });
+
+    var obj = {
+      "seats": seatsId,
+      "users": [
+        {"clients": users, "childs": []}
+      ]
+    };
+    print(json.encode(obj));
+    request.body = json.encode(obj);
     request.headers.addAll(headers);
 
     http.StreamedResponse response = await request.send();

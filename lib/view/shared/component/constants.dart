@@ -22,7 +22,7 @@ const fieldWidth = 256.0;
 const fontsize2 = 14.0;
 const logInButtonHeight = 50.0;
 const logInButtonFontSize = 20.0;
-const String uri = 'http://18.204.219.211:3000/';
+const String uri = 'http://40.115.44.233:3000/';
 
 class Styles {
   static Color textColor = const Color(0xFF3b3b3b);

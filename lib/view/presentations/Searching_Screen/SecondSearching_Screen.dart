@@ -1,14 +1,16 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 // ignore_for_file: file_names, avoid_print
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
+import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
+import 'package:intl_phone_field/intl_phone_field.dart';
+
 import 'package:graduation/view/presentations/Searching_Screen/Searching_Screen.dart';
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 
-import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 import 'package:graduation/view/shared/component/helperfunctions.dart';
-import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../shared/component/components.dart';
 import '../../shared/component/constants.dart';
@@ -16,8 +18,8 @@ import '../../shared/network/local/cach_helper.dart';
 
 // ignore: must_be_immutable
 class SecondSearchingScreen extends StatelessWidget {
-  final int people;
-  const SecondSearchingScreen({
+  int people;
+  SecondSearchingScreen({
     Key? key,
     required this.people,
   }) : super(key: key);
@@ -79,40 +81,38 @@ class SecondSearchingScreen extends StatelessWidget {
                         child: Column(
                           children: [
                             defaultTextField(
-                              width: double.infinity,
-                              prefix: Icons.person,
-                              controller: firstNameControllers[index],
-                              textInputType: TextInputType.name,
-                              hintText: "First Name",
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return "First Name shouldn't be empty";
-                                }
-                                final alphaRegex = RegExp(r'^[a-zA-Z]+$');
-                                if (alphaRegex.hasMatch(val)) {
-                                } else {
-                                  return "the name should have only latter";
-                                }
-                              },
-                            ),
+                                width: double.infinity,
+                                prefix: Icons.person,
+                                controller: firstNameControllers[index],
+                                textInputType: TextInputType.name,
+                                hintText: "First Name",
+                                validator: (val) {
+                                  if (val.isEmpty) {
+                                    return "First Name shouldn't be empty";
+                                  }
+                                  final alphaRegex =
+                                      RegExp(r'^[a-zA-Z][a-z]*$');
+                                  if (!alphaRegex.hasMatch(val)) {
+                                    return "the name should have small Charactes";
+                                  }
+                                }),
                             const Gap(25),
                             defaultTextField(
-                              width: double.infinity,
-                              prefix: Icons.person,
-                              controller: lastNameControllers[index],
-                              textInputType: TextInputType.name,
-                              hintText: "LastName",
-                              validator: (val) {
-                                if (val.isEmpty) {
-                                  return "First Name shouldn't be empty";
-                                }
-                                final alphaRegex = RegExp(r'^[a-zA-Z]+$');
-                                if (alphaRegex.hasMatch(val)) {
-                                } else {
-                                  return "the name should have only latter";
-                                }
-                              },
-                            ),
+                                width: double.infinity,
+                                prefix: Icons.person,
+                                controller: lastNameControllers[index],
+                                textInputType: TextInputType.name,
+                                hintText: "LastName",
+                                validator: (val) {
+                                  if (val.isEmpty) {
+                                    return "Last Name shouldn't be empty";
+                                  }
+                                  final alphaRegex =
+                                      RegExp(r'^[a-zA-Z][a-z]*$');
+                                  if (!alphaRegex.hasMatch(val)) {
+                                    return "the name should have small Charactes";
+                                  }
+                                }),
                             const Gap(25),
                             defaultTextField(
                               width: double.infinity,
@@ -303,12 +303,13 @@ class SecondSearchingScreen extends StatelessWidget {
                               genderControllers);
 
                           SearchCubit.get(context).sendClients().then((value) {
-                            print(value);
+                            SearchCubit.get(context).updateUserId(value);
                             if (value.isNotEmpty) {
                               nextScreen(
                                   context,
-                                  SelectSeat(
-                                    usersID: value,
+                                  PicScreen(
+                                    firstnames: firstNameControllers,
+                                    token: SearchCubit.get(context).userId,
                                   ));
                               // nextScreen(
                               //     context,

@@ -313,6 +313,7 @@ class SearchingScreen extends StatelessWidget {
                                   cubit.flexable
                                       ? cubit
                                           .getAllFlightCoustom(
+                                              context,
                                               deupartureEditingController.text,
                                               arrivaltextEditingController.text,
                                               cubit.beforeDate.toString(),
@@ -321,10 +322,30 @@ class SearchingScreen extends StatelessWidget {
                                                   .classValue[cubit.classindex],
                                               people)
                                           .then((value) {
-                                          cubit.flights = value;
+                                          if (value.isEmpty) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title:
+                                                    const Text('Search Failed'),
+                                                content: const Text(
+                                                    'no flights Found.'),
+                                                actions: [
+                                                  TextButton(
+                                                    child: const Text('OK'),
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          } else {
+                                            cubit.flights = value;
+                                          }
                                         })
                                       : cubit
                                           .getallflight(
+                                              context,
                                               deupartureEditingController.text,
                                               arrivaltextEditingController.text,
                                               cubit.selectedDate.toString(),
@@ -332,9 +353,26 @@ class SearchingScreen extends StatelessWidget {
                                                   .classValue[cubit.classindex],
                                               people)
                                           .then((value) {
-                                          cubit.flights = value;
-                                          print(
-                                              cubit.flights[0].classes.length);
+                                          if (value.isEmpty) {
+                                            showDialog(
+                                              context: context,
+                                              builder: (context) => AlertDialog(
+                                                title:
+                                                    const Text('Search Failed'),
+                                                content: const Text(
+                                                    'no flights Found.'),
+                                                actions: [
+                                                  TextButton(
+                                                    child: const Text('OK'),
+                                                    onPressed: () =>
+                                                        Navigator.pop(context),
+                                                  ),
+                                                ],
+                                              ),
+                                            );
+                                          } else {
+                                            cubit.flights = value;
+                                          }
                                         });
                                 } else {
                                   showSnackbar(
@@ -361,6 +399,8 @@ class SearchingScreen extends StatelessWidget {
                                 .length, // Replace with your actual item count
                             itemBuilder: (BuildContext context, int index) {
                               return TripWidget(
+                                  flightId:
+                                      cubit.flights[index].classes[0].class_id,
                                   airportFrom: cubit.flights[index].airportFrom,
                                   airportTo: cubit.flights[index].airportTo,
                                   takeOffDate: cubit.flights[index].takeOffTime,

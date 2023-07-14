@@ -15,7 +15,7 @@ import 'cubit/search_cubit.dart';
 class PicScreen extends StatelessWidget {
   List<String> token;
   // List<TextEditingController> firstnames;
-  List<String> firstnames;
+  List<TextEditingController> firstnames;
   PicScreen({
     Key? key,
     required this.token,
@@ -39,7 +39,7 @@ class PicScreen extends StatelessWidget {
                 const Spacer(),
                 ListView.builder(
                     shrinkWrap: true,
-                    itemCount: token.length,
+                    itemCount: firstnames.length,
                     itemBuilder: ((context, index) => Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -47,7 +47,7 @@ class PicScreen extends StatelessWidget {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  firstnames[index],
+                                  firstnames[index].text,
                                   // firstnames[index].text,
                                   style: const TextStyle(fontSize: 20),
                                 ),
@@ -113,7 +113,9 @@ class PicScreen extends StatelessWidget {
                         nextScreen(
                             context,
                             SelectSeat(
-                              usersID: token,
+                              classID: SearchCubit.get(context).classid,
+                              usersID: SearchCubit.get(context).userId,
+                              price: SearchCubit.get(context).price,
                             ));
                       }
                       ////show Dialog if all photos is valid
@@ -148,7 +150,13 @@ class PicScreen extends StatelessWidget {
                               decoration: TextDecoration.underline),
                           recognizer: TapGestureRecognizer()
                             ..onTap = () {
-                              //  nextScreen(context, const SelectSeat());
+                              nextScreen(
+                                  context,
+                                  SelectSeat(
+                                    classID: SearchCubit.get(context).classid,
+                                    usersID: SearchCubit.get(context).userId,
+                                    price: SearchCubit.get(context).price,
+                                  ));
                             })
                     ])),
                 const Gap(15),

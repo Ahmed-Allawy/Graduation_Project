@@ -81,7 +81,7 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
       String body = await response.stream.bytesToString();
 
       List<dynamic> jsonList = jsonDecode(body);
-      print('ticketdata is $jsonList');
+
       List<TicketData> c =
           jsonList.map((json) => TicketData.fromJson(json)).toList();
       emit(FlightTicketStateAPI());

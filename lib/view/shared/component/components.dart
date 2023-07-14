@@ -3,6 +3,7 @@
 import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
+import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 
 import '../../../model/airports.dart';
 import '../../presentations/Searching_Screen/SecondSearching_Screen.dart';
@@ -253,8 +254,10 @@ class TripWidget extends StatelessWidget {
       required this.price,
       required this.flightNumber,
       required this.takeOffTime,
-      required this.people})
+      required this.people,
+      required this.flightId})
       : super(key: key);
+  final String flightId;
   final String airportFrom;
   final String airportTo;
   final String takeOffDate;
@@ -397,6 +400,11 @@ class TripWidget extends StatelessWidget {
                 TextButton(
                   onPressed: () {
                     print(people);
+                    print(flightId);
+                    print(price);
+                    SearchCubit.get(context).updateclassid(flightId);
+                    SearchCubit.get(context).updateprice(price);
+
                     nextScreen(
                         context,
                         SecondSearchingScreen(

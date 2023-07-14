@@ -4,6 +4,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'package:graduation/model/seatsdata.dart';
+
 import 'package:graduation/view/presentations/Searching_Screen/pics_screen.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_state.dart';
@@ -18,8 +20,12 @@ class SelectSeat extends StatefulWidget {
   const SelectSeat({
     Key? key,
     required this.usersID,
+    required this.classID,
+    required this.price,
   }) : super(key: key);
   final List<String> usersID;
+  final String classID;
+  final double price;
   @override
   // ignore: library_private_types_in_public_api
   State<SelectSeat> createState() => _SelectSeatState();
@@ -28,128 +34,40 @@ class SelectSeat extends StatefulWidget {
 class _SelectSeatState extends State<SelectSeat> {
   double _screenWidth = 0;
   double _screenHeight = 0;
-  List seatsList = [
-    {
-      'position': '1A',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '1B',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '1C',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '1D',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '2A',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '2B',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '2C',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '2D',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '3A',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '3B',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '3C',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '3D',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '4A',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '4B',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '4C',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '4D',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '5A',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '5B',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '5C',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '5D',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '6A',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '6B',
-      'state': 'available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {
-      'position': '6C',
-      'state': 'not available',
-      'id': '4722214f-f00f-46df-955a-ffb726836804'
-    },
-    {'position': '6D', 'state': 'available', 'id': '4722214f-f00f-46'},
+  List<SeatData> seatsList = [
+    SeatData(
+        status: 'not available',
+        seatNo: '1A',
+        id: '4722214f-f00f-46df-955a-ffb726836804'),
+    SeatData(
+        status: 'available',
+        seatNo: '1B',
+        id: '4722214f-f00f-46df-955a-ffb726836804'),
+    SeatData(
+        status: 'not available',
+        seatNo: '1C',
+        id: '4722214f-f00f-46df-955a-ffb726836804'),
+    SeatData(
+        status: 'available',
+        seatNo: '1D',
+        id: '4722214f-f00f-46df-955a-ffb726836804'),
+    SeatData(status: 'not available', seatNo: '2A', id: ''),
+    SeatData(status: 'available', seatNo: '2B', id: ''),
+    SeatData(status: 'available', seatNo: '2C', id: ''),
+    SeatData(status: 'not available', seatNo: '2D', id: ''),
+    SeatData(status: 'not available', seatNo: '3A', id: ''),
+    SeatData(status: 'available', seatNo: '3B', id: ''),
+    SeatData(status: 'not available', seatNo: '3C', id: ''),
+    SeatData(status: 'available', seatNo: '3D', id: ''),
+    SeatData(status: 'not available', seatNo: '4A', id: ''),
+    SeatData(status: 'available', seatNo: '4B', id: ''),
+    SeatData(status: 'available', seatNo: '4C', id: ''),
+    SeatData(status: 'not available', seatNo: '4D', id: ''),
+    SeatData(status: 'not available', seatNo: '5A', id: ''),
+    SeatData(status: 'available', seatNo: '5B', id: ''),
+    SeatData(status: 'not available', seatNo: '5C', id: ''),
+    SeatData(status: 'available', seatNo: '5D', id: ''),
   ];
-  // List<String> usersID = [
-  //   "35d84bf1-995e-435d-8221-add745525ebd",
-  //   "cf793d93-e26f-4cc2-a806-b3d604bd5a54"
-  // ];
 
   @override
   void initState() {
@@ -158,6 +76,10 @@ class _SelectSeatState extends State<SelectSeat> {
       setState(() {
         _screenWidth = MediaQuery.of(context).size.width;
         _screenHeight = MediaQuery.of(context).size.height;
+        // SeatCubit.get(context).fetchSeatsData(widget.classID).then((value) {
+        //   SeatCubit.get(context).seats = value;
+        // });
+        SeatCubit.get(context).seats = seatsList;
       });
     });
   }
@@ -193,7 +115,7 @@ class _SelectSeatState extends State<SelectSeat> {
               screenHeight: _screenHeight,
               screenWidth: _screenWidth,
               number: widget.usersID.length,
-              seatsList: seatsList,
+              seatsList: SeatCubit.get(context).seats,
             ))),
             SizedBox(
               height: _screenHeight * 0.02,
@@ -201,23 +123,16 @@ class _SelectSeatState extends State<SelectSeat> {
             defaultButton(
                 text: 'check out',
                 onPressed: () {
-                  SeatCubit.get(context)
-                      .fetchSeatsData('sdvdsvdvdvdvdfvfdvdfsvdfvfd')
-                      .then((value) {
-                    print(value);
-                  });
-                  print(
-                    CacheHelper.getData(key: 'seletedSeats').runtimeType,
-                  );
-
-                  SeatCubit.get(context).postSeatsUsers(
-                      CacheHelper.getData(key: 'seletedSeats'), widget.usersID);
-                  String s = CacheHelper.getData(key: 'seletedSeats');
-                  if (s.isNotEmpty) {
+                  // print(
+                  //   CacheHelper.getData(key: 'seletedSeats').runtimeType,
+                  // );
+                  if (SeatCubit.get(context).selectedSeatsID.isNotEmpty) {
+                    SeatCubit.get(context).postSeatsUsers(
+                        SeatCubit.get(context).selectedSeatsID, widget.usersID);
                     nextScreen(
                         context,
                         CheckoutPage(
-                          price: 10,
+                          price: widget.price,
                           quantity: widget.usersID.length,
                         ));
                   }
@@ -241,7 +156,7 @@ class Plane extends StatelessWidget {
 
   final double _screenHeight;
   final double _screenWidth;
-  final List seatsList;
+  final List<SeatData> seatsList;
   final int number;
   @override
   Widget build(BuildContext context) {
@@ -285,7 +200,7 @@ class PlaneBody extends StatelessWidget {
 
   final double _screenHeight;
   final double _screenWidth;
-  final List seatsList;
+  final List<SeatData> seatsList;
   final int number;
   @override
   Widget build(BuildContext context) {
@@ -319,7 +234,7 @@ class PlaneBody extends StatelessWidget {
 class InnerPlane extends StatefulWidget {
   final double screenHeight;
   final double screenWidth;
-  final List seatsList;
+  final List<SeatData> seatsList;
   final int number;
   const InnerPlane({
     Key? key,
@@ -418,7 +333,7 @@ class Seats extends StatefulWidget {
     required this.peopleNumber,
   }) : super(key: key);
 
-  final List seatsList;
+  final List<SeatData> seatsList;
   final int peopleNumber;
 
   @override
@@ -427,6 +342,7 @@ class Seats extends StatefulWidget {
 
 class _SeatsState extends State<Seats> {
   List<int> selectedSeatsIndexes = [];
+  List<String> AllSelectedSeats = [];
 
   void _toggleSeatSelection(int index) {
     setState(() {
@@ -439,9 +355,13 @@ class _SeatsState extends State<Seats> {
   }
 
   @override
+  void initState() {
+    super.initState();
+    AllSelectedSeats.removeRange(0, AllSelectedSeats.length);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    List<String> AllSelectedSeats = [];
-    List<String> AllSelectedSeatsName = [];
     CacheHelper.init();
     return GridView.builder(
       padding: const EdgeInsets.symmetric(horizontal: 30),
@@ -452,7 +372,7 @@ class _SeatsState extends State<Seats> {
       itemCount: widget.seatsList.length,
       itemBuilder: (BuildContext context, int index) {
         final seat = widget.seatsList[index];
-        final seatState = seat['state'];
+        final seatState = seat.status;
         final isSelected = selectedSeatsIndexes.contains(index);
         final isSelectable = seatState != 'not available' &&
             (isSelected || selectedSeatsIndexes.length < widget.peopleNumber);
@@ -464,15 +384,16 @@ class _SeatsState extends State<Seats> {
             onPressed: () {
               isSelectable ? _toggleSeatSelection(index) : null;
               if (selectedSeatsIndexes.length == widget.peopleNumber) {
+                AllSelectedSeats.removeRange(0, AllSelectedSeats.length);
                 for (var element in selectedSeatsIndexes) {
-                  print(widget.seatsList[element]['id']);
-                  AllSelectedSeats.add(widget.seatsList[element]['id']);
-                  AllSelectedSeatsName.add(
-                      widget.seatsList[element]['position']);
+                  print(widget.seatsList[element].id);
+                  AllSelectedSeats.add(widget.seatsList[element].id);
                 }
-                CacheHelper.saveData(
-                    key: 'seletedSeats',
-                    value: AllSelectedSeatsName.toString());
+                SeatCubit.get(context).selectedSeatsID = AllSelectedSeats;
+                print(selectedSeatsIndexes.length);
+                // CacheHelper.saveData(
+                //     key: 'seletedSeats',
+                //     value: AllSelectedSeatsName.toString());
               }
             },
             color: seatState == 'not available'
@@ -482,7 +403,7 @@ class _SeatsState extends State<Seats> {
                     : const Color(0xff2FE0EB),
             textColor: Colors.white,
             child: Text(
-              seat['position'],
+              seat.seatNo,
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: isSelected ? 20 : 16,

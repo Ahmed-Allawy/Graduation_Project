@@ -1,18 +1,14 @@
-// ignore_for_file: depend_on_referenced_packages
+// ignore_for_file: depend_on_referenced_packages, use_build_context_synchronously
 
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:get/get.dart';
 import 'package:graduation/model/airports.dart';
-import 'package:http/io_client.dart';
 import 'package:image_picker/image_picker.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:path_provider/path_provider.dart';
 
 import '../../../../model/flight.dart';
 import '../../../shared/component/constants.dart';
@@ -22,9 +18,12 @@ part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchState> {
   int _people = 0;
+  List<String> userId = [];
   List<String> country = [];
   List<bool> gender = [];
   List<Flight> flights = [];
+  String classid = "";
+  double price = 0;
 
   int get people => _people;
 
@@ -43,6 +42,18 @@ class SearchCubit extends Cubit<SearchState> {
     country = _initializeCountryList();
     gender = _initalizeGenderList();
     emit(ChangePeople());
+  }
+
+  void updateUserId(List<String> uids) {
+    userId.addAll(uids);
+  }
+
+  void updateclassid(String flightid) {
+    classid = flightid;
+  }
+
+  void updateprice(double price) {
+    price = price;
   }
 
   void setFlights(List<Flight> newFlights) {
@@ -71,8 +82,14 @@ class SearchCubit extends Cubit<SearchState> {
 
   List<Airport> countries = [];
 
-  Future<List<Flight>> getAllFlightCoustom(String airportFrom, String airportTo,
-      String dateFrom, String dateTo, String flightClass, int num) async {
+  Future<List<Flight>> getAllFlightCoustom(
+      BuildContext context,
+      String airportFrom,
+      String airportTo,
+      String dateFrom,
+      String dateTo,
+      String flightClass,
+      int num) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'POST', Uri.parse('${uri}api/flight/from-to-elastic-date-class-no'));
@@ -91,6 +108,7 @@ class SearchCubit extends Cubit<SearchState> {
     if (response.statusCode == 200) {
       var body = await response.stream.bytesToString();
       List<dynamic> jsonList = jsonDecode(body);
+
       List<Flight> flight =
           jsonList.map((json) => Flight.fromJson(json)).toList();
       emit(GetAllFligthCustomeSuccssful());
@@ -102,8 +120,8 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
-  Future<List<Flight>> getallflight(String airportFrom, String airoportTo,
-      String date, String flightclass, int num) async {
+  Future<List<Flight>> getallflight(BuildContext context, String airportFrom,
+      String airoportTo, String date, String flightclass, int num) async {
     var headers = {'Content-Type': 'application/json'};
     var request = http.Request(
         'POST',
@@ -122,9 +140,12 @@ class SearchCubit extends Cubit<SearchState> {
 
     if (response.statusCode == 200) {
       String body = await response.stream.bytesToString();
+
       List<dynamic> jsonList = jsonDecode(body);
+
       List<Flight> flight =
           jsonList.map((json) => Flight.fromJson(json)).toList();
+
       emit(GetAllFligthSuccssful());
       return flight;
     } else {
@@ -166,12 +187,14 @@ class SearchCubit extends Cubit<SearchState> {
 
     if (response.statusCode == 200) {
       String responseBody = await response.stream.bytesToString();
-      List<String> responseList = json.decode(responseBody).cast<String>();
+      var jsonResponse = jsonDecode(responseBody);
+      List<String> clientIds = jsonResponse['clients'].cast<String>();
+
       emit(SendMultibleUsers());
-      return responseList;
+      return clientIds;
     } else {
       // String responseBody = await response.stream.bytesToString();
-      // print(responseBody);
+
       return [];
     }
   }
@@ -264,8 +287,6 @@ class SearchCubit extends Cubit<SearchState> {
         ///read iamge as uint8list
         Uint8List imageBytes = await image.readAsBytes();
 
-        print('++++++++++++++++++++++this is tempImage :$imageBytes');
-
         ///decode iamge to base64 to send it to flask
         String imageBase64 = base64.encode(imageBytes);
         String header = 'data:image/jpeg;base64,';
@@ -304,13 +325,12 @@ class SearchCubit extends Cubit<SearchState> {
     // Check the status code and decode the response body
     if (response.statusCode == 200) {
       // Read the response body as a string
-      print("grgrgrgfgdfgdgdgrf-------------------------");
+
       // Save the token to shared preferences or some other storage
       String output = await response.stream.bytesToString();
 
       return json.decode(output)['isFace'];
     } else if (response.statusCode == 400) {
-      print("+++++++++++++++++++++++++++++++++++jajajajjajajajjaajjajajajaja");
       return false;
     } else {
       return false;
