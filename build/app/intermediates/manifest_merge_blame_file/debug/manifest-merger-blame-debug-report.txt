@@ -49,7 +49,7 @@
 33-->[androidx.core:core:1.10.1] /home/allawy/.gradle/caches/transforms-3/9c9ab1a476c120097a79d748cec7161f/transformed/core-1.10.1/AndroidManifest.xml:28:18-86
 34        android:debuggable="true"
 35        android:icon="@mipmap/ic_launcher"
-36        android:label="graduation" >
+36        android:label="FlyGate" >
 37        <provider
 38            android:name="androidx.core.content.FileProvider"
 39            android:authorities="com.example.graduation.file_provider"

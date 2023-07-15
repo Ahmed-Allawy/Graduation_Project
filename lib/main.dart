@@ -1,22 +1,21 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:graduation/view/presentations/My_Trips/cubit/mytrips_cubit.dart';
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/Seat_screen/cubit/seat_cubit.dart';
-import 'package:graduation/view/presentations/Seat_screen/select_seat.dart';
 
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
-import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 
 import 'package:graduation/view/presentations/find_ticket/cubit/find_ticket_cubit.dart';
 
 import 'package:graduation/view/presentations/ticket/cubit/ticket_cubit.dart';
+import 'package:graduation/view/presentations/ticket/ticket.dart';
 
 import 'package:graduation/view/shared/component/constants.dart';
 import 'package:graduation/view/shared/network/payment/cubit/paypal_cubit.dart';
 
+import 'view/presentations/auth/login/login_screen.dart';
 import 'view/shared/network/local/cach_helper.dart';
 
 void main() {
@@ -37,7 +36,6 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: ((context) => SearchCubit())),
         BlocProvider(create: (context) => AuthCubit()),
         BlocProvider(create: ((context) => FlightTicketCubit())),
-        BlocProvider(create: ((context) => PersonTripsCubit())),
         BlocProvider(create: ((context) => FindTicketCubit())),
         BlocProvider(create: ((context) => SeatCubit())),
         BlocProvider(create: ((context) => PaypalPaymentCubit())),
@@ -48,7 +46,9 @@ class MyApp extends StatelessWidget {
           ),
           // builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
-          home: const LoginHome()
+          home:
+              // const Ticket(superSuerID: "bf5c50c9-2a6c-4b86-8d47-7b52b5f90c8a")
+              const LoginHome()
           // SelectSeat(
           //   classID: 'cscss',
           //   price: 2,

@@ -33,7 +33,7 @@
         android:appComponentFactory="androidx.core.app.CoreComponentFactory"
         android:debuggable="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="graduation" >
+        android:label="FlyGate" >
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="com.example.graduation.file_provider"

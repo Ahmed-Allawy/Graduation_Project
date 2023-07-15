@@ -34,7 +34,7 @@ class _LoginHomeState extends State<LoginHome> {
       listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
-          backgroundColor: Theme.of(context).primaryColor,
+          backgroundColor: Styles.blueColor,
           body: SizedBox(
             height: double.infinity,
             child: SingleChildScrollView(

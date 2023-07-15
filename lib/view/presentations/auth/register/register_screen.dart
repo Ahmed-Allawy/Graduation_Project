@@ -4,6 +4,7 @@ import 'package:awesome_icons/awesome_icons.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:graduation/view/presentations/auth/cubit/auth_cubit.dart';
+import 'package:graduation/view/presentations/auth/login/login_screen.dart';
 import 'package:intl_phone_field/intl_phone_field.dart';
 
 import '../../../../model/userdata.dart';
@@ -212,10 +213,9 @@ class _RegisterState extends State<Register> {
                                                 SearchCubit.get(context)
                                                     .countries = value;
                                                 nextScreen(
-                                                    context,
-                                                    SearchingScreen(
-                                                      isloged: true,
-                                                    ));
+                                                  context,
+                                                  const LoginHome(),
+                                                );
                                               });
                                             } else {
                                               showDialog(

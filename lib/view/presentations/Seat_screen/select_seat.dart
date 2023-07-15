@@ -34,40 +34,40 @@ class SelectSeat extends StatefulWidget {
 class _SelectSeatState extends State<SelectSeat> {
   double _screenWidth = 0;
   double _screenHeight = 0;
-  List<SeatData> seatsList = [
-    SeatData(
-        status: 'not available',
-        seatNo: '1A',
-        id: '4722214f-f00f-46df-955a-ffb726836804'),
-    SeatData(
-        status: 'available',
-        seatNo: '1B',
-        id: '4722214f-f00f-46df-955a-ffb726836804'),
-    SeatData(
-        status: 'not available',
-        seatNo: '1C',
-        id: '4722214f-f00f-46df-955a-ffb726836804'),
-    SeatData(
-        status: 'available',
-        seatNo: '1D',
-        id: '4722214f-f00f-46df-955a-ffb726836804'),
-    SeatData(status: 'not available', seatNo: '2A', id: ''),
-    SeatData(status: 'available', seatNo: '2B', id: ''),
-    SeatData(status: 'available', seatNo: '2C', id: ''),
-    SeatData(status: 'not available', seatNo: '2D', id: ''),
-    SeatData(status: 'not available', seatNo: '3A', id: ''),
-    SeatData(status: 'available', seatNo: '3B', id: ''),
-    SeatData(status: 'not available', seatNo: '3C', id: ''),
-    SeatData(status: 'available', seatNo: '3D', id: ''),
-    SeatData(status: 'not available', seatNo: '4A', id: ''),
-    SeatData(status: 'available', seatNo: '4B', id: ''),
-    SeatData(status: 'available', seatNo: '4C', id: ''),
-    SeatData(status: 'not available', seatNo: '4D', id: ''),
-    SeatData(status: 'not available', seatNo: '5A', id: ''),
-    SeatData(status: 'available', seatNo: '5B', id: ''),
-    SeatData(status: 'not available', seatNo: '5C', id: ''),
-    SeatData(status: 'available', seatNo: '5D', id: ''),
-  ];
+  // List<SeatData> seatsList = [
+  //   SeatData(
+  //       status: 'not available',
+  //       seatNo: '1A',
+  //       id: '4722214f-f00f-46df-955a-ffb726836804'),
+  //   SeatData(
+  //       status: 'available',
+  //       seatNo: '1B',
+  //       id: '4722214f-f00f-46df-955a-ffb726836804'),
+  //   SeatData(
+  //       status: 'not available',
+  //       seatNo: '1C',
+  //       id: '4722214f-f00f-46df-955a-ffb726836804'),
+  //   SeatData(
+  //       status: 'available',
+  //       seatNo: '1D',
+  //       id: '4722214f-f00f-46df-955a-ffb726836804'),
+  //   SeatData(status: 'not available', seatNo: '2A', id: ''),
+  //   SeatData(status: 'available', seatNo: '2B', id: ''),
+  //   SeatData(status: 'available', seatNo: '2C', id: ''),
+  //   SeatData(status: 'not available', seatNo: '2D', id: ''),
+  //   SeatData(status: 'not available', seatNo: '3A', id: ''),
+  //   SeatData(status: 'available', seatNo: '3B', id: ''),
+  //   SeatData(status: 'not available', seatNo: '3C', id: ''),
+  //   SeatData(status: 'available', seatNo: '3D', id: ''),
+  //   SeatData(status: 'not available', seatNo: '4A', id: ''),
+  //   SeatData(status: 'available', seatNo: '4B', id: ''),
+  //   SeatData(status: 'available', seatNo: '4C', id: ''),
+  //   SeatData(status: 'not available', seatNo: '4D', id: ''),
+  //   SeatData(status: 'not available', seatNo: '5A', id: ''),
+  //   SeatData(status: 'available', seatNo: '5B', id: ''),
+  //   SeatData(status: 'not available', seatNo: '5C', id: ''),
+  //   SeatData(status: 'available', seatNo: '5D', id: ''),
+  // ];
 
   @override
   void initState() {
@@ -76,10 +76,10 @@ class _SelectSeatState extends State<SelectSeat> {
       setState(() {
         _screenWidth = MediaQuery.of(context).size.width;
         _screenHeight = MediaQuery.of(context).size.height;
-        // SeatCubit.get(context).fetchSeatsData(widget.classID).then((value) {
-        //   SeatCubit.get(context).seats = value;
-        // });
-        SeatCubit.get(context).seats = seatsList;
+        SeatCubit.get(context).fetchSeatsData(widget.classID).then((value) {
+          SeatCubit.get(context).seats = value;
+        });
+        // SeatCubit.get(context).seats = seatsList;
       });
     });
   }
@@ -134,6 +134,7 @@ class _SelectSeatState extends State<SelectSeat> {
                         CheckoutPage(
                           price: widget.price,
                           quantity: widget.usersID.length,
+                          superUserId: widget.classID[0],
                         ));
                   }
                 }),

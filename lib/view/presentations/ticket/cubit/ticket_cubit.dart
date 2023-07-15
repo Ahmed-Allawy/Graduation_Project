@@ -23,11 +23,6 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
 
   List<TicketData> tickets = [];
 
-  void addTickets(tickets) {
-    this.tickets = tickets;
-    emit(FlightTicketStateAdd());
-  }
-
   ////// make ticket as pdf
   Future<File> _screenShotTicket(
       ScreenshotController screenshotController) async {
@@ -73,20 +68,27 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
 
   Future<List<TicketData>> fetchTicketData(String id) async {
     var headers = {'Content-Type': 'application/json'};
-    var request =
-        http.Request('GET', Uri.parse('${uri}api/flight/ticket-details'));
+    var request = http.Request(
+        'POST', Uri.parse('${uri}api/flight/tickets-with-linked-users'));
+    request.body = json.encode({
+      "id": id,
+    });
     request.headers.addAll(headers);
+
     http.StreamedResponse response = await request.send();
     if (response.statusCode == 200) {
       String body = await response.stream.bytesToString();
 
       List<dynamic> jsonList = jsonDecode(body);
-
+      print(jsonList[0]['addedLuggage'].runtimeType);
+      print(jsonList[1]['price'].runtimeType);
+      print(jsonList[0]['noOfStops'].runtimeType);
       List<TicketData> c =
           jsonList.map((json) => TicketData.fromJson(json)).toList();
       emit(FlightTicketStateAPI());
       return c;
     } else {
+      print('fatatatatatattatataat+++++++++++++++++++++++++++');
       return [];
     }
   }

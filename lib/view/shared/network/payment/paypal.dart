@@ -15,10 +15,14 @@ import '../../component/constants.dart';
 import '../../component/helperfunctions.dart';
 
 class CheckoutPage extends StatefulWidget {
-  const CheckoutPage({super.key, required this.quantity, required this.price});
+  const CheckoutPage(
+      {super.key,
+      required this.quantity,
+      required this.price,
+      required this.superUserId});
   final int quantity;
   final double price;
-
+  final String superUserId;
   @override
   State<CheckoutPage> createState() => _CheckoutPageState();
 }
@@ -69,8 +73,11 @@ class _CheckoutPageState extends State<CheckoutPage> {
                         padding: const EdgeInsets.symmetric(vertical: 40),
                         child: defaultButton(
                             text: "Show tickets",
-                            onPressed: () =>
-                                nextScreen(context, const Ticket())),
+                            onPressed: () => nextScreen(
+                                context,
+                                Ticket(
+                                  superSuerID: widget.superUserId,
+                                ))),
                       )
                     ]),
               ),

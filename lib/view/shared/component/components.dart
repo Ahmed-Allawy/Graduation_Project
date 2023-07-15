@@ -438,6 +438,7 @@ class TicketShape extends StatelessWidget {
   final String? departure;
   final String? arrival;
   final String id;
+  final dynamic price;
   const TicketShape({
     super.key,
     required this.passengerName,
@@ -450,6 +451,7 @@ class TicketShape extends StatelessWidget {
     required this.departure,
     required this.arrival,
     required this.id,
+    required this.price,
   });
 
   @override
@@ -486,18 +488,35 @@ class TicketShape extends StatelessWidget {
               departure: departure,
             ),
             const SizedBox(height: 30),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    'Passenger Name',
-                    style: Styles.headLinestyle3,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    passengerName!,
-                    style: Styles.headLinestyle2,
-                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Passenger Name',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          passengerName!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Price',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          price.toString(),
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
                 ]),
             const SizedBox(height: 20),
             Row(
@@ -629,18 +648,35 @@ class TicketShape extends StatelessWidget {
               departure: departure,
             ),
             const SizedBox(height: 20),
-            Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
+            Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    'Passenger Name',
-                    style: Styles.headLinestyle3,
-                  ),
-                  const SizedBox(height: 10),
-                  Text(
-                    passengerName!,
-                    style: Styles.headLinestyle2,
-                  ),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Passenger Name',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          passengerName!,
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
+                  Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: <Widget>[
+                        Text(
+                          'Price',
+                          style: Styles.headLinestyle3,
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          price.toString(),
+                          style: Styles.headLinestyle2,
+                        ),
+                      ]),
                 ]),
             const SizedBox(height: 20),
             Row(

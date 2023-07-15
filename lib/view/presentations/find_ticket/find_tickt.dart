@@ -123,30 +123,30 @@ class _FindTicktState extends State<FindTickt> {
                           Screenshot(
                             controller: screenshotController,
                             child: TicketShape(
-                              arrivalTime: FindTicketCubit.get(context)
-                                  .ticket
-                                  .arrivalTime,
+                              arrivalTime:
+                                  FindTicketCubit.get(context).ticket.landing,
                               departureTime: FindTicketCubit.get(context)
                                   .ticket
-                                  .departureTime,
+                                  .takeOffDate,
                               duration:
                                   FindTicketCubit.get(context).ticket.duration,
                               flightNumber: FindTicketCubit.get(context)
                                   .ticket
                                   .flightNumber,
-                              passengerName: FindTicketCubit.get(context)
+                              passengerName:
+                                  FindTicketCubit.get(context).ticket.user,
+                              seatClass: FindTicketCubit.get(context)
                                   .ticket
-                                  .passengerName,
-                              seatClass:
-                                  FindTicketCubit.get(context).ticket.seatClass,
-                              seatNumber: FindTicketCubit.get(context)
+                                  .flightClass,
+                              seatNumber:
+                                  FindTicketCubit.get(context).ticket.seat,
+                              arrival: FindTicketCubit.get(context)
                                   .ticket
-                                  .seatNumber,
-                              arrival:
-                                  FindTicketCubit.get(context).ticket.arrival,
+                                  .airportFrom,
                               departure:
-                                  FindTicketCubit.get(context).ticket.departure,
-                              id: FindTicketCubit.get(context).ticket.id,
+                                  FindTicketCubit.get(context).ticket.airportTo,
+                              id: FindTicketCubit.get(context).ticket.ticket,
+                              price: FindTicketCubit.get(context).ticket.price,
                             ),
                           ),
                           ElevatedButton(

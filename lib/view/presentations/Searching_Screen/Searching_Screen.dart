@@ -5,7 +5,6 @@ import 'package:autocomplete_textfield/autocomplete_textfield.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:gap/gap.dart';
-import 'package:graduation/view/presentations/My_Trips/my_trips.dart';
 
 import 'package:graduation/view/presentations/Searching_Screen/cubit/search_cubit.dart';
 import 'package:graduation/view/presentations/User_profile/user_profile.dart';
@@ -486,14 +485,6 @@ void _showOptionsModal(BuildContext context, bool isLoged) {
                 title: const Text("Profile"),
                 onTap: () {
                   nextScreen(context, const UserProfile());
-                },
-              ),
-            if (isLoged)
-              ListTile(
-                leading: const Icon(Icons.flight),
-                title: const Text("My Trips"),
-                onTap: () {
-                  nextScreen(context, const MyTrips());
                 },
               ),
             if (!isLoged)

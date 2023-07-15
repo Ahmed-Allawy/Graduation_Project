@@ -18,20 +18,42 @@ class FindTicketCubit extends Cubit<FindTicketState> {
 
   static FindTicketCubit get(BuildContext context) => BlocProvider.of(context);
 
-//// locat data*********///
-  TicketData ticket = TicketData(
-      passengerName: 'John Doe',
-      flightNumber: 'ABC123',
-      departureTime: '10:00 AM',
-      arrivalTime: '12:00 PM',
-      duration: '2 hours',
-      seatNumber: '12A',
-      seatClass: 'Economy',
-      departure: 'New York',
-      arrival: 'Los Angeles',
-      id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28');
+// //// locat data*********///
+//   TicketData ticket = TicketData(
+//       passengerName: 'John Doe',
+//       flightNumber: 'ABC123',
+//       departureTime: '10:00 AM',
+//       arrivalTime: '12:00 PM',
+//       duration: '2 hours',
+//       seatNumber: '12A',
+//       seatClass: 'Economy',
+//       departure: 'New York',
+//       arrival: 'Los Angeles',
+//       id: 'f505faa0-0d6e-4694-8e2a-a0f758523c28');
 
 // using api *********************///
+  TicketData ticket = TicketData(
+      flightId: 'flightId',
+      flightNumber: 'flightNumber',
+      takeOffTime: 'takeOffTime',
+      takeOffDate: 'takeOffDate',
+      landing: 'landing',
+      status: 'status',
+      duration: 'duration',
+      noOfStops: 0,
+      airlineName: 'airlineName',
+      airportFrom: 'airportFrom',
+      airportFromCountry: 'airportFromCountry',
+      airportFromCity: 'airportFromCity',
+      airportTo: 'airportTo',
+      airportToCountry: 'airportToCountry',
+      airportToCity: 'airportToCity',
+      ticket: 'ticket',
+      seat: 'seat',
+      flightClass: 'flightClass',
+      user: 'user',
+      addedLuggage: 0,
+      price: 0);
 
   Future<bool> fetchTickt(String id) async {
     var headers = {'Content-Type': 'application/json'};
