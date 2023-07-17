@@ -40,6 +40,10 @@ class Styles {
       fontSize: 17, color: Colors.grey.shade500, fontWeight: FontWeight.w500);
   static TextStyle headLinestyle4 = TextStyle(
       fontSize: 14, color: Colors.grey.shade500, fontWeight: FontWeight.w500);
+  static TextStyle headLinestyle0 = const TextStyle(
+      fontSize: 40, color: Colors.white, fontWeight: FontWeight.w500);
+  static TextStyle headLinestyle01 = const TextStyle(
+      fontSize: 25, color: Colors.white, fontWeight: FontWeight.w500);
 }
 
 List<String> countryList = [

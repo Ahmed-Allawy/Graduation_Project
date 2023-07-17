@@ -80,15 +80,15 @@ class FlightTicketCubit extends Cubit<FlightTicketState> {
       String body = await response.stream.bytesToString();
 
       List<dynamic> jsonList = jsonDecode(body);
-      print(jsonList[0]['addedLuggage'].runtimeType);
-      print(jsonList[1]['price'].runtimeType);
-      print(jsonList[0]['noOfStops'].runtimeType);
+
       List<TicketData> c =
           jsonList.map((json) => TicketData.fromJson(json)).toList();
+      print('data c is :$c');
       emit(FlightTicketStateAPI());
       return c;
     } else {
-      print('fatatatatatattatataat+++++++++++++++++++++++++++');
+      print('data not c is ');
+      emit(FlightTicketStateAPI());
       return [];
     }
   }

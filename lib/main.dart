@@ -1,4 +1,3 @@
-import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -19,10 +18,12 @@ import 'view/presentations/auth/login/login_screen.dart';
 import 'view/shared/network/local/cach_helper.dart';
 
 void main() {
-  runApp(DevicePreview(builder: (context) {
-    CacheHelper.init();
-    return const MyApp();
-  }));
+  WidgetsFlutterBinding.ensureInitialized();
+  CacheHelper.init();
+
+  runApp(
+    const MyApp(),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -47,6 +48,11 @@ class MyApp extends StatelessWidget {
           // builder: DevicePreview.appBuilder,
           debugShowCheckedModeBanner: false,
           home:
+              //const CheckoutPage(
+              //   price: 7,
+              //   quantity: 1,
+              //   superUserId: 'sdsds',
+              // )
               // const Ticket(superSuerID: "bf5c50c9-2a6c-4b86-8d47-7b52b5f90c8a")
               const LoginHome()
           // SelectSeat(

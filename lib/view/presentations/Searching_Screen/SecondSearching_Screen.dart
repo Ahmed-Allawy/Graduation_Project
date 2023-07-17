@@ -19,10 +19,9 @@ import '../../shared/network/local/cach_helper.dart';
 // ignore: must_be_immutable
 class SecondSearchingScreen extends StatelessWidget {
   int people;
-  SecondSearchingScreen({
-    Key? key,
-    required this.people,
-  }) : super(key: key);
+  double price;
+  SecondSearchingScreen({Key? key, required this.people, required this.price})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -287,6 +286,7 @@ class SecondSearchingScreen extends StatelessWidget {
                   defaultButton(
                     text: "Sumbit",
                     onPressed: () {
+                      print(price);
                       for (var form in formKeys) {
                         if (form.currentState!.validate()) {
                           SearchCubit.get(context).sumbit(
@@ -308,9 +308,9 @@ class SecondSearchingScreen extends StatelessWidget {
                               nextScreen(
                                   context,
                                   PicScreen(
-                                    firstnames: firstNameControllers,
-                                    token: SearchCubit.get(context).userId,
-                                  ));
+                                      firstnames: firstNameControllers,
+                                      token: SearchCubit.get(context).userId,
+                                      price: price));
                               // nextScreen(
                               //     context,
                               //     PicScreen(

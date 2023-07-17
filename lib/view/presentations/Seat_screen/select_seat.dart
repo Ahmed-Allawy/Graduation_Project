@@ -101,6 +101,7 @@ class _SelectSeatState extends State<SelectSeat> {
                 PicScreen(
                   token: const [],
                   firstnames: const [],
+                  price: 0,
                 ));
           },
         ),
@@ -123,19 +124,25 @@ class _SelectSeatState extends State<SelectSeat> {
             defaultButton(
                 text: 'check out',
                 onPressed: () {
-                  // print(
-                  //   CacheHelper.getData(key: 'seletedSeats').runtimeType,
-                  // );
+                  print(widget.price);
+                  print('here');
                   if (SeatCubit.get(context).selectedSeatsID.isNotEmpty) {
-                    SeatCubit.get(context).postSeatsUsers(
-                        SeatCubit.get(context).selectedSeatsID, widget.usersID);
-                    nextScreen(
-                        context,
-                        CheckoutPage(
-                          price: widget.price,
-                          quantity: widget.usersID.length,
-                          superUserId: widget.classID[0],
-                        ));
+                    print('here');
+                    SeatCubit.get(context)
+                        .postSeatsUsers(SeatCubit.get(context).selectedSeatsID,
+                            widget.usersID)
+                        .then((value) {
+                      if (value) {
+                        print(widget.usersID[0]);
+                        nextScreen(
+                            context,
+                            CheckoutPage(
+                              price: widget.price,
+                              quantity: widget.usersID.length,
+                              superUserId: widget.usersID[0],
+                            ));
+                      }
+                    });
                   }
                 }),
           ]);

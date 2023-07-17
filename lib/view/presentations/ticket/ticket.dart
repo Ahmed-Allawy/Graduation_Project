@@ -28,21 +28,26 @@ class Ticket extends StatefulWidget {
 }
 
 class _TicketState extends State<Ticket> {
+  bool isLoading = true;
   @override
   void initState() {
     super.initState();
 ////////////// data from api ***********************//////////
+
     FlightTicketCubit.get(context)
         .fetchTicketData(widget.superSuerID)
         .then((value) {
       print(value);
+
       FlightTicketCubit.get(context).tickets = value;
+      isLoading = false;
     });
   }
 
   @override
   Widget build(BuildContext context) {
     print(FlightTicketCubit.get(context).tickets);
+    print(isLoading);
     ///////////////////////locat data******************************///////
 
     // final List<TicketData> tickets = [
@@ -100,12 +105,12 @@ class _TicketState extends State<Ticket> {
       ),
       body: BlocBuilder<FlightTicketCubit, FlightTicketState>(
         builder: (context, state) {
-          if (FlightTicketCubit.get(context).tickets.isEmpty) {
-            return Center(
-                child: Text(
-              'There are not any\ntickets booked yet.',
-              style: Styles.headLinestyle1,
-            ));
+          if (isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(
+                color: Color.fromARGB(255, 216, 14, 14),
+              ),
+            );
           }
           return ListView.builder(
             itemCount: FlightTicketCubit.get(context).tickets.length,

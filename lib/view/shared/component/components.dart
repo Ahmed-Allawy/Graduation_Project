@@ -27,7 +27,6 @@ Widget defaultTextField({
 }) {
   return Container(
     padding: const EdgeInsets.only(left: 10),
-    width: width ?? AppLayout.getWidth(fieldWidth + 9),
     decoration: const BoxDecoration(
         color: fontColor, borderRadius: BorderRadius.all(Radius.circular(30))),
     child: TextFormField(
@@ -71,17 +70,13 @@ Widget defaultButton({
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.circular(circularRaduis),
     ),
-    minWidth: AppLayout.getWidth(fieldWidth),
-    height: AppLayout.getHeigth(logInButtonHeight),
+    minWidth: fieldWidth - 50,
+    height: 50,
     color: logInButtonColor,
     onPressed: () {
       return onPressed();
     },
-    child: Text(
-      text,
-      style: TextStyle(
-          fontSize: AppLayout.getWidth(logInButtonFontSize), color: fontColor),
-    ),
+    child: Text(text, style: Styles.headLinestyle01),
   );
 }
 
@@ -399,9 +394,9 @@ class TripWidget extends StatelessWidget {
                 const Spacer(),
                 TextButton(
                   onPressed: () {
-                    print(people);
-                    print(flightId);
-                    print(price);
+                    // print(people);
+                    // print(flightId);
+                    // print(price);
                     SearchCubit.get(context).updateclassid(flightId);
                     SearchCubit.get(context).updateprice(price);
 
@@ -409,6 +404,7 @@ class TripWidget extends StatelessWidget {
                         context,
                         SecondSearchingScreen(
                           people: people,
+                          price: price,
                         ));
                   },
                   child: Text(

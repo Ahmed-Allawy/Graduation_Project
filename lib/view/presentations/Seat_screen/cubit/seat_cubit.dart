@@ -44,7 +44,7 @@ class SeatCubit extends Cubit<SeatState> {
   }
 
 //////send seats and users ids to databse
-  Future<void> postSeatsUsers(List<String> seatsId, List<String> users) async {
+  Future<bool> postSeatsUsers(List<String> seatsId, List<String> users) async {
     // List<String> seats = convertToListString(seatsId);
     var headers = {'Content-Type': 'application/json'};
     var request =
@@ -65,9 +65,11 @@ class SeatCubit extends Cubit<SeatState> {
     if (response.statusCode == 200) {
       print('Seats and users added successfully.');
       emit(SeatStatePost());
+      return true;
     } else {
       print('Error adding seats and users: ${response.statusCode}');
       emit(SeatStatePost());
+      return false;
     }
   }
 

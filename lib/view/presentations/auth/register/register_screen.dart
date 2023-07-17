@@ -14,7 +14,7 @@ import '../../../shared/component/custom_button.dart';
 import '../../../shared/component/helperfunctions.dart';
 import '../../../shared/component/layout.dart';
 import '../../../shared/network/local/cach_helper.dart';
-import '../../Searching_Screen/Searching_Screen.dart';
+
 import 'package:http/http.dart' as http;
 
 import '../../Searching_Screen/cubit/search_cubit.dart';
@@ -75,68 +75,85 @@ class _RegisterState extends State<Register> {
                                   SizedBox(
                                     height: AppLayout.getHeigth(space6),
                                   ),
-                                  defaultTextField(
-                                    prefix: Icons.person,
-                                    controller: firstNameController,
-                                    textInputType: TextInputType.name,
-                                    hintText: "First Name",
-                                    validator: (val) {
-                                      if (val.isEmpty) {
-                                        return "First Name shouldn't be empty";
-                                      }
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space1),
-                                  ),
-                                  defaultTextField(
-                                    prefix: Icons.people,
-                                    controller: lastNameController,
-                                    textInputType: TextInputType.name,
-                                    hintText: "Last Name",
-                                    validator: (val) {
-                                      if (val.isEmpty) {
-                                        return "Last Name shouldn't be empty";
-                                      }
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space1),
-                                  ),
-                                  defaultTextField(
-                                    controller: emailController,
-                                    textInputType: TextInputType.emailAddress,
-                                    prefix: Icons.email,
-                                    hintText: "Email",
-                                    validator: (val) {
-                                      return RegExp(
-                                                  r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-                                              .hasMatch(val!)
-                                          ? null
-                                          : "Please enter a valid email";
-                                    },
-                                  ),
-                                  SizedBox(
-                                    height: AppLayout.getHeigth(space1),
-                                  ),
-                                  defaultTextField(
-                                      //here we send suffixIcon form the cubit
-                                      suffix: AuthCubit.get(context).suffixIcon,
-                                      suffixPressed:
-                                          AuthCubit.get(context).changeScureity,
-                                      controller: passwordController,
-                                      textInputType:
-                                          TextInputType.visiblePassword,
-                                      prefix: Icons.key,
-                                      hintText: "password",
-                                      //here we pass the bool from the cubit and the function on suffixpressed change the bool value every tap alson changing the icon
-                                      scure: AuthCubit.get(context)
-                                          .scuretiyPassword,
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 65),
+                                    child: defaultTextField(
+                                      prefix: Icons.person,
+                                      controller: firstNameController,
+                                      textInputType: TextInputType.name,
+                                      hintText: "First Name",
                                       validator: (val) {
                                         if (val.isEmpty) {
-                                          return "Password shouldn't be empty";
+                                          return "First Name shouldn't be empty";
                                         }
-                                      }),
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppLayout.getHeigth(space1),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 65),
+                                    child: defaultTextField(
+                                      prefix: Icons.people,
+                                      controller: lastNameController,
+                                      textInputType: TextInputType.name,
+                                      hintText: "Last Name",
+                                      validator: (val) {
+                                        if (val.isEmpty) {
+                                          return "Last Name shouldn't be empty";
+                                        }
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppLayout.getHeigth(space1),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 65),
+                                    child: defaultTextField(
+                                      controller: emailController,
+                                      textInputType: TextInputType.emailAddress,
+                                      prefix: Icons.email,
+                                      hintText: "Email",
+                                      validator: (val) {
+                                        return RegExp(
+                                                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+                                                .hasMatch(val!)
+                                            ? null
+                                            : "Please enter a valid email";
+                                      },
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    height: AppLayout.getHeigth(space1),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                        horizontal: 65),
+                                    child: defaultTextField(
+                                        //here we send suffixIcon form the cubit
+                                        suffix:
+                                            AuthCubit.get(context).suffixIcon,
+                                        suffixPressed: AuthCubit.get(context)
+                                            .changeScureity,
+                                        controller: passwordController,
+                                        textInputType:
+                                            TextInputType.visiblePassword,
+                                        prefix: Icons.key,
+                                        hintText: "password",
+                                        //here we pass the bool from the cubit and the function on suffixpressed change the bool value every tap alson changing the icon
+                                        scure: AuthCubit.get(context)
+                                            .scuretiyPassword,
+                                        validator: (val) {
+                                          if (val.isEmpty) {
+                                            return "Password shouldn't be empty";
+                                          }
+                                        }),
+                                  ),
                                   SizedBox(
                                     height: AppLayout.getHeigth(space1),
                                   ),
@@ -202,9 +219,6 @@ class _RegisterState extends State<Register> {
                                         user.password = passwordController.text;
                                         user.phone = phoneNumber;
                                         if (formKey.currentState!.validate()) {
-                                          nextScreen(context,
-                                              SearchingScreen(isloged: true));
-
                                           signup(user).then((value) {
                                             if (value) {
                                               SearchCubit.get(context)

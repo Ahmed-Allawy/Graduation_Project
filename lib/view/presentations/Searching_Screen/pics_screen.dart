@@ -14,12 +14,14 @@ import 'cubit/search_cubit.dart';
 // ignore: must_be_immutable
 class PicScreen extends StatelessWidget {
   List<String> token;
+  double price;
   // List<TextEditingController> firstnames;
   List<TextEditingController> firstnames;
   PicScreen({
     Key? key,
     required this.token,
     required this.firstnames,
+    required this.price,
   }) : super(key: key);
 
   @override
@@ -101,6 +103,7 @@ class PicScreen extends StatelessWidget {
                 defaultButton(
                     text: "Sumbit",
                     onPressed: () {
+                      print(price);
                       bool s = true;
                       for (int i = 0; i < status.length; i++) {
                         if (status[i] == false) {
@@ -113,10 +116,9 @@ class PicScreen extends StatelessWidget {
                         nextScreen(
                             context,
                             SelectSeat(
-                              classID: SearchCubit.get(context).classid,
-                              usersID: SearchCubit.get(context).userId,
-                              price: SearchCubit.get(context).price,
-                            ));
+                                classID: SearchCubit.get(context).classid,
+                                usersID: SearchCubit.get(context).userId,
+                                price: price));
                       }
                       ////show Dialog if all photos is valid
                       if (!s) {
@@ -155,7 +157,7 @@ class PicScreen extends StatelessWidget {
                                   SelectSeat(
                                     classID: SearchCubit.get(context).classid,
                                     usersID: SearchCubit.get(context).userId,
-                                    price: SearchCubit.get(context).price,
+                                    price: price,
                                   ));
                             })
                     ])),

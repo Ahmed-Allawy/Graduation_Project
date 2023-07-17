@@ -1,0 +1,14 @@
+dev.fluttercommunity.plus.share.share_plus-jetified-window-java-1.0.0-beta04-0 /home/allawy/.gradle/caches/transforms-3/006d93cd422dbc43e89591147c2de572/transformed/jetified-window-java-1.0.0-beta04/res
+dev.fluttercommunity.plus.share.share_plus-jetified-core-ktx-1.9.0-1 /home/allawy/.gradle/caches/transforms-3/3e6c979ab8eca9aa1eeca6cb7cd9f261/transformed/jetified-core-ktx-1.9.0/res
+dev.fluttercommunity.plus.share.share_plus-core-1.9.0-2 /home/allawy/.gradle/caches/transforms-3/5f80b20db3afa86c72a9766b008d752d/transformed/core-1.9.0/res
+dev.fluttercommunity.plus.share.share_plus-lifecycle-runtime-2.3.1-3 /home/allawy/.gradle/caches/transforms-3/76da31ad033c53187dd7271282d0f7d2/transformed/lifecycle-runtime-2.3.1/res
+dev.fluttercommunity.plus.share.share_plus-jetified-window-1.0.0-beta04-4 /home/allawy/.gradle/caches/transforms-3/dee59bb480020f42d53c2ea15e4501f7/transformed/jetified-window-1.0.0-beta04/res
+dev.fluttercommunity.plus.share.share_plus-jetified-annotation-experimental-1.3.0-5 /home/allawy/.gradle/caches/transforms-3/ec10578641139d45a328c567f48881a1/transformed/jetified-annotation-experimental-1.3.0/res
+dev.fluttercommunity.plus.share.share_plus-main-6 /home/allawy/.pub-cache/hosted/pub.dev/share_plus-7.0.2/android/src/main/res
+dev.fluttercommunity.plus.share.share_plus-release-7 /home/allawy/.pub-cache/hosted/pub.dev/share_plus-7.0.2/android/src/release/res
+dev.fluttercommunity.plus.share.share_plus-pngs-8 /home/allawy/Desktop/Graduation_Project/build/share_plus/generated/res/pngs/release
+dev.fluttercommunity.plus.share.share_plus-resValues-9 /home/allawy/Desktop/Graduation_Project/build/share_plus/generated/res/resValues/release
+dev.fluttercommunity.plus.share.share_plus-rs-10 /home/allawy/Desktop/Graduation_Project/build/share_plus/generated/res/rs/release
+dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-11 /home/allawy/Desktop/Graduation_Project/build/share_plus/intermediates/incremental/release/mergeReleaseResources/merged.dir
+dev.fluttercommunity.plus.share.share_plus-mergeReleaseResources-12 /home/allawy/Desktop/Graduation_Project/build/share_plus/intermediates/incremental/release/mergeReleaseResources/stripped.dir
+dev.fluttercommunity.plus.share.share_plus-merged_res-13 /home/allawy/Desktop/Graduation_Project/build/share_plus/intermediates/merged_res/release
